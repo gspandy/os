@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--<![endif]-->
+[#include "/core/head.html"/] [@head title="home.page.title"/]
+<head>
+
+<style type="text/css">
+.strong {
+	font-weight: bold;
+}
+
+@media ( min-width :768px) {
+	.btn-group-vertical>.btn, .btn-group>.btn {
+		float: none;
+		display: block;
+	}
+	.col-sm-4 {
+		border-bottom: none !important;
+	}
+}
+
+.col-sm-4 {
+	border-bottom: 1px solid #eee;
+	margin-bottom: 15px;
+}
+
+#login_mail .name-login {
+	font-size: 18px;
+}
+
+.l40 {
+	line-height: 40px;
+}
+
+.wspan {
+	width: 130px !important;
+}
+
+.in-border {
+	border: solid 1px #eee;
+}
+</style>
+</head>
+<body>
+	[#include "/core/top.html"/] [#include "/core/carousel.html"/]
+
+	<div>
+		<input type="submit" value="Start" onclick="start()" />
+	</div>
+	<div id="messages"></div>
+	
+	[#include "/core/foot.html"/]
+
+	<script type="text/javascript">
+		var webSocket = new WebSocket('ws://localhost:8080/jt-c/push/play');
+
+		webSocket.onerror = function(event) {
+			onError(event)
+		};
+
+		webSocket.onopen = function(event) {
+			onOpen(event)
+		};
+
+		webSocket.onmessage = function(event) {
+			onMessage(event)
+		};
+
+		function onMessage(event) {
+			document.getElementById('messages').innerHTML += '<br />'
+					+ event.data;
+		}
+
+		function onOpen(event) {
+			document.getElementById('messages').innerHTML = 'Connection established';
+		}
+
+		function onError(event) {
+			alert(event.data);
+		}
+
+		function start() {
+			webSocket.send('hello');
+			return false;
+		}
+	</script>
+</body>
+</html>

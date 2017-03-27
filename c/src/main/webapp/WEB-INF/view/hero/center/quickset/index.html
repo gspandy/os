@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+[#include "/core/head.html"/] [@head title="home.page.title"/]
+<body>
+	[#include "/core/top.html"/]
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 set_menu">
+				<div id="config_menu">[#include "/center/my_menu.html"/]</div>
+			</div>
+		</div>
+		<!-- BEGIN CONTAINER -->
+		<div class="page-container">
+			<!-- BEGIN CONTENT -->			
+			<div class="page-content">
+				<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+				<!-- <div id="ajax-modal" class="modal fade bs-modal" tabindex="-1"></div> -->
+				<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+				<!-- BEGIN PAGE CONTENT-->
+				<div class="row list_con">
+					<div class="col-md-12">
+						<!-- Begin: life time stats -->
+						<div class="portlet">
+							<div class="portlet-title">
+								<h4 class="caption menu_til">快速输入设置</h4>
+								<div class="actions">
+									<a href="javascript:void(0)" id="addBtn" class="btn default yellow-stripe"> <i class="fa fa-plus"></i><span
+										class="hidden-480">新增</span>
+									</a>
+								</div>
+							</div>
+							<div class="portlet-body">
+								<div class="table-container">
+									<div class="table-actions-wrapper"></div>
+									<table class="table table-striped table-bordered table-hover"
+										id="datatable_registrationcodes">
+										<thead>
+											<tr role="row" class="heading">
+												<th>操作</th>
+												<th>提示消息类型</th>
+												<th>内容</th>
+												<th>创建人</th>
+											</tr>
+										</thead>
+										<tbody>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- End: life time stats -->
+					</div>
+				</div>
+				<!-- END PAGE CONTENT-->
+			</div>
+			<!-- END CONTENT -->
+		</div>
+		<!-- END CONTAINER -->
+		<!--add model -->
+		<div class="modal fade bs-modal" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+			data-backdrop="static" data-keyboard="false" id="addModal">
+			<div class="modal-content" id="content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">新增</h4>
+				</div>
+				<form action="" id="addForm">
+					<div class="modal-body clearfix">
+						<div class="form-body">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-label">内容：</label>
+								<div class="col-md-10">
+									<input id="content" name="content" type="text"
+										class="form-control"
+										placeholder="请输入内容" required="required">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn default" data-dismiss="modal">关闭</button>
+						<button type="submit" class="btn blue">提交</button>
+						<input type="reset" style="display: none;" />
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- edit modal -->
+		<div class="modal fade bs-modal" tabindex="-1"
+			role="dialog" aria-labelledby="editModalLabel" aria-hidden="true"
+			data-backdrop="static" data-keyboard="false"  id="editModal">
+			<div class="modal-content" id="content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="editModalLabel">修改</h4>
+				</div>
+				<form action="" id="editForm">
+					<div class="modal-body clearfix">
+						<div class="form-body">
+							<input type="hidden" id="id" name="id" />
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-label">内容：</label>
+								<div class="col-md-10">
+									<input id="content" name="content" type="text" class="form-control" placeholder="请输入内容" required="required">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn default" data-dismiss="modal">关闭</button>
+						<button type="submit" class="btn blue">提交</button>
+						<input type="reset" style="display: none;" />
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	</div>
+	[#include "/core/foot.html"/]
+
+[#assign path="${ctx}/oc/prompt/quick/list/"/]
+
+<script type="text/javascript">
+	var table;
+	var quickList = function() {
+		table=$('#datatable_registrationcodes')
+				.dataTable(
+						{
+							lengthChange : true,
+							"bAutoWidth": true,//自动改变宽度
+							"dom" : 'rt<"bottom"pli>',
+							"aLengthMenu" : [ [ 10, 25, 50, -1 ],
+									[ 10, 25, 50, "All" ] ],
+							ajax : {
+								"url" : "${path}",
+								"type" : "GET"
+							},
+							columns : [
+									{
+										data : null,
+										render : function(data, type, row) {
+											return '<div class="btn-group">'
+													+ '	<a href="#" class="btn blue-madison btn-xs btn-operation" data-toggle="dropdown">'
+													+ '		<i class="fa fa-cog"></i> 操作'
+													+ '	</a>'
+													+ '	<ul class="dropdown-menu pull-left">'
+													+ '		<li><a href="javascript:void(0);" onclick="toEdit('+data.id+');">编辑</a></li>'
+													+ '		<li><a href="javascript:void(0);" onclick="delPrompt('+data.id+');">删除</a></li>'
+													+ '	</ul>' + '</div>';
+										}
+									}, {
+										data : "type"
+									}, {
+										data : "content"
+									}, {
+										data : "userAccount"
+									}
+							],
+							"order" : [ [ 0, 'desc' ] ],
+							"bFilter" : false,//搜索
+							"sPaginationType" : "full_numbers",//显示数字的翻页样式
+							"oLanguage" : {
+								"sLengthMenu" : " _MENU_",
+								"sZeroRecords" : "抱歉， 没有找到",
+								//"sInfo" : "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+								"sInfo" : "",
+								"sInfoEmpty" : "没有数据",
+								"sInfoFiltered" : "(从 _MAX_ 条数据中检索)",
+								"oPaginate" : {
+									"sFirst" : "首页",
+									"sPrevious" : "前一页",
+									"sNext" : "后一页",
+									"sLast" : "尾页"
+								},
+								"sZeroRecords" : "没有检索到数据",
+								"sProcessing" : "<img src='./loading.gif' />"
+							}
+						});
+	}
+	function toEdit(id){
+		$.ajax({
+			url:"${ctx}/oc/prompt/quick/update/"+id,
+			type:"GET",
+			dataType:"json",
+			success:function(data){
+				var promt = data.prompt;
+				$("#editForm #id").val(promt.id);
+				$("#editForm #content").val(promt.content);
+			}
+		})
+		$("#editModal").modal("show");
+	}
+	function delPrompt(id){
+		layer.confirm('您确定执行该操作？', {
+			  btn: ['是的','取消'] //按钮
+			}, function(){
+			  layer.msg('的确很重要', {icon: 1});
+			  $.ajax({
+				   url:"${ctx}/oc/prompt/del/"+id,
+				   type:"POST",
+				   sync:false,
+				   success:function(data){
+					   if (data) {
+							layer.alert(data.msg, {icon:1})
+						}else{
+							layer.alert(data.msg, {icon:0})
+						}
+					   table.api().ajax.reload();
+				   }
+			  });
+			});
+	}
+	$("#addForm").validate({
+		rules:{
+			content:{
+				required:true,
+				maxlength:100
+			}
+		},
+		messages:{
+			content:{
+				required:"内容不能为空！1-100个字符",
+				maxlength:"最多100个字符"
+			}
+		}
+	});
+	$("#editForm").validate({
+		rules:{
+			content:{
+				required:true,
+				maxlength:100
+			}
+		},
+		messages:{
+			content:{
+				required:"内容不能为空！1-100个字符",
+				maxlength:"最多100个字符"
+			}
+		}
+	});
+	$(function() {
+		quickList();
+		$("#addBtn").click(function() {
+			$("input[type=reset]").trigger("click");
+			$("#addModal").modal("show");
+		});
+		$("#addForm").on("submit", function(ev) {
+			ev.preventDefault();
+			if(!$("#addForm").valid()){
+				return ;
+			}
+			$.ajax({
+				url : "${ctx}/oc/prompt/quick/add",
+				type : "POST",
+				data : $("#addForm").serialize(),
+				success : function(data) {
+					if (data.errors != undefined) {
+						var error = data.errors;
+						layer.alert(error[0].field + ":" + error[0].message);
+						return;
+					} else if (data.code != undefined) {
+						layer.alert(data.msg);
+						if (data.code) {
+							$("#addModal").modal("hide");
+						}
+						table.api().ajax.reload();
+					} else {
+						layer.alert("登录已超时！");
+						window.location.href = "${ctx}/";
+					}
+				}
+			});
+		});
+		$("#editForm").on("submit", function(ev) {
+			ev.preventDefault();
+			if(!$("#editForm").valid()){
+				return ;
+			}
+			$.ajax({
+				url : "${ctx}/oc/prompt/quick/update",
+				type : "POST",
+				data : $("#editForm").serialize(),
+				success : function(data) {
+					if (data.errors != undefined) {
+						var error = data.errors;
+						layer.alert(error[0].field + ":" + error[0].message);
+						return;
+					} else if (data.code != undefined) {
+						layer.alert(data.msg);
+						if (data.code) {
+							$("#editModal").modal("hide");
+						}
+						table.api().ajax.reload();
+					} else {
+						layer.alert("登录已超时！");
+						window.location.href = "${ctx}/";
+					}
+				}
+			});
+		});
+	})
+</script>
+</body>
+</html>

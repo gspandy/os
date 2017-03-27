@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+[#include "/core/head.html"/] [@head title="home.page.title"/]
+<body>
+	[#include "/core/top.html"/]
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 set_menu">
+				<div id="config_menu">[#include "/center/my_menu.html"/]</div>
+			</div>
+		</div>
+		<!-- BEGIN CONTAINER -->
+		<div class="page-container">
+			<!-- BEGIN CONTENT -->
+			<div class="page-content">
+				<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+				<!-- <div id="ajax-modal" class="modal fade bs-modal" tabindex="-1"></div> -->
+				<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+				<!-- BEGIN PAGE CONTENT-->
+				<div class="row list_con">
+					<div class="col-md-12">
+						<!-- Begin: life time stats -->
+						<div class="portlet">
+							<div class="portlet-title">
+								<h4 class="caption menu_til">聊天共享记录</h4>
+							</div>
+							<div class="portlet-body">
+								<div class="table-container">
+									<div class="table-actions-wrapper"></div>
+									<table class="table table-striped table-bordered table-hover"
+										id="datatable_registrationcodes">
+										<thead>
+											<tr role="row" class="heading">
+												<th>操作</th>
+												<th>用户</th>
+												<th>客服账号</th>
+											</tr>
+										</thead>
+										<tbody>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- End: life time stats -->
+					</div>
+				</div>
+				<!-- END PAGE CONTENT-->
+			</div>
+			<!-- END CONTENT -->
+		</div>
+		<!-- END CONTAINER -->
+		<!--add model -->
+		<div class="modal fade bs-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+			data-backdrop="static" data-keyboard="false" id="hisModal">
+			<div class="modal-content" id="content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">历史记录</h4>
+					<input type="hidden" id="fromUser" value=""/>
+					<input type="hidden" id="userId" value=""/>
+					<input type="hidden" id="companyId" value=""/>
+				</div>
+				<div class="modal-body clearfix">
+					<div id="hisContent">历史记录内容</div>
+				</div>
+				<div class="modal-footer">
+					<ul class="pager">
+						<li><a href="javascript:void(0);" class="pre_page">上一页</a></li>
+						<li><a href="javascript:void(0);" class="next_page">下一页</a></li>
+						<li><d id="p_index" >1</d>/<d id="l_index" >0</d></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	[#include "/core/foot.html"/]
+
+
+[#assign path="${ctx}/chat-share/queryMsgRecord/"/]
+<script src="${ctx}/resources/hero/js/page.js"></script>
+<script type="text/javascript">
+var ctx = "${ctx}";
+</script>
+<script src="${ctx}/resources/global/js/qq_face/jquery.qqFace.js"></script>
+<script type="text/javascript">
+	var table;
+	var shareList = function() {
+		table=$('#datatable_registrationcodes')
+				.dataTable(
+						{
+							lengthChange : true,
+							"bAutoWidth": true,//自动改变宽度
+							"dom" : '<"top"f>rt<"bottom"pli><"clear">',
+							"aLengthMenu" : [ [ 10, 25, 50, -1 ],
+									[ 10, 25, 50, "All" ] ],
+							ajax : {
+								"url" : "${path}",
+								"type" : "GET"
+							},
+							columns : [
+									{
+										data : null,
+										render : function(data, type, row) {
+											return '<div class="btn-group">'
+													+ '	<a href="#" class="btn blue-madison btn-xs btn-operation" data-toggle="dropdown">'
+													+ '		<i class="fa fa-cog"></i> 操作'
+													+ '	</a>'
+													+ '	<ul class="dropdown-menu pull-left">'
+													+ '		<li><a href="javascript:void(0);" onclick="userShareHistory(\''+data.fromUser+'\','+data.userId+','+data.companyId+')">聊天记录</a></li>'
+													+ '	</ul>' + '</div>';
+										}
+									}, {
+										data : "fromUser"
+									},{
+										data : "userName"
+									}
+									
+							/* 
+							{ data: null, render: function ( data, type, row ) {
+							    // Combine the first and last names into a single table field
+							    return data.roleType == 0?"系統默认":"自定义"
+							} } */
+							],
+							"order" : [ [ 0, 'desc' ] ],
+							"bFilter" : false,//搜索
+							"sPaginationType" : "full_numbers",//显示数字的翻页样式
+							"oLanguage" : {
+								"sLengthMenu" : " _MENU_",
+								"sZeroRecords" : "抱歉， 没有找到",
+								//"sInfo" : "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+								"sInfo" : "",
+								"sInfoEmpty" : "",
+								"sInfoFiltered" : "(从 _MAX_ 条数据中检索)",
+								"oPaginate" : {
+									"sFirst" : "首页",
+									"sPrevious" : "前一页",
+									"sNext" : "后一页",
+									"sLast" : "尾页"
+								},
+								"sZeroRecords" : "没有检索到数据",
+								"sProcessing" : "<img src='./loading.gif' />"
+							}
+						});
+	}
+	function userShareHistory(fromUser, userId, companyId){
+		$("#fromUser").val(fromUser);
+		$("#userId").val(userId);
+		$("#companyId").val(companyId);
+		userHistory(fromUser, userId, companyId);
+		$("#hisModal").modal("show");
+	}
+	$('#hisModal').on('hidden.bs.modal', function () {
+		$("#l_index").text(0);
+		$("#p_index").text(1);
+		})
+	function userHistory(fromUser,userId,companyId){
+		var curUserAccount = $("curAcc").val();
+		$.ajax({
+			url:"${ctx}/chat-share/chatRecord",
+			data:{"username":fromUser,"userId":userId,"companyId":companyId,"page":$("#p_index").text()-1,"size":10},
+			type : "get",
+			success:function(datas){
+				var data = datas.content;
+				var total = datas.totalPages;
+			       $("#l_index").text(total);
+				if(data.length == 0){
+					$("#hisModal #hisContent").html("暂无历史聊天记录.");
+				}else{
+					var html=" <div class='visitor_his'> ";
+					for(var i=0;i<data.length;i++){
+						if(data[i].msgType){//图片
+							 html += "<dl class='customer'> "+
+					           "         <dt>"+data[i].fromUser+"&nbsp;&nbsp;"+new Date(data[i].sendTime).format("MM-dd hh:mm:ss")+"</dt> "+
+					           "         <dd><img style=\"width: 280px;\" class=\"view\" src='"+data[i].msg+"'/></dd> "+
+					            "    </dl> ";
+						} else {
+							 html += "<dl class='visitor'> "+
+					           "         <dt>"+data[i].fromUser+"&nbsp;&nbsp;"+new Date(data[i].sendTime).format("MM-dd hh:mm:ss")+"</dt> "+
+					           "         <dd>"+(data[i].msg.indexOf("em_") > 0 ? replace_em(data[i].msg) : data[i].msg)+"</dd> "+
+					            "    </dl> ";
+						}
+				          
+					}
+				   html+= " </div> ";
+						$("#hisModal #hisContent").html(html);
+				}
+			}
+		})
+	}
+	$(".pre_page").on("click",function(){
+		var curpage=$("#p_index").text();
+		if(curpage-1 == 0){
+			layer.msg("已经是第一页");
+		}else{
+			$("#p_index").text(parseInt(curpage)-1);
+			var fromUser = $("#fromUser").val();
+			var userId = $("#userId").val();
+			var companyId = $("#companyId").val();
+			userHistory(fromUser,userId,companyId);
+		}
+	});
+	$(".next_page").on("click",function(){
+		var curpage=$("#p_index").text();
+		if(curpage-1 >= ($("#l_index").text()-1)){
+			layer.msg("已经是最后一页");
+		}else{
+			curpage = parseInt(curpage)+1;
+			$("#p_index").text(curpage);
+			var fromUser = $("#fromUser").val();
+			var userId = $("#userId").val();
+			var companyId = $("#companyId").val();
+			userHistory(fromUser,userId,companyId);
+		}
+	});
+	
+	$(function() {
+		shareList();
+	})
+</script>
+</body>
+</html>

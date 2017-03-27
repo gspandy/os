@@ -1,0 +1,62 @@
+[#include "/common/taglibs.html"/]
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+	<h4 class="modal-title">[@spring.message code="role.update.title"/]</h4>
+</div>
+
+<div class="modal-control">
+	<div id="second-ajax-modal" class="modal fade bs-modal bs-modal-large" tabindex="-1"></div>
+	[@form.form commandName="updateDTO" method="POST" class="form-horizontal"]
+	<input type="hidden" name="format" value="json">
+	<div class="modal-body clearfix">
+		<div class="form-body">
+			<div class="form-group">
+				<label class="col-md-3 control-label">角色名</label>
+				<div class="col-md-9">
+					[@spring.bind path="roleName"]
+					<input name="${status.expression}" value="${status.value!}" type="hidden"/>
+					<input readonly="readonly" type="text" value="${status.value!}" class="form-control" placeholder="请输入角色名"/]">
+					[/@spring.bind]
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-3 control-label">角色类型</label>
+				<div class="col-md-9">
+					[@spring.bind path="roleType"]
+					<select id="${status.expression}" name="${status.expression}" class="bs-select form-control">
+						<option value="2" [#if 2==status.value]selected="selected"[/#if]>后台</option>
+					</select>
+					[/@spring.bind]
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn default" data-dismiss="modal">[@spring.message code="form.button.close"/]</button>
+		<button type="submit" class="btn blue">[@spring.message code="form.button.submit"/]</button>
+	</div>
+	[/@form.form]
+</div>
+
+<script type="text/javascript">
+
+/* $('#updateDTO').validate({
+	rules: {
+		roleName:{
+			required: true,
+		},
+		roleNickName:{
+			required: true
+		} 
+  	},
+	messages:{
+		userName:{
+			required: "角色别名不能为空！"
+		},
+		nickName:{
+			required: "角色别名不能为空！"
+		} 
+	}
+});   
+ */
+</script>

@@ -1,0 +1,50 @@
+[#include "/core/head.html"/]
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+	<h4 class="modal-title">角色分配</h4>
+</div>
+
+<div class="modal-control">
+	<div id="second-ajax-modal" class="modal fade bs-modal bs-modal-large" tabindex="-1"></div>
+	[@form.form action="${ctx}/back/admin/user/allot/role/save" method="POST" class="form-horizontal"]
+	<input type="hidden" name="format" value="json">
+	<input type="hidden" name="userId" value="${user.id}">
+	<div class="modal-body">
+		<div class="form-body">
+			<div class="form-group">
+				<label class="col-md-3 control-label">姓名</label>
+				<div class="col-md-9">
+					<label>${user.userName}</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-3 control-label">账号类型</label>
+				<div class="col-md-9">
+					<select id="roleId" name="roleId" class="">
+						<option value="">请选择</option>
+					[#list roles as menu]
+							<option value="${menu.id}">${menu.roleName}</option>
+					[/#list]
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn default" data-dismiss="modal">关闭</button>
+		<button type="submit" class="btn blue">提交</button>
+	</div>
+	[/@form.form]
+</div>
+
+<script type="text/javascript">
+$(function(){
+		var ro = '${roles?size}';
+		[#list roles as menu]
+			console.log("${menu.id}","${menu.roleName}")
+		[/#list]
+		console.log(ro)
+		
+}) 
+
+</script>

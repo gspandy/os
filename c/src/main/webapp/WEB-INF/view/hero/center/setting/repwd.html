@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link type="text/css" rel="stylesheet"
+	href="${ctx}/resources/hero/css/chat-console.css">
+</head>
+[#include "/core/head.html"/] [@head title="home.page.title"/]
+<script type="text/javascript">
+$(function (){
+    $("[data-toggle='popover']").popover();
+});
+//修改密码
+function updatePWD(){
+	var oldPwd = $("#oldpwd");
+	var newPwd = $("#newpwd");
+	var reqNewPwd = $("#reqNewPwd");
+	if(oldPwd.val() == ""){
+		$("#repwd #msg").text("旧密码不能为空！");
+		oldPwd.focus();return;
+	}
+	if(newPwd.val() == "" || !verifyPassword(newPwd.val())){
+		$("#repwd #msg").text("新密码格式为字母、数字、下划线组合6-18位！");
+		newPwd.focus();return;
+	}
+	if(newPwd.val() == oldPwd.val()){
+		$("#repwd #msg").text("新密码不能与旧密码相同！");
+		newPwd.focus();return;
+	}
+	if(reqNewPwd.val() == "" || !verifyPassword(reqNewPwd.val())){
+		$("#repwd #msg").text("确认密码格式为字母、数字、下划线组合6-18位！");
+		reqNewPwd.focus();return;
+	}
+	if(newPwd.val() != reqNewPwd.val()){
+		$("#repwd #msg").text("新密码与确认密码不一致！");
+		newPwd.focus();return;
+	}
+	$.ajax({
+		url:"${ctx}/oc/jt-user/update/pwd",
+		type:"POST",
+		data:{"oldPwd":oldPwd.val(),"newPwd":newPwd.val(),"reqNewPwd":reqNewPwd.val()},
+		success:function(data){
+			if (data.errors != undefined) {
+				var error = data.errors;
+				layer.alert(error[0].field + ":" + error[0].message);
+				return;
+			} else if(data.code != undefined){
+				if(data.code){
+					layer.msg(data.msg,{icon:1});
+					window.location.href="${ctx}";
+				}else{
+					layer.msg(data.msg,{icon:2});
+				}
+			} else {
+				layer.alert("登录已超时！");
+				window.location.href = "${ctx}";
+			}
+		}
+	})
+}
+</script>
+<body>
+	[#include "/core/top.html"/]
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 set_menu">
+				[#include "/center/my_menu.html"/]				
+			</div>
+			<div class="col-sm-12 tab-content text-left">
+				<div class="tab-pane fade in active" id="repwd">
+				    <form class="bs-example bs-example-form" role="form">
+					    <h4 class="menu_til">修改密码</h4>
+					    <div class="col-sm-5 change_pwd">
+					    	<div class="col-xs-12">
+								<label for="oldpwd">原密码：</label>
+								<input type="password" class="form-control" id="oldpwd" name="oldpwd" autocomplete="off" placeholder="请输入原密码" />
+							</div>
+							<div class="col-xs-12">
+								<label for="newpwd">新密码：</label>
+								<input type="password" class="form-control" id="newpwd" name="newpwd" autocomplete="off" placeholder="请输入新密码" />
+							</div>
+							<div class="col-xs-12">
+								<label for="reqNewPwd">确认密码：</label>
+								<input type="password" class="form-control" id="reqNewPwd" name="reqNewPwd" autocomplete="off" placeholder="请输入确认密码" />
+							</div>
+							<div class="col-xs-12 msg" id="msg"></div>
+							<div class="form-group col-xs-12">
+								<input class="pull-left btn btn-success" type="button" onclick="updatePWD()" value="保存" />
+							</div>							 
+					    </div>					    
+				    </form>
+				</div>
+			</div>
+		</div>
+	</div>
+	[#include "/core/foot.html"/]
+</body>
+</html>

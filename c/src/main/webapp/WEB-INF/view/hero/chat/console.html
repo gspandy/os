@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link type="text/css" rel="stylesheet"
+	href="${ctx}/resources/hero/css/chat-console.css">
+<link type="text/css" rel="stylesheet"
+	href="${ctx}/resources/hero/css/date_time.css">
+</head>
+
+<!--<![endif]-->
+[#include "/core/head.html"/] [@head title="home.page.title"/]
+<body>
+	[#include "/core/top.html"/]
+<script type="text/javascript">
+var WS_PATH = '${preference.ws_path}';
+var protocol = '${protocol}';
+var ctx = "${ctx}";
+</script>
+	<div class="container">
+		<div class="row">
+			<!-- 个人信息 -->
+			<div class="col-md-3">
+				<div class="panel panel-default">
+					<div class="panel-heading text-center tit-icn">会话</div>
+					<div class="panel-body list-body tab-content">
+						<div class="tab-pane fade in active" id="meting">
+							<ul class="list-box js-user" id="sendMsgSession">
+							</ul>
+						</div>
+						<div class="tab-pane fade" id="users">
+							<ul class="" id="chartGroup">
+								<li>
+									<div class="js-teamTitle teamTitle">
+										<i class="down-triangle keep-it"></i> 团队 <span><span
+											id="team-onLine">0</span>/<span id="team-num">0</span></span>
+									</div>
+									<ul class="clearfix user-list js-user" id="team">
+									
+									</ul>
+								</li>
+								<li>
+									<div class="js-teamTitle teamTitle">
+										<i class="down-triangle keep-it"></i> 来访用户 <span><span
+											id="group-onLine">0</span>/<span id="group-num">0</span></span>
+									</div>
+									<ul class="clearfix user-list js-user" id="groupList">
+									</ul>
+								</li>
+							</ul>
+						</div>
+						<div class="tab-pane fade" id="setting">设置窗口</div>
+					</div>
+
+					<!-- 底部菜单 -->
+					<div class="panel-footer">
+						<div class="btn-group">
+							<a href="#meting" class="btn" data-toggle="tab"> <label><span
+									class="glyphicon glyphicon-earphone"></span><br />会话</label>
+							</a> <a href="#users" class="btn" data-toggle="tab"> <label><span
+									class="glyphicon glyphicon-user"></span><br />联系人</label>
+							
+							</a> <a href="#setting" class="btn" data-toggle="tab"> <label><span
+									class="glyphicon glyphicon-cog"></span><br />设置</label>
+							</a>
+
+						</div>
+					</div>
+					<!-- footer end -->
+
+				</div>
+			</div>
+			<div class="col-md-9 col-min768-hide" id="visitorBox">
+				<!-- 聊天区 -->
+				<div class="col-sm-12">
+				<div class="col-model">请先选择联系人</div>
+					<!-- 聊天内容 -->
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<span class="glyphicon glyphicon-earphone"></span> &nbsp;
+							<span id="user_name" data-id="" data-account="" data-name="">聊天内容</span>
+						</div>
+						<div class="clearfix">
+							<div class="divisionShow">
+								<div class="panel-body chat-body">
+									<div class="msg-list-body msg_list">
+									</div>
+								</div>
+								<div class="talk_send">
+								<input type="file" id="file" name="file" onchange="changeFile();" style="display: none;" />
+									<span class="icon_img" onclick="$('#file').click()">图片</span>
+									<span class="icon-smile emotion">表情</span>
+									<span class="icon-quick js-quickRight" data-icon="0">快捷输入</span>
+									<span class="icon-his js-sendRight" data-icon="1">聊天记录</span>
+								</div>
+								<div class="talk_sendMsgBox">
+									<textarea id="input-edit" placeholder="说些什么">
+									</textarea>
+									<div>
+										<button class="btn btn-default" type="button" onclick="sendMsg()">
+											发送 <span class="glyphicon glyphicon-send"></span>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="division_box js-divisionHis">
+								<!-- <div class="js-divisionHis"> -->
+									<div class="division_his"></div>
+									<div class="history_page pages">
+										<div class="srech_time" id="srechTime"><!-- <span>日期：</span> -->
+											<label class="time">
+												<input id="sendTime" name="sendTime" placeholder="开始日期" class="laydate-icon">
+												<input id="sendTimeEnd" name="sendTimeEnd" placeholder="结束日期" class="laydate-icon">
+											</label><a href="javascript:void(0);" onclick="historySend();" class="hisBtn">搜索</a>
+										</div>
+										<div class="page_num"><span class="prev_page">上一页</span><a href="javascript:void(0);" class="cur" style="display:none;">1</a><span class="next_page">下一页</span></div>
+									</div>
+								<!-- </div> -->
+							</div>
+							<div class="division_box js-quickSend">
+								<ul id="quickList" class="quickSend"></ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<div style="display: none;">
+		<audio id="noteEndAudio">
+			<source src="${ctx}/resources/hero/audio/deng.mp3" type="audio/mpeg"></source>
+		</audio>
+	</div>
+	<div class="" id="model" style="display:none;">
+		<div class="model_box" id="layerInfo">
+		</div>
+	</div>
+	<div class="" id="helpModel" style="display:none;">
+		<div class="model_box" id="helpInfo">
+		</div>
+	</div>
+	<div class="js-img" id="imgModel" style="display:none;"></div>
+	<hr />
+	[#include "/core/foot.html"/]
+<script src="${ctx}/resources/hero/js/newPage.js"></script>
+<script type="text/javascript" src="${ctx}/resources/global/js/ajaxfileupload.js"></script>
+<script src="${ctx}/resources/hero/js/ws/chat_serv.js"></script>
+<script src="${ctx}/resources/global/js/socket.io/moment.min.js"></script>
+<script src="${ctx}/resources/global/js/qq_face/jquery.qqFace.js"></script>
+<script src="${ctx}/resources/global/js/calendar/laydate.js"></script>
+	<script>
+	!function(){
+		laydate.skin('molv');//切换皮肤，请查看skins下面皮肤库
+		laydate({elem: '#demo'});//绑定元素
+	}();
+	</script>
+</body>
+<!-- 左边团队菜单 -->
+<script id="teamList" type="text/html">
+	{{each list as value i}}
+			<li {{if value.onlineState=='off' }}class="gray"{{/if}} id="{{value.account}}" data-id="{{value.id}}" data-name="{{value.nickName}}">
+				{{if value.userIcon == null }}<img src="${ctx}/resources/hero/img/team_ico.jpg">{{else}} <img src="{{value.userIcon}}">{{/if}}
+				<a class="list-name" title="{{value.nickName}}">{{value.nickName}}</a>
+				<span class="list-state">{{if value.onlineState=='online'}}[在线]{{else if value.onlineState=='off'}}[离线]{{else if value.onlineState=='leave'}}[离开]{{/if}}</span>	
+			</li>
+	{{/each}}
+</script>
+<!-- 聊天窗口左侧游客列表模板 -->
+<script id="chatBox_left_temp" type="text/html">
+<li id="{{username}}" class="{{username}}" data-name="{{username}}" data-uhost="{{uhost}}">
+	<img src="${ctx}/resources/hero/img/user_img1.jpg">
+	<a class="list-name" style="width:120px;" title="{{username}}">{{username}}</a>
+	
+<div class="btn-group">
+	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">操作<i class="caret"></i></button>
+	<div class="dropdown-menu" data-name="{{username}}" data-uhost="{{uhost}}">
+		<p><a href="javascript:;" class="js-transfer">移交</a></p>
+		<p><a href="javascript:;" class="js-remove">移除</a></p>
+		<p><a href="javascript:;" class="js-help">求助</a></p>
+	</div>
+</div>
+</li>
+</script>
+<!-- 右边窗口客服聊天框 -->
+<script id="msgBoxadmin_list" type="text/html">
+{{each list as value i}}
+	<div id="msgBox_{{value.account}}" style="display:none;"></div>
+{{/each}}
+</script>
+<!-- 右边窗口聊天框 -->
+<script id="msgBox_list" type="text/html">
+	<div id="msgBox_{{username}}" style="display:none;"></div>
+</script>
+<!-- 聊天窗口发送消息-->
+<script id="chatBox_send" type="text/html">
+<div class="msgBox talk-palMsgbox clearfix">
+	<img class="headImg" src="${ctx}/resources/hero/img/team_ico.jpg">
+	<div class="talk-content">
+		<h5 class="talk_time">{{sendTime}}</h5>
+		<div class="talk_meMsg">{{#chatMsg}}</div>
+	</div>
+</div>
+</script>
+<!-- 聊天窗口接收消息-->
+<script id="chatBox_Rec" type="text/html">
+<div class="msgBox talk-meMsgbox clearfix">
+	{{if to_uid>0}}<img class="headImg" src="/jt-c/resources/hero/img/service.jpg">{{else}}<img class="headImg" src="${ctx}/resources/hero/img/user_img1.jpg">{{/if}}
+	<div class="talk-content">
+		<h5 class="talk_time">{{sendTime}}</h5>
+		<div class="talk_meMsg">{{#chatMsg}}</div>
+	</div>
+</div>
+</script>
+</html>
+<script src="${ctx}/resources/global/js/ws/websocket.js"></script>

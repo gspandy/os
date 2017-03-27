@@ -1,0 +1,149 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+	<h4 class="modal-title">修改个人资料</h4>
+</div>
+
+<div class="modal-control">
+  <form class="form-horizontal form-label-left" id="updateDataForm">
+	<div class="modal-body">
+		<div class="form-group">
+			<label class="control-label col-md-3 col-sm-3 col-xs-12" for="account">当前账号：</label>
+			<div class="col-md-6 col-sm-6 col-xs-12">
+				<input id="account" name="account" class="form-control col-md-7 col-xs-12" disabled="disabled" value="${account}" readonly="readonly"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3 col-sm-3 col-xs-12" for="nickName">昵称<span class="required">*</span>：</label>
+			<div class="col-md-6 col-sm-6 col-xs-12">
+				<input id="nickName" name="nickName" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" required="required" value="${nickName}" placeholder="请输入昵称"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">邮箱<span class="required">*</span>：</label>
+			<div class="col-md-6 col-sm-6 col-xs-12">
+				<input id="email" type="email" name="email" class="form-control col-md-7 col-xs-12"  value="${email}" placeholder="请输入邮箱"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3 col-sm-3 col-xs-12" for="mobile">联系方式<span class="required">*</span>：</label>
+			<div class="col-md-6 col-sm-6 col-xs-12">
+				<input id="mobile" type="tel" name="mobile" class="form-control col-md-7 col-xs-12" required="required" value="${mobile}" placeholder="请输入联系方式"/>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn default" data-dismiss="modal">关闭</button>
+		<button type="button" id="updateSub" class="btn blue">提交</button>
+	</div>
+  </form>
+</div>
+<script type="text/javascript">
+	$('#updateDataForm').validate({
+		rules:{
+			nickName:{
+				required:true,
+				minlength: 4,  
+                maxlength: 16,
+                remote:{
+                	type:"GET",
+                	url:"${ctx}/oc/jt-user/nick/exist/who",
+                	data:{
+                		"nickName":function(){
+                			return $("#updateDataForm #nickName").val();
+                		},
+                		"userId":function(){
+                			return -1;
+                		}
+                	}
+                }
+			},
+			email:{
+				required:true,
+				email:true
+			},
+			mobile:{
+				required:true,
+				phone:true
+			}
+		},
+		messages:{
+			nickName:{
+				required:"请输入4到16个字符！",
+				minlength:"至少{0}个字符",
+				maxlength:"最多{0}个字符",
+				remote:"该昵称已存在！"
+			},		
+			email:{
+				required:"邮箱不能为空！",
+				email:"邮箱格式不正确！"
+			},
+			mobile:{
+				required:"请输入电话号码！",
+				phone:"电话号码格式不正确！"
+			}
+		}
+	});
+	$("#updateSub").on("click",function(){
+		if (! $("#updateDataForm").valid()) {
+	        return;
+	     }
+		$.ajax({
+			url:"${ctx}/oc/setting/info/update",
+			type:"POST",
+			data:$("#updateDataForm").serialize(),
+			success: function(data){
+				if (data.errors != undefined) {
+					var error = data.errors;
+					layer.alert(error[0].field + ":" + error[0].message);
+					return;
+				} else if(data.code != undefined){
+					layer.msg(data.msg, {icon: data.code? 1 : 2});
+					if(data.code){
+						$("#ajax-modal").modal("hide");
+						layer.confirm(data.msg, {
+							  btn: ['去登录','稍候登录'] //按钮
+							}, function(){
+							  logout();
+							});
+					}
+				} else {
+					layer.alert("登录已超时！");
+					window.location.href = "${ctx}";
+				}
+			}
+		})
+	})
+	/* $("#updateDataForm").on("submit", function(ev){
+		ev.preventDefault();
+		if (! $("#updateDataForm").valid()) {
+	        return;
+	     }
+		$.ajax({
+			url:"${ctx}/oc/setting/info/update",
+			type:"POST",
+			data:$("#updateDataForm").serialize(),
+			success: function(data){
+				if (data.errors != undefined) {
+					var error = data.errors;
+					layer.alert(error[0].field + ":" + error[0].message);
+					return;
+				} else if(data.code != undefined){
+					layer.msg(data.msg, {icon: data.code? 1 : 2});
+					if(data.code){
+						$("#ajax-modal").modal("hide");
+						layer.confirm(data.msg, {
+							  btn: ['去登录','稍候登录'] //按钮
+							}, function(){
+							  logout();
+							});
+					}
+				} else {
+					layer.alert("登录已超时！");
+					window.location.href = "${ctx}";
+				}
+			}
+		})
+		//
+		
+	}) */
+</script>

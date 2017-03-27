@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html class="service">
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>角色权限分配</title>
+<link type="text/css" rel="stylesheet" href="${ctx}/resources/hero/css/service.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/resources/global/js/plugin/jstree/dist/themes/default/style.min.css"/>
+<script src="${ctx}/resources/hero/js/jquery-3.1.1.min.js"></script>
+<script src="${ctx}/resources/global/js/plugin/jstree/dist/jstree.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="main_con main-con-new" id="addOneRolePerm">
+		<h2>权限分配<!-- <a href="javascript:void(0);" class="close"></a> --></h2>
+		<div class="client_con client_con-new">
+			<form action="javascript:void(0);" id="RolePermForm">
+				<input type="hidden" id="id" name="id" value="${role.id!}"/>
+				<div class="cus_data cus_data-new">
+					<ul>
+						<li><label><span>角色名称</span><span id="roleName">${role.roleName!}</span></label></li>
+						<li><label><span>角色类型</span> <span id="roleType"
+								style="width: 20%">[#if role.roleType == 0]系統默认[#else]自定义[/#if]</span></label></li>
+					</ul>
+				</div>
+
+				<div class="talk_tab">
+					<!-- <label class="col-md-2 control-label">拥有权限</label> -->
+					<div class="col-md-10">
+						<div class="portlet green-meadow box">
+							<div class="portlet-title">
+								<div class="caption">
+									<i class="fa fa-cogs"></i>权限列表
+								</div>
+								<div class="tools">
+									<a href="javascript:;" class="collapse"> </a> <a
+										href="javascript:;" class="reload"> </a>
+								</div>
+							</div>
+							<div class="portlet-body" style="/* height:250px; */overflow:auto;">
+								<div id="permission_container" class="tree-demo"></div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="define define-new">
+					<a onclick="RolePerm();">确定</a> <a class="close"
+						href="javascript:void(0);" onclick="wClose();">取消</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+
+<script type="text/javascript">
+$(function(){
+	$("#addOneRolePerm").css({"top":"50%","opacity":1,"z-index":99});
+})
+	//角色权限保存
+	function RolePerm(){
+		$(this).unbind('click', RolePerm);
+		var roleId = $("#addOneRolePerm #id").val();
+		if(roleId == ""){
+			alert("ID不能为空！");return;
+		}
+		var checked_ids = [];
+		$.each($("#permission_container").jstree("get_selected", true), function(i,v) {
+			checked_ids.push($(v).attr("id"));
+		});
+		
+		checked_ids = checked_ids.length == 0 ? "" : checked_ids.join(",");
+		console.log(checked_ids)
+		$.ajax({
+			url:"${ctx}/back/admin/role/permission/save",
+			data:{"roleId":roleId, "permissions":checked_ids},
+			type:"POST",
+			dataType:"json",
+			success:function(data){
+				if(data != null){
+					if(data.errors != undefined){
+						var error = data.errors;
+						alert(error[0].field+":"+error[0].message);return ;
+					}else{
+						alert("修改成功！");
+						wClose();
+					}
+				} else {
+					$(self).click(RolePerm); 
+				}
+			}
+		})
+	}
+	
+var  wClose = function(){
+//    top.window.open('', '_self', '');
+    top.window.opener.roleList();
+    top.window.close();
+}
+/*	function submitFun() {
+		var checked_ids = [];
+		$.each($("#permission_container").jstree("get_selected", true),
+				function(i, v) {
+					checked_ids.push($(v).attr("id"));
+				});
+
+		checked_ids = checked_ids.length == 0 ? "" : checked_ids.join(",");
+		$("#permissions").val(checked_ids);
+		return true;
+	} */
+
+	$(function() {
+		$("#permission_container").jstree({
+			"core" : {
+				"themes" : {
+					"responsive" : false
+				},
+				"data" : {
+					"url" : "${ctx}/back/admin/permission/json",
+					"dataType" : "json"
+				},
+				"check_callback" : true
+			},
+			"checkbox" : {
+				"three_state" : false
+			},
+			"types" : {
+				"default" : {
+					"icon" : "fa fa-lock icon-state-info icon-lg"
+				},
+				"file" : {
+					"icon" : "fa fa-lock icon-state-info icon-lg"
+				}
+			},
+			"plugins" : [ "checkbox", "types" ]
+		}).bind(
+				"select_node.jstree",
+				function(node, selected, event) {
+					$("#permission_container").jstree().select_node(
+							selected.node.parent);
+				})
+				.bind(
+						"click.jstree",
+						function(event) {
+							var node = event.target;
+							if (node.nodeName == 'I'
+									&& node.parentNode.nodeName == 'A') {
+								var jsNode = $("#permission_container")
+										.jstree().get_node(node.parentNode);
+								if (jsNode.state.selected) {
+									$("#permission_container").jstree()
+											.select_node(jsNode.parent);
+									$("#permission_container").jstree()
+											.select_node(jsNode.children_d);
+								} else {
+									$("#permission_container").jstree()
+											.deselect_node(jsNode.children_d);
+								}
+							} else if (node.nodeName == 'A') {
+								var jsNode = $("#permission_container")
+										.jstree().get_node(node);
+								if (jsNode.state.selected) {
+									$("#permission_container").jstree()
+											.select_node(jsNode.parent);
+									$("#permission_container").jstree()
+											.select_node(jsNode.children_d);
+								} else {
+									$("#permission_container").jstree()
+											.deselect_node(jsNode.children_d);
+								}
+							}
+						}).bind(
+						"loaded.jstree",
+						function(e, data) {
+							var selectedIds = "${permissionIds}";
+							selectedIds = selectedIds.split(",");
+							$("#permission_container").jstree().select_node(
+									selectedIds);
+						});
+
+	});
+</script>

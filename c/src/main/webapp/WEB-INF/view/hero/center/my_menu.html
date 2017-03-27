@@ -1,0 +1,25 @@
+<div class="btn-group">
+	<button type="button" class="btn btn-default dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">个人设置<span class="caret"></span></button>
+	<ul class="dropdown-menu">
+		<li><a href="${ctx}/oc/setting/index">基本信息</a></li>
+		<li><a href="${ctx}/oc/setting/repwd">密码修改</a></li>
+	</ul>
+</div>
+[@shiro.hasRole name="companyAdmin"]
+<div class="btn-group">
+	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="请以公司管理员进行操作">客服管理<span class="caret"></span></button>
+	<ul class="dropdown-menu">
+		<li title="请以公司管理员进行操作"><a href="${ctx}/oc/layer/index">管理分组</a></li>
+		<li title="请以公司管理员进行操作"><a href="${ctx}/oc/ser/index">管理客服</a></li>
+	</ul>
+</div>
+[/@shiro.hasRole] [@shiro.hasAnyRoles name="companyAdmin,services"]
+<div class="btn-group">
+	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">聊天管理<span class="caret"></span></button>
+	<ul class="dropdown-menu">
+		<li><a href="${ctx}/chat/charshare/index">共享设置</a></li>
+		<li><a href="${ctx}/chat/lookshare/index">共享记录</a></li>
+		<li><a href="${ctx}/oc/quickset/index">快速输入设置</a></li>
+	</ul>
+</div>
+[/@shiro.hasAnyRoles]

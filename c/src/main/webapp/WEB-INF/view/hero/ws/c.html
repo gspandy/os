@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link type="text/css" rel="stylesheet"
+	href="${ctx}/resources/hero/css/chat-console.css">
+</head>
+
+<!--<![endif]-->
+[#include "/core/head.html"/] [@head title="home.page.title"/]
+<body>
+	[#include "/core/top.html"/]
+	
+	<div>${reel}</div>
+	<div class="container">
+		<div class="row">
+			<!-- 聊天区 -->
+			<div class="col-sm-9">
+				<!-- 聊天内容 -->
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<span class="glyphicon glyphicon-earphone"></span> &nbsp;聊天内容
+					</div>
+					<div class="panel-body chat-body">
+						<div class="msg-list-body">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- 输入框 -->
+			<div class="input-group input-group-lg col-sm-9 send-msg">
+				<span class="input-group-btn ">
+					<button class="btn btn-default" id="emotion-btn" type="button">
+						<span class="glyphicon glyphicon-plus"></span>
+					</button>
+				</span> <input type="text" class="form-control" id="input-edit"
+					placeholder="请输入聊天内容"> <span class="input-group-btn">
+					<button class="btn btn-default" type="button"
+						onclick="onClickSendMessage()">
+						发送 <span class="glyphicon glyphicon-send"></span>
+					</button>
+				</span>
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<hr />
+	[#include "/core/foot.html"/]
+</body>
+
+<script src="${ctx}/resources/global/js/ws/reel.js"></script>
+<script src="${ctx}/resources/global/js/socket.io/moment.min.js"></script>
+
+<script type="text/javascript">
+	//自己打开连接
+	function open() {
+		layer.msg("连接成功,请选择咨询的问题!");
+		emit('${reel}');
+	}
+
+	//自己离开
+	function leave() {
+
+	}
+
+	function otherInject(reel) {
+		output(reel);
+		//其他连接
+	}
+
+	function otherLeave(reel) {
+		//其他 人离开
+	}
+
+	function showText(reel) {
+		//其他人发过来信息
+		output(reel);
+	}
+
+	function showWarn(reel) {
+		output(reel);
+	}
+	
+	function output(reel) {
+		var hero="<span class='uname'>"+reel.uname+"</span> ";
+		var currentTime = "<span class='time'>"
+				+ moment().format('HH:mm:ss') + "</span>";
+		var element = $("<div>"+ hero + currentTime + "</br> " + reel.body + "</div>");
+		$('.msg-list-body').prepend(element);
+	}
+	
+	
+</script>
+
+</html>

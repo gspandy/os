@@ -1,0 +1,2475 @@
+<#assign shiro=JspTaglibs["http://shiro.apache.org/tags"]/>
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>客服系统</title>
+<link type="text/css" rel="stylesheet" href="${ctx}/resources/hero/css/date_time.css">
+<link type="text/css" rel="stylesheet" href="${ctx}/resources/hero/css/service.css">
+<link type="text/css" rel="stylesheet" href="${ctx}/resources/hero/css/imgbox.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/resources/global/js/plugin/jstree/dist/themes/default/style.min.css"/>
+
+<script type="text/javascript">
+var WS_PATH = '${preference.ws_path}';
+var protocol = '${protocol}';
+var ctx = "${ctx}";
+var curUserAccount="${curUser}";
+
+//导航
+function switchPage(name, path) {
+		page = 1;
+		pageAll = 1;
+		switch (path) {
+		case "chat-manage":
+			chatManage();
+			break;
+		case "services-manage/service":
+			serList();
+			break;
+		case "services-manage/layer":
+			layerManage();
+			break;
+		case "dialog-manage":
+//			dialogManage();
+			break;
+		case "chat-manage/auto":
+			dialogManage();
+			break;
+		case "company-manage":
+			companyList();
+			break;
+		case "/back/admin/permission":
+			permissionList();
+			break;
+		case "/back/admin/role":
+			roleList();
+			break;
+		case "/back/admin/user":
+			userList();
+			break;
+		case "chat-manage/page":
+			pagechatManage();
+			break;
+		case "chat-charshare/share":
+			shareList();
+			break;
+		case "chat-charshare/lookShare":
+			lookShareList();
+			break;
+		}
+
+	}
+//
+</script>
+
+</head>
+<body onbeforeunload="CloseOpen(event)">
+<div id="Over"></div>
+<#include "/serv/chat.html"/>
+<div class="container cf">
+    <div class="menu left">
+        <div class="title"><img src="${ctx}/resources/hero/img/title_ico.png" class="gray"></div>
+        <ul class="nav" id="nav">
+           <#if (memuList?? && memuList?size != 0) >
+			<#list memuList as menuTreeDTO>
+	            <li onclick="switchPage('${menuTreeDTO.name}', '${menuTreeDTO.path}')">
+	            	<i class="${menuTreeDTO.icon}"></i>${menuTreeDTO.name}
+	            	<#if ((menuTreeDTO.subList)?size != 0) >
+	            		<span></span>
+		            	<ul class="sub_nav">
+		            		<#list menuTreeDTO.subList as subMenuTreeDTO>
+		                    	<li onclick="switchPage('${subMenuTreeDTO.name}', '${subMenuTreeDTO.path}')">${subMenuTreeDTO.name}</li>
+		                    </#list>
+		                </ul>
+	            	</#if>
+	            </li>
+            </#list>
+         	</#if>
+        </ul>
+    </div>
+    <div class="content right">
+        <header class="title">
+        	<div class="cur_u">欢迎您，<b>${curUser}</b></div>
+        	<div class="read-leave"><a id="readLeaveMsg" href="javascript:void(0)">离线消息(<d id="leaveNums">0</d>)</a></div>
+        	<div class="news talk_box" id="userNews" title="访客消息"><i class="unread" style="display:none;">20</i></div>
+            <div class="news" id="servNews" title="团队成员"><i class="unread" style="display:none;">0</i></div>
+            <div class="self" id="onLine"><#if curImg?? ><img title="${curUser}" src="${curImg}"><#else><img title="${curUser}" src="${ctx}/resources/hero/img/team_ico.jpg"></#if>
+            <div class="quit"><a href="javascript:void(0);" class="exit">退出</a><a href="javascript:void(0);" class="shezhi">设置</a></div></div>
+            <div class="ser_team" id="serTeam">
+                <h2>客服成员<a href="javascript:void(0);" class="close" title="关闭客服成员列表"></a></h2>
+                <div class="team_list">
+                    <dl class="cf">
+                        <dt><img src="${ctx}/resources/hero/img/team_ico.jpg"></dt>
+                        <dd>小桃红<span class="talk_time">11-07 15:50</span></dd>
+                        <dd>昨天的问题处理好了吗？<span class="red">11</span></dd>
+                    </dl>
+                    <dl class="cf">
+                        <dt><img src="${ctx}/resources/hero/img/team_ico.jpg"></dt>
+                        <dd>小桃橙<span class="talk_time">11-07 15:50</span></dd>
+                        <dd>昨天的问题处理好了吗？<span class="red">2</span></dd>
+                    </dl>
+                </div>
+            </div>
+        </header>
+        
+        <div class="main_content">
+            <!--会话管理-->
+            <div class="main_con current" id="chatManage" style="display:none;">
+                <h2>会话管理</h2>               
+                <div class="talk_tab">
+                    <!-- <div class="chose_all"><label><input type="checkbox" id="choseAll"><span></span></label></div> -->
+                    <div class="set_edit"><span class="talk"><a href="javascript:void(0);">会话</a></span><span class="history_ico"><a href="javascript:void(0);">历史记录</a></span><span class="un_talk"><a href="javascript:void(0);">禁止会话</a></span><span class="del_talk"><a href="javascript:void(0);">删除会话记录</a></span></div>
+                    <table class="session">
+                        <thead>
+                            <tr class="tab_top">
+                                <td></td>
+                                <td>状态</td>
+                                <td>序号</td>
+                                <td>用户名称</td>
+                                <td>IP</td>
+                                <td>进入时间</td>
+                                <td>等待时间</td>
+                                <td>离开时间</td>
+                                <td>最后消息</td>
+                                <td>当前客服</td>
+                                <td>操作</td>
+                            </tr>
+                        </thead>
+                        <tbody id="sessionList">
+							                           
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--客服管理-->
+            <div class="main_con" id="servicesManage" style="display:none;">
+                <h2>客服管理
+                	<a href="javascript:void(0);" class="add_ser" id="addService">增加客服</a>
+                </h2>
+                <div class="talk_tab ser_tab">
+                    <div class="chose_all all_ser"><label><input type="checkbox" id="choseAllSer"><span></span></label></div>
+                    <div class="set_edit"><span class="revise"><a href="javascript:void(0);">修改</a></span><span class="un_talk"><a href="javascript:void(0);">禁用</a></span><span class="del_talk"><a href="javascript:void(0);">删除成员</a></span></div>
+                    <table class="ser_session">
+                        <thead>
+                            <tr class="tab_top">
+                                <td></td>
+                                <td>客服ID</td>
+                                <td>姓名</td>
+                                <td>昵称</td>
+                                <td>分组</td>
+                                <td>接待上限</td>
+                                <td>自动分配</td>
+                                <td>操作</td>
+                            </tr>
+                        </thead>
+                        <tbody id="serList">
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><span class="ser_id">客服001</span><i class="forbid"></i></td>
+                                <td><span class="ser_name">周杰伦</span></td>
+                                <td><span class="ser_nike">小桃红</span></td>
+                                <td><span class="ser_group">分组01</span></td>
+                                <td><span class="group_num">20</span></td>
+                                <td><span class="auto_on auto_off"></span></td>
+                                <td><span class="ico revise"><i>修改</i></span><span class="ico un_talk"><i>禁用</i></span><span class="ico del_talk"><i class="four">删除成员</i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pages cf">
+                        <div class="page_num"><a href="javascript:void(0);" class="cur">1</a><a href="javascript:void(0);">2</a><a href="javascript:void(0);">3</a><a href="javascript:void(0);">4</a><a href="javascript:void(0);">5</a><span>...</span><a href="javascript:void(0);">12</a><a href="javascript:void(0);">13</a><span class="next_page"></span></div>
+                        <div class="jump_page"><label for="toPage">跳转到：</label><input type="text" id="toPage"><a href="javascript:void(0);">GO</a></div>
+                    </div>
+                </div>
+            </div>
+            <!--客服分组管理-->
+            <div class="main_con" id="layerManage" style="display:none;">
+                <h2>客服分组<a href="javascript:void(0);" class="add_ser" id="addLayer">增加分组</a></h2>
+                <div class="talk_tab ser_tab">
+                    <div class="chose_all all_ser"></div>
+                    <div class="set_edit"><span class="revise"></span></div>
+                    <table class="ser_session">
+                        <thead>
+                            <tr class="tab_top">
+                            	<td></td>
+                                <td>分组名称</td>
+								<td>code</td>
+								<td>分组说明</td>
+								<td>分组状态</td>
+								<td>备用</td>
+								<td>操作</td>
+                            </tr>
+                        </thead>
+                        <tbody id="layerList">
+                        
+                        </tbody>
+                    </table>
+                    <div class="pages cf">
+                        <div class="page_num"><a href="javascript:void(0);" class="cur">1</a><a href="javascript:void(0);">2</a><a href="javascript:void(0);">3</a><a href="javascript:void(0);">4</a><a href="javascript:void(0);">5</a><span>...</span><a href="javascript:void(0);">12</a><a href="javascript:void(0);">13</a><span class="next_page"></span></div>
+                        <div class="jump_page"><label for="toPage">跳转到：</label><input type="text" id="toPage"><a href="javascript:void(0);">GO</a></div>
+                    </div>
+                </div>
+            </div>
+            <!--对话窗口配置-->
+            <div class="main_con dialogue" id="dialogManage" style="display:none;">
+                <div class="web_dialogue" id="dialogAuto">
+                    <div class="dialog">
+                        <div class="quick_tips quick_ico"><span>点击进入编辑</span></div>
+                        <div class="quick_enter quick_ico"><span>点击进入编辑</span></div>
+                    </div>
+                    <div class="edit_quick">
+                        <a href="javascript:void(0);" class="quick_tips">编辑提示内容</a><a href="javascript:void(0);" class="quick_enter">编辑快速输入内容</a>
+                        <label><input type="checkbox" id="timeoutSwitch" name="timeoutSwitch" checked>开启访客超时提醒</label>
+                    </div>
+                </div>
+                <div class="web_dialogue cf" id="dialogPage">
+                    <div class="initiative">
+                        <label><input type="checkbox" checked>开启主动对话窗口</label>
+                        <label class="single_btn"><input type="radio" name="seat">居左</label>
+                        <label class="single_btn"><input type="radio" name="seat" checked>居右</label>
+                        <label>侧边距：<input type="text" value="50">px</label>
+                        <p>(主动对话窗口距离浏览器侧边的距离)</p>
+                        <label class="window_size">窗口大小：长<input type="text" value="500">px&nbsp;&nbsp;宽<input type="text" value="300">px</label>
+                        <a href="javascript:void(0);">生成代码</a>
+                        <label><textarea>这里预留放js代码</textarea></label>
+                    </div>
+                    <div class="initiative_pic"><img src="${ctx}/resources/hero/img/initiative.jpg"></div>
+                </div>
+            </div>
+            <!--客户管理-->
+            <div class="main_con" id="companyManage" style="display:none;">
+                <h2>公司管理<@shiro.hasRole name="administrator"><a href="javascript:void(0);" class="add_ser" id="addClient">增加客户</a></@shiro.hasRole></h2>
+                <div class="talk_tab ser_tab">
+                    <div class="chose_all all_ser"><@shiro.hasRole name="administrator"><label><input type="checkbox" id="choseAllClient"><span></span></label></@shiro.hasRole></div>
+                    <div class="set_edit"><span class="revise"><a href="javascript:void(0);">修改</a></span><span class="un_talk"><a href="javascript:void(0);">禁用</a></span><span class="del_talk"><a href="javascript:void(0);">删除成员</a></span></div>
+                    <table class="client_session">
+                        <thead>
+                            <tr class="tab_top">
+                                <td></td>
+                                <td>客户ID</td>
+                                <td>服务IP</td>
+                                <td>公司</td>
+                                <td>域名</td>
+                                <td>联系方式</td>
+                                <td>访客链接</td>
+                                <td>操作</td>
+                            </tr>
+                        </thead>
+                        <tbody id="clientList">
+                        
+                        </tbody>
+                    </table>
+                    <div class="pages cf">
+                        <div class="page_num"><a href="javascript:void(0);" class="cur">1</a><a href="javascript:void(0);">2</a><a href="javascript:void(0);">3</a><a href="javascript:void(0);">4</a><a href="javascript:void(0);">5</a><span>...</span><a href="javascript:void(0);">12</a><a href="javascript:void(0);">13</a><span class="next_page"></span></div>
+                        <div class="jump_page"><label for="toPage">跳转到：</label><input type="text" id="toPage"><a href="javascript:void(0);">GO</a></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!--权限管理-->
+            <div class="main_con" id="permissionManage" style="display:none;">
+                <h2>权限管理</h2>
+                <div class="talk_tab ser_tab">
+                    <div class="chose_all all_ser"></div>
+                    <div class="set_edit"><span class="revise"></span></div>
+                    <table class="permission_session">
+                        <tbody id="permis" >
+                        <!-- 权限div -->
+						   <div class="page-container">
+							<!-- BEGIN CONTENT -->
+							<div>
+								<div class="page-content">
+									<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+									<div id="ajax-modal" class="modal fade bs-modal" tabindex="-1"></div>
+									<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+									<!-- BEGIN PAGE CONTENT-->
+									<div class="row" style="padding-top: 10px;">
+										<div class="col-md-12">
+											<!-- Begin: life time stats -->
+											<div class="portlet">
+												<div class="portlet-title">
+													<div class="caption">
+														<i class="fa fa-list-ul">&nbsp;</i>
+													</div>
+												</div>
+												<div class="portlet-body">
+													<div class="col-md-12">
+														<div class="portlet green-meadow box">
+															<div class="portlet-title">
+																<div class="caption">
+																	<i class="fa fa-cogs"></i>权限列表
+																</div>
+																<div class="tools">
+																	<a href="javascript:;" class="collapse">
+																	</a>
+																	<a href="javascript:;" class="reload">
+																	</a>
+																</div>
+															</div>
+															<div class="portlet-body" style="overflow:auto;">
+																<div id="permission_container" class="tree-demo">
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div id="container">
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- End: life time stats -->
+										</div>
+									
+										
+									</div>
+									<!-- END PAGE CONTENT-->
+								</div>
+							</div>
+							<!-- END CONTENT -->
+						</div>
+						<!-- 权限div -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--角色管理-->
+            <div class="main_con" id="roleManage" style="display:none;">
+                <h2>角色管理<@shiro.hasRole name="administrator"><a href="javascript:void(0);" class="add_ser" id="addRole">增加角色</a></@shiro.hasRole></h2>
+                <div class="talk_tab ser_tab">
+                    <div class="chose_all all_ser"></div>
+                    <div class="set_edit"><span class="revise"></span></div>
+                    <table class="ser_session">
+                        <thead>
+                            <tr class="tab_top">
+                            	<td></td>
+                                <td>角色名称</td>
+                                <td>角色类型</td>
+                                <td>操作</td>
+                            </tr>
+                        </thead>
+                        <tbody id="roleList">
+                        
+                        </tbody>
+                    </table>
+                    <div class="pages cf">
+                        <div class="page_num"><a href="javascript:void(0);" class="cur">1</a><a href="javascript:void(0);">2</a><a href="javascript:void(0);">3</a><a href="javascript:void(0);">4</a><a href="javascript:void(0);">5</a><span>...</span><a href="javascript:void(0);">12</a><a href="javascript:void(0);">13</a><span class="next_page"></span></div>
+                        <div class="jump_page"><label for="toPage">跳转到：</label><input type="text" id="toPage"><a href="javascript:void(0);">GO</a></div>
+                    </div>
+                </div>
+            </div>
+            <!--用户管理-->
+            <div class="main_con" id="userManage" style="display:none;">
+                <h2>用户管理<@shiro.hasRole name="administrator"><!-- <a href="javascript:void(0);" class="add_ser" id="addRole">增加公司管理员</a> --></@shiro.hasRole></h2>
+                <div class="talk_tab ser_tab">
+                    <div class="chose_all all_ser"></div>
+                    <div class="set_edit"><span class="revise"></span></div>
+                    <table class="ser_session">
+                        <thead>
+                            <tr class="tab_top">
+                            	<td></td>
+                                <td>账号</td>
+								<td>账号类型</td>
+								<td>姓名</td>
+								<td>昵称</td>
+								<td>自动分配</td>
+								<td>接待上限</td>
+								<td>公司名称</td>
+								<td>公司地址</td>
+								<td>手机</td>
+								<td>邮箱</td>
+                            </tr>
+                        </thead>
+                        <tbody id="userList">
+                        
+                        </tbody>
+                    </table>
+                    <div class="pages cf">
+                        <div class="page_num"><a href="javascript:void(0);" class="cur">1</a><a href="javascript:void(0);">2</a><a href="javascript:void(0);">3</a><a href="javascript:void(0);">4</a><a href="javascript:void(0);">5</a><span>...</span><a href="javascript:void(0);">12</a><a href="javascript:void(0);">13</a><span class="next_page"></span></div>
+                        <div class="jump_page"><label for="toPage">跳转到：</label><input type="text" id="toPage"><a href="javascript:void(0);">GO</a></div>
+                    </div>
+                </div>
+            </div>
+            <!--共享设置管理-->
+            <div class="main_con" id="shareManage" style="display:none;">
+                <h2>共享设置&nbsp;   &nbsp;&nbsp;&nbsp;                
+                <a href="javascript:void()" class="btn default yellow-stripe" data-toggle="modal" data-target="#ajax-modal">
+					             <i class="fa fa-plus"></i><span class="hidden-480" style="font-size:12px" onclick="share('',3)">全部共享</span>
+				</a>&nbsp;&nbsp;
+				<a href="javascript:void()" class="btn default yellow-stripe" data-toggle="modal" data-target="#ajax-modal">
+					             <i class="fa fa-plus"></i><span class="hidden-480" style="font-size:12px" onclick="share('',4)">全部取消</span>
+				</a>
+				</h2>
+				
+                <div class="talk_tab ser_tab">
+                    <div class="chose_all all_ser"></div>
+                    <div class="set_edit"><span class="revise"></span></div>
+                    <table class="ser_session">
+                        <thead>
+                            <tr class="tab_top">
+                                <td>账号</td>
+								<td>账号类型</td>
+								<td>姓名</td>
+								<td>昵称</td>
+								<td>是否共享</td>
+								<td>操作</td>
+                            </tr>
+                        </thead>
+                        <tbody id="shareList">
+                        
+                        </tbody>
+                    </table>
+                    <div class="pages cf">
+                        <div class="page_num"><a href="javascript:void(0);" class="cur">1</a><a href="javascript:void(0);">2</a><a href="javascript:void(0);">3</a><a href="javascript:void(0);">4</a><a href="javascript:void(0);">5</a><span>...</span><a href="javascript:void(0);">12</a><a href="javascript:void(0);">13</a><span class="next_page"></span></div>
+                        <div class="jump_page"><label for="toPage">跳转到：</label><input type="text" id="toPage"><a href="javascript:void(0);">GO</a></div>
+                    </div>
+                </div>
+            </div>
+            <!--查看共享聊天记录-->
+            <div class="main_con" id="lookShareManage" style="display:none;">
+                <h2>共享聊天记录
+				</h2>
+				
+                <div class="talk_tab ser_tab">
+                    <div class="chose_all all_ser"></div>
+                    <div class="set_edit"><span class="revise"></span></div>
+                    <table class="ser_session">
+                        <thead>
+                            <tr class="tab_top">
+                                <td>用户</td>
+								<td>客服名称</td>
+								<td>操作</td>
+                            </tr>
+                        </thead>
+                        <tbody id="lookShareList">
+                        
+                        </tbody>
+                    </table>
+                    <div class="pages cf">
+                        <div class="page_num"><a href="javascript:void(0);" class="cur">1</a><a href="javascript:void(0);">2</a><a href="javascript:void(0);">3</a><a href="javascript:void(0);">4</a><a href="javascript:void(0);">5</a><span>...</span><a href="javascript:void(0);">12</a><a href="javascript:void(0);">13</a><span class="next_page"></span></div>
+                        <div class="jump_page"><label for="toPage">跳转到：</label><input type="text" id="toPage"><a href="javascript:void(0);">GO</a></div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+<div class="layer_bg">
+	<!--移交列表-->
+    <div class="add_service" id="changeNable">
+        <h2><span><small id="curVisitName"></small>-可移交的客服列表</span><a href="javascript:void(0);" class="close"></a></h2>
+        <div class="layer_con">
+            <div class="purview shezhi-1" id="layerInfo">
+                <!-- <div class="set_dl">
+                    <h5><small>昵称：</small><span id="nickName">bdb001</span><a href="javascript:void(0);"><span>编辑</span><i></i></a></h5>
+                    <div class="set_dd">
+                  		  <ul>
+	                   	  <li><span>当前昵称：</span><input type="text" name="nickName" id="curNick" placeholder="请输入昵称" class="shezhi-input"></li>
+	                   	  </ul>
+                       		<a href="javascript:void(0);" onclick="updateData(1, this);" class="shezhi-butn">保存</a>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+	<!--新增分组-->
+    <div class="add_service" id="addOneLayer">
+        <h2><span>新增分组</span><a href="javascript:void(0);" class="close"></a></h2>
+        <div class="client_con">
+          <form action="javascript:void(0);" id="addLayerForm">
+            <div class="cus_data">
+                <ul>
+                    <li class="cus_id"><label><span>分组名称</span><input type="text" id="layerName" name="layerName" placeholder="请输入分组名称"></label></li>
+                    <li class="cus_ip"><label><span>组代码</span><input type="text" id="code" name="code" placeholder="请输入组代码必须是字母、数字、下划线，长度6~16位！"></label></li>
+                    <li class="company"><label><span>分组说明</span><input type="text" id="comments" name="comments" placeholder="请输入备注"></label></li>
+                    <li class="domain"><label><span>备用（备注）</span><input type="text" id="points" name="points" placeholder="可选"></label></li>
+                </ul>
+            </div>
+            <div class="define">
+                <a onclick="addLayer();">确定</a>
+                <a class="close" href="javascript:void(0);">取消</a>
+            </div>
+          </form>
+        </div>
+    </div>
+	<!--修改分组-->
+    <div class="add_service" id="editOneLayer">
+        <h2><span>修改分组</span><a href="javascript:void(0);" class="close"></a></h2>
+        <div class="client_con">
+          <form action="javascript:void(0);" id="editLayerForm">
+          	<input type="hidden" name="id" id="layerId">
+            <div class="cus_data">
+                <ul>
+                    <li class="cus_id"><label><span>分组名称</span><input type="text" id="layerName" name="layerName"></a></label></li>
+                    <li class="cus_ip"><label><span>组代码</span><a id="code"></a></label></li>
+                    <li class="company"><label><span>分组说明</span><input type="text" id="comments" name="comments" placeholder="请输入备注"></label></li>
+                    <li class="domain"><label><span>备用（备注）</span><input type="text" id="points" name="points" placeholder="可选"></label></li>
+                </ul>
+            </div>
+            <div class="define">
+                <a onclick="editLayer();">确定</a>
+                <a class="close" href="javascript:void(0);">取消</a>
+            </div>
+          </form>
+        </div>
+    </div>
+    <!--设置-->
+    <div class="add_service" id="sheZhi">
+        <h2><span>设置</span><a href="javascript:void(0);" class="close"></a></h2>
+        <div class="layer_con">
+            <div class="purview shezhi-1">
+            	<div class="set_dl">
+                    <h5><small>用户名：</small><span id="account">bdb001</span></h5>
+                </div>
+                <div class="set_dl">
+                    <h5><small>昵称：</small><span id="nickName">bdb001</span><a href="javascript:void(0);"><span>编辑</span><i></i></a></h5>
+                    <div class="set_dd">
+                  		  <ul>
+	                   	  <li><span>当前昵称：</span><input type="text" name="nickName" id="curNick" placeholder="请输入昵称" class="shezhi-input"></li>
+	                   	  </ul>
+                       		<a href="javascript:void(0);" onclick="updateData(1, this);" class="shezhi-butn">保存</a>
+                    </div>
+                </div>
+                <div class="set_dl">
+                <h5><small>头像：</small><span id="userImg"><#if curImg?? ><img src="${curImg}"><#else><img src="${ctx}/resources/hero/img/team_ico.jpg"></#if></span><a href="javascript:void(0);"><span>编辑</span><i></i></a></h5>
+                    <div class="set_dd">
+                   		<ul>
+	                    <li><span>当前头像：</span><span id="curImg"><#if curImg?? ><img src="${curImg}"><#else><img src="${ctx}/resources/hero/img/team_ico.jpg"></#if></span></li>
+	                    </ul>
+	                    	<input type="file" capture="camera" accept="image/*" id="file"
+					name="file" onchange="ajaxIconUploads();" style="display: none;" />
+                            <a href="javascript:void(0);" onclick="$('#file').click();" class="shezhi-butn">上传</a>
+                    </div>
+                </div>
+                <div class="set_dl">
+                    <h5><small>密码：</small><span>*******</span><a href="javascript:void(0);"><span>编辑</span><i></i></a></h5>
+                    <div class="set_dd">
+	                    <ul>
+	                    <li><span>当前密码：</span><input id="password" name="oldPwd" type="password" class="shezhi-input"></li>
+	                    <li><span>新密码：</span><input type="password" id="newPwd" name="newPwd" class="shezhi-input"></li>
+	                    <li><span>确认新密码：</span><input type="password" id="reqNewPwd" name="reqNewPwd" class="shezhi-input"></li>
+	                    </ul>
+                    	<a href="javascript:void(0);" onclick="updatePWD();" class="shezhi-butn">保存</a>
+                    </div>
+                </div>
+               <div class="set_dl">
+                <h5><small>手机号：</small><span id="mobile">1111111111</span><a href="javascript:void(0);"><span>编辑</span><i></i></a></h5>
+                    <div class="set_dd">
+                        <ul>
+	                   	  <li><span>当前号码：</span><input type="text" name="mobile" id="curMobile" placeholder="1111111111" class="shezhi-input"></li>
+	                   	  </ul>
+                       		<a href="javascript:void(0);" onclick="updateData(2, this);" class="shezhi-butn">保存</a>
+                    </div>
+                </div>  
+                <div class="set_dl">
+                 <h5><small style="width:90px;">自动回复：</small><a href="javascript:void(0);"><span>编辑</span><i></i></a></h5>
+                    <div class="set_dd">
+                        <ul>
+	                   	  <li><span>自动回复：</span><input type="text"  name="autoReply" id="autoReply" style="width:556px;" class="shezhi-input"/></li>
+	                   	  </ul>
+                       	<a href="javascript:void(0);" onclick="updateData(3, this);" class="shezhi-butn">保存</a>
+                    </div>
+                </div>  
+            </div>
+            <!-- <div class="define">
+                <a onclick="addSer();">确定</a>
+                <a class="close" href="javascript:void(0);">取消</a>
+            </div> -->
+        </div>
+    </div>
+    <!--历史记录-->
+    <div class="history" id="leaveBox">
+    	<h2><span>离线消息列表</span><a href="javascript:void(0);" class="close close_chart"></a></h2>
+        <div class="history_con cf">
+            <div class="visitor_list"><!--用户列表，单人不显示--></div>
+            <div class="visitor_his">
+            <div id="content"></div>
+        	</div>
+	     </div>
+    </div>
+    <!--历史记录-->
+    <div class="history" id="historyBox">
+    	<h2><span>历史记录</span><a href="javascript:void(0);" class="close close_chart"></a></h2>
+        <div class="history_con cf">
+            <div class="visitor_list"><!--用户列表，单人不显示--></div>
+            <div class="visitor_his">
+            <div id="content"></div>
+        	</div>
+	     </div>
+    	 <div class="history_page pages">
+			<div class="srech_time" id="srechTime">
+				<span>日期：</span><label><input id="sendTime" name="sendTime" placeholder="请输入日期" class="laydate-icon"></label>
+				<a href="javascript:void(0);" onclick="userHistory();">搜索</a>
+			</div>
+			<div class="page_num"><a href="javascript:void(0);" class="cur">1</a><span class="next_page"></span></div>
+		</div>
+    </div>
+    <div class="history" id="historyShareBox">
+    	<h2><span>历史记录</span><a href="javascript:void(0);" class="close close_share_chart"></a></h2>
+        <div class="history_con cf">
+            <div class="visitor_list_share"><!--用户列表，单人不显示--></div>
+            <div class="visitor_his_share">
+            <div id="content"></div>
+        	</div>
+	     </div>
+    	 <div class="history_page pages">
+			<div class="page_num"><a href="javascript:void(0);" class="cur">1</a><span class="next_page"></span></div>
+		</div>
+    </div>
+    <!--新增权限-->
+    <div class="add_service" id="addOnePerm">
+        <h2><span>新增权限</span><a href="javascript:void(0);" class="close"></a></h2>
+        <div class="client_con">
+          <form action="javascript:void(0);" id="addPermissForm">
+          	<input type="hidden"  name="parentPermissionId" id="parentPermissionId" />
+          	<input type="hidden"  name="floor" id="floor" />
+            <div class="cus_data">
+                <ul>
+                    <li class="cus_id"><label><span>权限名称</span><input type="text" id="permissionName" name="permissionName" placeholder="请输入权限名称"></label></li>
+                    <li class="cus_ip"><label><span>权限代码</span><input type="text" id="code" name="code" placeholder="请输入权限代码"></label></li>
+                    <li class="company"><label><span>操作链接</span><input type="text" id="path" name="path" placeholder="请输入操作链接"></label></li>
+                    <li class="domain"><label><span>排序</span><input type="text" id="deep" name="deep" placeholder="请输入排序"></label></li>
+                    <li class="cus_phone"><label><span>权限类型</span>
+                    <select id="permissionType" name="permissionType" >
+						<option value="1">权限</option>
+						<option value="2">菜单</option>
+					</select></label>
+					</li>
+                </ul>
+            </div>
+            <div class="define">
+                <a onclick="addPermission();">确定</a>
+                <a class="close" href="javascript:void(0);">取消</a>
+            </div>
+          </form>
+        </div>
+    </div>
+    <!--修改权限-->
+    <div class="add_service" id="editOnePerm">
+        <h2><span>修改权限</span><a href="javascript:void(0);" class="close"></a></h2>
+        <div class="client_con">
+          <form action="javascript:void(0);" id="editPermissForm">
+          	<input type="hidden"  name="parentPermissionId" id="parentPermissionId" />
+          	<input type="hidden"  name="floor" id="floor" />
+          	<input type="hidden"  name="id" id="id" />
+            <div class="cus_data">
+                <ul>
+                    <li class="cus_id"><label><span>权限名称</span><input type="text" id="permissionName" name="permissionName" placeholder="请输入权限名称"></label></li>
+                    <li class="cus_ip"><label><span>权限代码</span><input type="text" id="code" name="code" placeholder="请输入权限代码"></label></li>
+                    <li class="company"><label><span>操作链接</span><input type="text" id="path" name="path" placeholder="请输入操作链接"></label></li>
+                    <li class="domain"><label><span>排序</span><input type="text" id="deep" name="deep" placeholder="请输入排序"></label></li>
+                    <li><label><span>权限类型</span>
+                    <select id="permissionType" name="permissionType" >
+						<option value="1">权限</option>
+						<option value="2">菜单</option>
+					</select></label>
+					</li>
+                </ul>
+            </div>
+            <div class="define">
+                <a onclick="editPermission();">确定</a>
+                <a class="close" href="javascript:void(0);">取消</a>
+            </div>
+          </form>
+        </div>
+    </div>
+    <!--新增客服-->
+    <div class="add_service" id="addOneSer">
+        <h2><span>新增客服</span><a href="javascript:void(0);" class="close"></a></h2>
+        <div class="layer_con">
+            <ul class="cf ser_data">
+            	<input type="hidden" id="layerId">
+                <li><span>客服ID</span><label><input type="text" id="account" name="account" placeholder="客服ID"></label></li>
+                <li><span>姓名</span><label><input type="text" id="userName" name="userName" placeholder="姓名"></label></li>
+                <li><span>昵称</span><label><input type="text" id="nickName" name="nickName" placeholder="昵称"></label></li>
+                <li><span>分组</span><span class="groups" id="groupName">&nbsp;</span>
+                    <div class="set_group">
+                        <label><input type="text" placeholder="输入组名"></label><a class="addGroup" href="javascript:void(0);">搜索</a>
+                        <ul></ul>
+                    </div>
+                </li>
+                <li><span>接待上限</span>
+                    <label><select id="receiveNum" name="receiveNum"><option value="10">10</option><option value="15">15</option><option value="20">20</option></select>人</label>
+                </li>
+                <li><span>自动分配</span><span id="autoAllot" class="allot"></span></li>
+            </ul>
+            <div class="purview">
+                <div class="set_dl">
+                    <h3>会话管理<span><!-- <i>网页对话</i> --></span><a href="javascript:void(0);"><span>展开</span><i></i></a></h3>
+                    <div class="set_dd">
+                        <form>
+                            <label><input type="radio" name="addperms" value="chat-manage/auto">接主动对话<span></span></label>
+                            <label><input type="radio" name="addperms" value="chat-manage/page" >接网页对话<span></span></label>
+                            <!-- <label><input type="radio" name="addperms">接游客对话<span></span></label> -->
+                            <!-- <a href="javascript:void(0);">保存</a> -->
+                        </form>
+
+                    </div>
+                </div>
+                <div class="set_dl">
+                <h3>访客留言<span><!-- <i>查看全部访客留言</i><i>能回复留言</i> --></span><a href="javascript:void(0);"><span>展开</span><i></i></a></h3>
+                    <div class="set_dd">
+                        <label><input type="checkbox" name="addperms" value="leave-message/view" checked>查看全部访客留言<span></span></label>
+                        <label><input type="checkbox" name="addperms" value="leave-message/reply"  checked>能回复留言<span></span></label>
+                        <!-- <a href="javascript:void(0);">保存</a> -->
+                    </div>
+                </div>
+                <div class="set_dl">
+                    <h3>客服管理<span><!-- <i>查看其他客服列表</i><i>修改本人信息</i> --></span><a href="javascript:void(0);"><span>展开</span><i></i></a></h3>
+                    <div class="set_dd">
+                        <label><input type="checkbox" name="addperms" value="serv-manage/view" checked>查看其他客服列表<span></span></label>
+                        <label><input type="checkbox" name="addperms" value="serv-manage/update" checked>修改本人信息<span></span></label>
+                        <label><input type="checkbox" name="addperms" value="serv-manage/chatview">查看自己对话记录<span></span></label>
+                        <label><input type="checkbox" name="addperms" value="serv-manage/chatdel">删除会话信息<span></span></label>
+                        <!-- <a href="javascript:void(0);">保存</a> -->
+                    </div>
+                </div>
+            </div>
+            <div class="define">
+                <a onclick="addSer();">确定</a>
+                <a class="close" href="javascript:void(0);">取消</a>
+            </div>
+        </div>
+    </div>
+    <!--修改客服资料-->
+    <div class="add_service" id="editOneSer">
+        <h2><span>修改客服</span><a href="javascript:void(0);" class="close"></a></h2>
+        <div class="layer_con cf">
+            <div class="ser_list left">
+                <ul id="editSerList"></ul>
+            </div>
+            <div class="ser_info left">
+                <ul class="cf ser_data">
+                	<input type="hidden" id="layerId">
+                    <li><span>客服ID</span><span class="ser_id" data-sid=""></span></li>
+                    <li><span>姓名</span><span class="ser_name"></span></li>
+                    <li><span>昵称</span><span class="ser_nike"></span></li>
+                    <li><span>分组</span><span class="groups" id="groupName">&nbsp;<!-- 001 --></span>
+                        <div class="set_group">
+                            <label><input type="text" placeholder="输入组名"></label><a class="addGroup" href="javascript:void(0);">搜索</a>
+                            <ul>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><span>接待上限</span>
+                        <label><select id="receiveNum" name="receiveNum"><option value="10">10</option><option value="15">15</option><option value="20">20</option></select>人</label>
+                    </li>
+                    <li><span>自动分配</span><span id="autoAllot" class="allot"></span></li>
+                </ul>
+                <div class="purview">
+                    <div class="set_dl">
+                        <h3>会话管理<span><!-- <i>网页对话</i> --></span><a href="javascript:void(0);"><span>展开</span><i></i></a></h3>
+                        <div class="set_dd">
+                                <label><input type="radio" name="editperms" value="chat-manage/auto">接主动对话<span></span></label>
+                                <label><input type="radio" name="editperms" value="chat-manage/page">接网页对话<span></span></label>
+                                <!-- <label><input type="radio" name="editperms">接游客对话<span></span></label> -->
+                               <!--  <a href="javascript:void(0);">保存</a> -->
+                        </div>
+                    </div>
+                    <div class="set_dl">
+                        <h3>访客留言<span><i></i></span><a href="javascript:void(0);"><span>展开</span><i></i></a></h3>
+                        <div class="set_dd">
+                            <label><input type="checkbox" name="editperms"  value="leave-message/view">查看全部访客留言<span></span></label>
+                            <label><input type="checkbox" name="editperms" value="leave-message/reply">能回复留言<span></span></label>
+                           <!--  <a href="javascript:void(0);">保存</a> -->
+                        </div>
+                    </div>
+                    <div class="set_dl">
+                        <h3>客服管理<span><!-- <i>查看其他客服列表</i><i>修改本人信息</i> --></span><a href="javascript:void(0);"><span>展开</span><i></i></a></h3>
+                        <div class="set_dd">
+                            <label><input type="checkbox" name="editperms" value="serv-manage/view">查看其他客服列表<span></span></label>
+                            <label><input type="checkbox" name="editperms" value="serv-manage/update">修改本人信息<span></span></label>
+                            <label><input type="checkbox" name="editperms" value="serv-manage/chatview">查看他人对话记录<span></span></label>
+                            <label><input type="checkbox" name="editperms" value="serv-manage/chatdel">删除会话信息<span></span></label>
+                            <!-- <a href="javascript:void(0);">保存</a> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="define">
+                    <a onclick="editSer();">确定</a>
+                    <a class="close" href="javascript:void(0);">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--快速输入内容设置-->
+    <div class="set_quick" id="quickEnter">
+        <h2><span>快速输入内容设置</span><a href="javascript:void(0);" class="close"></a></h2>
+        <div class="set_quick_cn">
+            <ul class="quick_item" id="quickItem">
+                <li><span>您好，欢迎光临，请稍后</span><a href="javascript:void(0);" class="del_li close_chart"></a></li>
+                <li><span>您好，欢迎光临，现在客服人员正忙请稍后...</span><a href="javascript:void(0);" class="del_li close_chart"></a></li>
+                <li><span>您好，请问有什么需要咨询的呢？</span><a href="javascript:void(0);" class="del_li close_chart"></a></li>
+                <li><span>您好，欢迎光临，请稍后</span><a href="javascript:void(0);" class="del_li close_chart"></a></li>
+                <li><span>您好，欢迎光临，请稍后</span><a href="javascript:void(0);" class="del_li close_chart"></a></li>
+            </ul>
+            <div class="set_con"><label><input type="text" id="quickContent" name="quickcontent" placeholder="请输入您要增加的内容"><span></span></label></div>
+            <div class="define">
+                <!-- <a onclick="addQuick();">确定</a> -->
+                <a class="close" href="javascript:void(0);">关闭</a>
+            </div>
+        </div>
+    </div>
+    <!--提示内容设置-->
+    <div class="set_tips" id="setTips">
+        <h2><span>聊天提示设置</span><a href="javascript:void(0);" class="close"></a></h2>
+        <div class="set_half">
+            <ul class="tips_tab cf" id="tipTab">
+                <li class="cur">欢迎语</li>
+                <li>等待提示</li>
+                <li>繁忙提示</li>
+                <li>结束语</li>
+                <li>访客超时</li>
+            </ul>
+            <div class="tip_content">
+                <div class="tips">
+                    <label><textarea id="welCome">客服代表为您服务，请问有什么可以帮您？</textarea></label>
+                </div>
+                <div class="tips">
+                    <label><textarea id="hopeMoment">您前面还有3个用户在排队等候，客服代表稍后为您服务。</textarea></label>
+                </div>
+                <div class="tips">
+                    <label><textarea id="tooBusy">客服代表正忙，请稍候……</textarea></label>
+                </div>
+                <div class="tips">
+                    <label><textarea id="overTip">会话已结束，感谢您的咨询</textarea></label>
+                </div>
+                <div class="tips time_out">
+                    <label>访客超过：<input type="text" id="time1" name="time1" placeholder="5">分钟未发送消息时</label>
+                    <label>提示信息：<input type="text" id="content1" name="content1" placeholder="示例：您已长时间未响应客服对话，如果长时间未响应，对话将结束！"></label>
+                    <label>访客超过：<input type="text" id="time2" name="time2" placeholder="10">分钟未发送消息时</label>
+                    <label>提示信息：<input type="text" id="content2" name="content2" placeholder="示例：您已长时间未响应客服对话，系统已结束您当次对话，欢迎下次咨询！"></label>
+                    <div class="tip_sm">两次提示完成后，系统将自动结束对话。</div>
+                </div>
+            </div>
+            <div class="define">
+                <a onclick="addTips();">确定</a>
+                <a class="close" href="javascript:void(0);">取消</a>
+            </div>
+        </div>
+    </div>
+    <!--新增客户-->
+    <div class="add_client" id="addOneClient">
+        <h2><span>新增公司</span><a href="javascript:void(0);" class="close"></a></h2>
+        <div class="client_con">
+          <form action="javascript:void(0);" id="addCompanyForm">
+            <div class="cus_data">
+                <ul>
+                    <li class="cus_id"><label><span>客户ID</span><input type="text" id="companyAccount" name="companyAccount" placeholder="请输入客户ID"></label></li>
+                    <li class="cus_ip"><label><span>服务IP</span><input type="text" id="address" name="address" placeholder="请输入客户服务IP"></label></li>
+                    <li class="company"><label><span>公司</span><input type="text" id="companyName" name="companyName" placeholder="请输入客户公司名"></label></li>
+                    <li class="domain"><label><span>域名</span><input type="text" id="webSite" name="webSite" placeholder="请输入客户域名"></label></li>
+                    <li class="cus_phone"><label><span>联系方式</span><input type="text" id="telNum" name="telNum" placeholder="请输入客户联系方式"></label></li>
+                </ul>
+            </div>
+            <div class="define">
+                <a onclick="addCompany();">确定</a>
+                <a class="close" href="javascript:void(0);">取消</a>
+            </div>
+          </form>
+        </div>
+    </div>
+    <!--修改客户资料-->
+    <div class="add_client" id="editClient">
+        <h2><span>修改客户公司资料</span><a href="javascript:void(0);" class="close"></a></h2>
+        <div class="client_con">
+            <div class="set_client cf">
+                <div class="client_list left">
+                    <ul id="customerList"></ul>
+                </div>
+                <form action="javascript:void(0)" id="editCompanyForm">
+                <input id="company_id" name="id" type="hidden">
+                <input id="token" name="token" type="hidden">
+                <div class="cus_data left">
+                    <ul>
+                        <li class="cus_id"><label><span>客户ID</span><input id="cusId" type="text" name="companyAccount" readonly="readonly"></label></li>
+                        <li class="cus_ip"><label><span>服务IP</span><input id="cusIp" type="text" name="address"><span>修改</span></label></li>
+                        <li class="company"><label><span>公司</span><input id="cusCompany" type="text" name="companyName"><span>修改</span></label></li>
+                        <li class="domain"><label><span>域名</span><input id="doMain" type="text" name="webSite"><span>修改</span></label></li>
+                        <li class="cus_phone"><label><span>联系方式</span><input id="cusPhone" type="text" name="telNum"><span>修改</span></label></li>
+                    </ul>
+                    <div class="define">
+                        <a onclick="editCompany();">确定</a>
+                        <a class="close" href="javascript:void(0);">取消</a>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--新增角色-->
+    <div class="add_client" id="addOneRole">
+        <h2><span>新增角色</span><a href="javascript:void(0);" class="close"></a></h2>
+        <div class="client_con">
+          <form action="javascript:void(0);" id="addRoleForm">
+            <div class="cus_data">
+                <ul>
+                    <li class="company"><label><span>角色名称</span><input type="text" id="roleName" name="roleName" placeholder="请输入角色名称"></label></li>
+                    <li class="domain"><label><span>角色类型</span>
+	                    <select id="roleType" name="roleType" >
+							<option value="0">系统默认角色</option>
+							<option value="1">自定义角色</option>
+						</select></label>
+					</li>
+                    <li class="cus_phone"><label>
+                    	<span>父角色</span>
+	                    <select id="parentId" name="parentId" >
+	                    	
+						</select></label>
+					</li>
+                </ul>
+            </div>
+            <div class="define">
+                <a onclick="addRole();">确定</a>
+                <a class="close" href="javascript:void(0);">取消</a>
+            </div>
+          </form>
+        </div>
+    </div>
+    <!--修改角色-->
+    <div class="add_client" id="editOneRole">
+        <h2><span>修改角色</span><a href="javascript:void(0);" class="close"></a></h2>
+        <div class="client_con">
+          <form action="javascript:void(0);" id="editRoleForm">
+          	<input type="hidden" id="id" name="id"/>
+            <div class="cus_data">
+                <ul>
+                    <li class="company"><label><span>角色名称</span><input type="text" id="roleName" name="roleName" placeholder="请输入角色名称"></label></li>
+                    <li class="domain"><label><span>角色类型</span>
+	                    <select id="roleType" name="roleType" >
+							<option value="0">系统默认角色</option>
+							<option value="1">自定义角色</option>
+						</select></label>
+					</li>
+                    <li class="cus_phone"><label>
+                    	<span>父角色</span>
+	                    <select id="parentId" name="parentId" >
+	                    	
+						</select></label>
+					</li>
+                </ul>
+            </div>
+            <div class="define">
+                <a onclick="editRole();">确定</a>
+                <a class="close" href="javascript:void(0);">取消</a>
+            </div>
+          </form>
+        </div>
+    </div>
+    <!--角色权限分配-->
+    
+    
+</div>
+<div style="display:none;">
+	<audio id="noteEndAudio">
+		<source src="${ctx}/resources/hero/audio/deng.mp3" type="audio/mpeg"></source>
+	</audio>
+</div>
+
+
+<script src="${ctx}/resources/hero/js/jquery-3.1.1.min.js"></script>
+<script src="${ctx}/resources/global/js/plugin/jstree/dist/jstree.min.js"></script>
+<script src="${ctx}/resources/global/js/plugin/layer/layer.js"></script>
+<script src="${ctx}/resources/hero/js/page.js"></script>
+<script src="${ctx}/resources/hero/js/pic-updown.js"></script>
+<script src="${ctx}/resources/hero/js/permission-tree.js"></script>
+<!--滤镜插件-->
+<script src="${ctx}/resources/hero/js/grayscale.js"></script>
+<!--日历插件-->
+<script src="${ctx}/resources/hero/js/jquery-calendar.js"></script>
+<!--交互功能-->
+<script src="${ctx}/resources/hero/js/validate.js?123?1145163"></script>
+<script src="${ctx}/resources/hero/js/customer.js"></script>
+<script src="${ctx}/resources/hero/js/index.js?123?1145163"></script>
+<script src="${ctx}/resources/global/js/qq_face/jquery.qqFace.js"></script>
+<script src="${ctx}/resources/hero/js/chatBox.js?123?1145163"></script>
+
+<!-- template.js -->
+<script src="${ctx}/resources/global/js/template.js"></script>
+<script src="${ctx}/resources/hero/js/dateformat.js"></script><!-- 格式化日期 -->
+<script src="${ctx}/resources/global/js/ws/websocket.js"></script>
+
+<script type="text/javascript" src="${ctx}/resources/global/js/ajaxfileupload.js"></script>
+<script src="${ctx}/resources/global/js/calendar/laydate.js"></script>
+<script>
+!function(){
+	laydate.skin('molv');//切换皮肤，请查看skins下面皮肤库
+	laydate({elem: '#demo'});//绑定元素
+}();
+</script>
+<script type="text/javascript">
+    var PROS_=covert(protocol);
+	$(function() {
+		// 选择第一个菜单
+		var li = $("#nav li").first();		
+		if(li.find(".sub_nav").length > 0){
+			li.click();
+			li.find(".sub_nav li:eq(0)").click();
+		} else {
+			li.click();
+		}
+		showUnRead();
+		leaveMsgNum();
+	});
+	//加载离线消息
+	function leaveMsgNum(){
+		$.ajax({
+			url:"${ctx}/oc/jt-user/leavemsgs",
+			type:"GET",
+			success:function(data){
+				var num = data.nums;
+				var total = 0;
+				var str = "";
+				if(num == 0){
+					$("#leaveNums").text(0);
+				}else{
+					for(var i=0; i<num.length; i++){
+						total += num[i].size;
+						str += "<dl class='leave-name' onclick='readMsg(\""+num[i].userName+"\")'>"+num[i].userName+"</dl>";
+					}
+					$("#leaveBox .visitor_list").html(str);
+					$("#leaveNums").text(total);
+				}
+			}
+		})
+	}
+	function readMsg(username){
+		$.ajax({
+			url:"${ctx}/oc/jt-user/leavemsgs/read?userName="+username,
+			type:"GET",
+			success:function(data){
+				var str="";
+				var msgs = data.msg;
+				if(!data.code){
+					$("#leaveBox #content").html(data.msg);
+				}else{
+					var html=" <div class='visitor_his'> ";
+					for(var i=0;i<msgs.length;i++){
+						html += "<dl class='customer'> "+
+						     "         <dt>"+username+"&nbsp;&nbsp;"+new Date(msgs[i].sendTime).format("MM-dd hh:mm:ss")+"</dt> "+
+						     "         <dd>"+msgs[i].content+"</dd> "+
+						     "    </dl> ";
+					}
+					html += "</div>";
+					$("#leaveBox #content").html(html);
+					var total=parseInt($("#leaveNums").text());
+					if(total > 0){
+						$("#leaveNums").text(total - msgs.length);
+					}
+				}
+			}
+		})
+	}
+	//声音提醒
+	function playAudio(){
+		if ($("#noteEndAudio").length > 0) {
+	        $('#noteEndAudio').get(0).play();
+	    }
+	}
+	function getToken(){
+		var res ="";
+		$.ajax({
+			url:"${ctx}/token",
+			type:"GET",
+			async:false,
+			success: function(data){
+				res = data.token;
+			}
+		})
+		return res;
+	}
+	//修改个人资料
+	function info(){
+		$.ajax({
+			url:"${ctx}/oc/jt-user/info",
+			type:"get",
+			success:function(data){
+				if (data.errors != undefined) {
+					var error = data.errors;
+					layer.alert(error[0].field + ":" + error[0].message);
+					return;
+				} else {
+					$("#sheZhi #account").text(data.account);
+					$("#sheZhi #nickName").text(data.nickName);
+					$("#sheZhi #mobile").text(data.mobile);
+					$("#sheZhi #autoReply").val(data.autoReply);
+				}
+			}
+		})
+	}
+	function updateData(type, $this){
+		var findA = $($this).parent().parent().find("h5>a");
+		var toData = "";
+		if(type == 1){
+			var nick = $("#sheZhi #curNick");
+			var reg= /^.{3,16}$/;
+			if(nick.val() == "" || !reg.test(nick.val())){
+				layer.msg("昵称不能为空！且长度必须3-16个字符");
+				nick.focus();
+				return;
+			}
+			toData = nick.val();
+		}
+		if(type == 3){
+			var nick = $("#sheZhi #autoReply");
+			var reg= /^.{0,1000}$/;
+			if(!reg.test(nick.val())){
+				layer.msg("自动回复内容不能超过1000个字符");
+				nick.focus();
+				return;
+			}
+			toData = nick.val();
+		}
+		if(type == 2){
+			var mobile = $("#sheZhi #curMobile");
+			if(mobile.val() == "" || !checkPhoneNum(mobile.val())){
+				layer.msg("手机格式不正确！");
+				mobile.focus();
+				return;
+			}
+			toData = mobile.val();
+		}
+		$.ajax({
+			url:"${ctx}/oc/jt-user/update/info",
+			type:"POST",
+			data:{"oldData":toData,"newData":toData,"type":type},
+			success:function(data){
+				if (data.errors != undefined) {
+					var error = data.errors;
+					layer.alert(error[0].field + ":" + error[0].message);
+					return;
+				} else {
+					if(data.code){
+						layer.msg(data.msg,{icon:1});
+						findA.find("span").text("编辑").next().removeClass("up_ico");//保存成功收起
+						findA.parent().next().slideUp();
+						if(type == 1){
+							$("#sheZhi #nickName").text(toData);
+						}
+						if(type == 2){
+							$("#sheZhi #mobile").text(toData);
+						}
+					}else{
+						layer.msg(data.msg,{icon:2});
+					}
+				}
+			}
+		})
+	}
+	function updatePWD(){
+		var oldPwd = $("#sheZhi #password");
+		var newPwd = $("#sheZhi #newPwd");
+		var reqNewPwd = $("#sheZhi #reqNewPwd");
+		if(oldPwd.val() == "" || !verifyPassword(oldPwd.val())){
+			layer.msg("旧密码不能为空！格式为字母、数字、下划线组合6-18位！");
+			oldPwd.focus();return;
+		}
+		if(newPwd.val() == "" || !verifyPassword(newPwd.val())){
+			layer.msg("新密码不能为空！格式为字母、数字、下划线组合6-18位！");
+			newPwd.focus();return;
+		}
+		if(reqNewPwd.val() == "" || !verifyPassword(reqNewPwd.val())){
+			layer.msg("确认密码不能为空！格式为字母、数字、下划线组合6-18位！");
+			reqNewPwd.focus();return;
+		}
+		$.ajax({
+			url:"${ctx}/oc/jt-user/update/pwd",
+			type:"POST",
+			data:{"oldPwd":oldPwd.val(),"newPwd":newPwd.val(),"reqNewPwd":reqNewPwd.val()},
+			success:function(data){
+				if (data.errors != undefined) {
+					var error = data.errors;
+					layer.alert(error[0].field + ":" + error[0].message);
+					return;
+				} else if(data.code != undefined){
+					if(data.code){
+						layer.msg(data.msg,{icon:1});
+						window.location.href="${ctx}";
+					}else{
+						layer.msg(data.msg,{icon:2});
+					}
+				} else {
+					layer.alert("登录已超时！");
+					window.location.href = "${ctx}/login";
+				}
+			}
+		})
+	}
+	function ajaxIconUploads() {
+		ajaxFileUploads('none');
+	}
+	function uploadIcon(url){
+		if(url == undefined || url == "")return;
+		$.ajax({
+			url:"${ctx}/oc/jt-user/update/icon",
+			type:"POST",
+			data:{"icon":url},
+			success:function(data){
+				if (data.errors != undefined) {
+					var error = data.errors;
+					layer.alert(error[0].field + ":" + error[0].message);
+					return;
+				} else if(data.code != undefined){
+					layer.msg(data.msg, {icon: data.code? 1 : 2});
+				} else {
+					layer.alert("登录已超时！");
+					window.location.href = "${ctx}/login";
+				}
+			}
+		})
+	}
+	//聊天提示配置编辑
+	function toAddTips(){
+		$.ajax({
+			url:"${ctx}/oc/prompt/list",
+			type:"GET",
+			success:function(data){
+				if(data.prompts != null){
+					var pros = data.prompts;
+					for(var i=0; i<pros.length; i++){
+						if(pros[i].type == "welcome"){
+							$("#setTips #welCome").val(pros[i].content);
+						}
+						if(pros[i].type == "await"){
+							$("#setTips #hopeMoment").val(pros[i].content);
+						}
+						if(pros[i].type == "busy"){
+							$("#setTips #tooBusy").val(pros[i].content);
+						}
+						if(pros[i].type == "finish"){
+							$("#setTips #overTip").val(pros[i].content);
+						}
+					}
+					var timeous = data.timeouts;
+					$("#setTips #time1").val(timeous[0].time);
+					$("#setTips #content1").val(timeous[0].content);
+					$("#setTips #time2").val(timeous[1].time);
+					$("#setTips #content2").val(timeous[1].content);
+					
+				}
+			}
+		})
+	}
+	
+	function addTips(){
+    	var welcome = $("#welCome").val(); 
+    	var wait = $("#hopeMoment").val(); 
+    	var busi = $("#tooBusy").val(); 
+    	var over = $("#overTip").val(); 
+    	var time1 = $("#time1").val(); 
+    	var content1 = $("#content1").val(); 
+    	var time2 = $("#time2").val(); 
+    	var content2 = $("#content2").val();
+    	var reg = /^[0-9]*$/;
+    	if(welcome == ""){
+    		layer.msg("欢迎语内容不能为空！");return;
+    	} 
+    	if(wait == ""){
+    		layer.msg("等待语内容不能为空！");return;
+    	} 
+    	if(busi == ""){
+    		layer.msg("繁忙提示内容不能为空！");return;
+    	} 
+    	if(over == ""){
+    		layer.msg("结束语内容不能为空！");return;
+    	} 
+    	if(time1 == ""){
+    		layer.msg("访客超时不能为空！");return;
+    	} 
+    	if(!reg.test(time1) || !reg.test(time2)){
+    		layer.msg("访客超时格式必须为数字！");return;
+    	} 
+    	if(time2 == ""){
+    		layer.msg("访客超时不能为空！");return;
+    	} 
+    	if(content1 == ""){
+    		layer.msg("访客超时提示内容不能为空！");return;
+    	} 
+    	if(content2 == ""){
+    		layer.msg("访客超时提示内容不能为空！");return;
+    	} 
+    	
+    	var configArray = new Array();
+    	configArray.push({type: "welcome", content: welcome});
+    	configArray.push({type: "await", content: wait});
+    	configArray.push({type: "busy", content: busi});
+    	configArray.push({type: "finish", content: over});
+    	configArray.push({type: "timeout", content: content1, time:time1});
+    	configArray.push({type: "timeout", content: content2, time:time2});
+    	$.ajax({
+    		url:"${ctx}/oc/prompt/add",
+    		type:"POST",
+    		data:JSON.stringify(configArray),
+    		contentType : 'application/json;charset=utf-8',
+    		success:function(data){
+    			if (data.errors != undefined) {
+					var error = data.errors;
+					layer.alert(error[0].field + ":" + error[0].message);
+					return;
+				} else if(data.code != undefined){
+					layer.msg(data.msg, {icon: data.code? 1 : 2});
+					if(data.code){
+						closeBox($("#setTips"),$(".layer_bg"));
+					}
+				} else {
+					layer.alert("登录已超时！");
+					window.location.href = "${ctx}/login";
+				}
+    		}
+    	})
+    }
+	
+	function quickList(){
+		$.ajax({
+			url:"${ctx}/oc/prompt/quick/list",
+			type:"GET",
+			success:function(data){
+				$("#quickItem").html("");
+				var str = "";
+				for(var i=0; i<data.length; i++){
+					str += "<li><span>"+ data[i].content +"</span><a href='javascript:void(0);' class='del_li close_chart' data-qid='"+data[i].id+"'></a></li>";
+				}
+				$("#quickItem").append(str);
+			}
+		})
+	}
+	
+	function addQuickCon(){
+		var b = false;
+		var configArray = new Array();
+		var quickContent = $("#quickEnter #quickContent");
+		if(quickContent.val() == ""){
+			layer.msg("内容不能为空！");return;
+		}
+		configArray.push({type:"quick", content:quickContent.val()});
+		$.ajax({
+    		url:"${ctx}/oc/prompt/add",
+    		type:"POST",
+    		data:JSON.stringify(configArray),
+    		contentType : 'application/json;charset=utf-8',
+    		async: false,
+    		success:function(data){
+    			if (data.errors != undefined) {
+					var error = data.errors;
+					layer.alert(error[0].field + ":" + error[0].message);
+					b = false;
+				} else {
+					if(data.msg != undefined){
+						layer.msg(data.msg, {icon: data.code? 1 : 2});
+						b = data.code;
+					}
+				}
+    		}
+    	})
+    	return b;
+	}
+	
+	function delQuickCon(id){
+		var b = false;
+		$.ajax({
+			url:"${ctx}/oc/prompt/del/"+id,
+			type:"POST",
+			async:false,
+			success:function(data){
+				if (data.errors != undefined) {
+					var error = data.errors;
+					layer.alert(error[0].field + ":" + error[0].message);
+					b = false;
+				} else if(data.code != undefined){
+					layer.msg(data.msg, {icon: (data.code? 1 : 2)});
+					b = data.code;
+				}
+			}
+		})
+		return b;
+	}
+	//客服分组列表
+	function layerManage(){
+		$(".main_content .main_con").hide();
+		$("#layerManage").fadeIn();
+		$.ajax({
+			url : "${ctx}/oc/layer/list",
+			type : "post",
+			data : {
+				"page" : page - 1,
+				"size" : pageSize
+			},
+			success : function(data) {
+				var str = {
+					list : data.content
+				};
+				var content = template("layerlist", str);
+				$("#layerList").html(content);
+				showPage(data.totalElements, page, "#layerManage");
+			}
+		});
+	}
+	pageWhitch("#layerManage", layerManage);
+	//新增分组
+	function addLayer(){
+		var layerName = $("#addOneLayer #layerName"),
+			code = $("#addOneLayer #code"),
+			comments = $("#addOneLayer #comments");
+		if(layerName.val() == ""){
+			layer.msg("分组名称不能为空！");
+			layerName.focus();return;
+		}
+		if(!checkUserName(code.val()) || code.val() == ""){
+			layer.msg("组代码格式错误，必须是字母、数字、下划线，长度6~16位！");
+			code.focus();
+			return;
+		}
+		if(comments.val() == ""){
+			layer.msg("分组说明不能为空！");
+			comments.focus();return;
+		}
+		$.ajax({
+			url:"${ctx}/oc/layer/add",
+			type:"POST",
+			data: $("#addLayerForm").serialize(),
+			success:function(data){
+				if (data.errors != undefined) {
+					var error = data.errors;
+					layer.alert(error[0].field + ":" + error[0].message);
+					return;
+				} else if(data.code != undefined){
+					layer.alert(data.msg);
+					if(data.code){
+						layerManage();
+						closeBox($("#addLayer"),$(".layer_bg"));
+					}
+				} else {
+					layer.alert("登录已超时！");
+					window.location.href = "${ctx}/login";
+				}
+			}
+		})
+	}
+	//修改-页面
+	function toEditLayer(id){
+		$.ajax({
+			url:"${ctx}/oc/layer/find/"+id,
+			type:"GET",
+			success:function(data){
+				$("#editOneLayer #layerId").val(data.id);
+				$("#editOneLayer #layerName").val(data.layerName);
+				$("#editOneLayer #code").text(data.code);
+				$("#editOneLayer #comments").val(data.comments);
+				$("#editOneLayer #points").val(data.points);
+				openBox($("#editOneLayer"),$(".layer_bg"));
+			}
+		})
+	}
+	//修改分组
+	function editLayer(){
+		var layerName = $("#editOneLayer #layerName"),
+		comments = $("#editOneLayer #comments");
+		if(layerName.val() == ""){
+			layer.msg("分组名称不能为空！");
+			layerName.focus();return;
+		}
+		if(comments.val() == ""){
+			layer.msg("分组说明不能为空！");
+			comments.focus();return;
+		}
+		$.ajax({
+			url:"${ctx}/oc/layer/edit",
+			type:"POST",
+			data:$("#editLayerForm").serialize(),
+			success:function(data){
+				if (data.errors != undefined) {
+					var error = data.errors;
+					layer.alert(error[0].field + ":" + error[0].message);
+					return;
+				} else if(data.code != undefined){
+					layer.alert(data.msg);
+					if(data.code){
+						layerManage();
+						closeBox($("#editOneLayer"),$(".layer_bg"));
+					}
+				} else {
+					layer.alert("登录已超时！");
+					window.location.href = "${ctx}/login";
+				}
+			}
+		})
+	}
+	//启用禁用分组
+	function delLayer(id, state){
+		var layerState = false;		
+		if(state == 'forbid'){
+			layerState = false;
+		} else {
+			layerState = true;
+		}
+		$.ajax({
+			url:"${ctx}/oc/layer/del:"+layerState+"/"+id,
+			type:"POST",
+			success:function(data){
+				if (data.errors != undefined) {
+					var error = data.errors;
+					layer.alert(error[0].field + ":" + error[0].message);
+					return;
+				} else if(data.code != undefined){
+					layer.alert(data.msg);
+					if(data.code){
+						layerManage();
+					}
+				} else {
+					layer.alert("登录已超时！");
+					window.location.href = "${ctx}/login";
+				}
+			}
+		})
+	}
+	//公司列表
+	function companyList() {
+		$(".main_content .main_con").hide();
+		$("#companyManage").fadeIn();
+		$.ajax({
+			url : "${ctx}/oc/company/list",
+			type : "post",
+			data : {
+				"cState" : "del",
+				"page" : page - 1,
+				"size" : pageSize
+			},
+			success : function(data) {
+				var str = {
+					list : data.content
+				};
+				var content = template("companylist", str);
+				$("#clientList").html(content);
+				showPage(data.totalElements, page, "#companyManage");
+			}
+		});
+	}
+	pageWhitch("#companyManage", companyList);
+
+	function companyNameExists(name) {
+		$.ajax({
+			url : "${ctx}/oc/company/name/exists/" + name,
+			type : "get",
+			async : false,
+			success : function(data) {
+				return data == true;
+			}
+		});
+	}
+	//添加公司
+	function addCompany() {
+		var account = $("#companyAccount");
+		if (account.val() == "") {
+			layer.msg("客户ID不能为空！必须是字母、数字、下划线，长度6~16位！");
+			account.focus();
+			return;
+		}
+		if(!checkUserName(account.val())){
+			layer.msg("客户ID格式错误，必须是字母、数字、下划线，长度6~16位！");
+			account.focus();
+			return;
+		}
+		var companyName = $("#companyName").val();
+		if (companyName == "") {
+			layer.msg("公司不能为空！");
+			return;
+		}/* else if(!companyNameExists(companyName)){
+						layer.alert("公司已经存在！")
+						return;
+					} */
+		$.ajax({
+			url : "${ctx}/oc/company/add",
+			type : "POST",
+			data : $("#addCompanyForm").serialize(),
+			success : function(data) {
+				if (data.errors != undefined) {
+					var error = data.errors;
+					layer.alert(error[0].field + ":" + error[0].message);
+					return;
+				} else if(data.code != undefined){
+					layer.alert(data.msg);
+					if(data.code){
+						companyList();
+						closeBox($("#addClient"),$(".layer_bg"));
+					}
+				} else {
+					layer.alert("登录已超时！");
+					window.location.href = "${ctx}/login";
+				}
+			}
+		});
+	}
+	//修改客户
+	function editCompany() {
+		var id = $("#company_id").val();
+		if (id == "") {
+			layer.msg("ID不能为空");
+			return;
+		}
+		var phone = $("#cusPhone");
+		if (!checkPhoneNum(phone.val())) {
+			layer.msg("请输入正确的手机号码或固定电话！");
+			phone.focus();
+			return;
+		}
+		$.ajax({
+			url : "${ctx}/oc/company/edit",
+			type : "POST",
+			data : $("#editCompanyForm").serialize(),
+			success : function(data) {
+				if (data.errors != undefined) {
+					var error = data.errors;
+					layer.alert(error[0].field + ":" + error[0].message);
+					return;
+				} else if(data.code != undefined){
+					layer.alert(data.msg);
+					var serList = $("#customerList").find("li");
+					if (serList.length <= 1) {
+						closeBox($("#editClient"),$(".layer_bg"));
+						$("#customerList").html("");
+					} else {
+						$("#customerList").find("li.cur").remove();
+						$("#customerList").find("li").first().addClass("cur");
+						serSwitch($("#editSerList"), $("#editClient"));
+					}
+				} else {
+					layer.alert("登录已超时！");
+					window.location.href = "${ctx}/login";
+				}
+			}
+		});
+	}
+	//客户启用/禁用
+	function isEnable(id, bol) {
+		var res = false;
+		$.ajax({
+			url : "${ctx}/oc/company/isenable:" + bol + "/" + id,
+			type : "POST",
+			async : false,
+			success : function(data) {
+				res = data;
+			}
+		})
+		return res;
+	}
+	//删除客户
+	function delComp(id) {
+		var res = false;
+		$.ajax({
+			url : "${ctx}/oc/company/del/" + id,
+			type : "POST",
+			async : false,
+			success : function(data) {
+				if (!data) {
+					layer.alert("该公司下存在客服！不允许删除");
+				}
+				res = data;
+			}
+		})
+		return res;
+	}
+
+	function teamList() {
+		$.ajax({
+			url : "${ctx}/oc/jt-user/ser/list",
+			type : "get",
+			async : false,
+			success : function(data) {
+				var str = {
+					list : data
+				}
+				var html = template("teamList", str);
+				$(" .team_list").html(html);
+				$(" .team_list").append($(".team_list").find(".gray"));
+				$(" .team_list").prepend($(".team_list dl[id="+curUserAccount+"]"));
+				grayscale(document.getElementsByClassName("gray"));
+			}
+		});
+	}
+
+	function chatManage(){
+		$(".main_content .main_con").hide();
+		$("#chatManage").fadeIn();
+	}
+	//网页对话窗口
+	function pagechatManage() {
+		$(".main_content .main_con").hide();
+		$("#dialogManage").fadeIn();
+		var dialog = $("#dialogManage #dialogPage");
+		dialog.siblings().fadeOut(function(){
+			dialog.fadeIn();
+        });
+	}
+	//对话框配置模块
+	function dialogManage() {
+		$(".main_content .main_con").hide();
+		$("#dialogManage").fadeIn();
+		var dialog = $("#dialogManage #dialogAuto");
+		dialog.siblings().fadeOut(function(){
+			dialog.fadeIn();
+        });
+		timeoutState();
+		$("#timeoutSwitch").on("click", function(){
+			var _this = $(this);
+			layer.confirm("确定要进行此操作？", {}, function(){
+				if(_this.get(0).checked == true){
+					timeoutSwitch(true);
+				} else {
+					timeoutSwitch(false);
+				}
+				
+			});
+		})
+	}
+	function timeoutSwitch(state){
+		$.ajax({
+			url:"${ctx}/oc/prompt/timeout/switch/"+state,
+			type:"POST",
+			success:function(data){
+				if (data.errors != undefined) {
+					var error = data.errors;
+					layer.alert(error[0].field + ":" + error[0].message);
+					return;
+				} else {
+					if(data.code){
+						layer.msg(data.msg);
+					} else {
+						layer.msg(data.msg);
+					}
+				}
+			}
+		})
+	}
+	function timeoutState(){
+		$.ajax({
+			url:"${ctx}/oc/prompt/timeout",
+			type:"GET",
+			success:function(data){
+				if(data != null){
+					if (data.errors != undefined) {
+						var error = data.errors;
+						layer.alert(error[0].field + ":" + error[0].message);
+						return;
+					} else {
+						if(data == '1'){
+							$("#timeoutSwitch").attr("checked",true);
+						} else {
+							$("#timeoutSwitch").attr("checked",false);
+						}
+					}
+				}
+			}
+		})
+	}
+
+	//权限模块
+	var permissions = [];
+
+	$("button[data-bb-handler='confirm']").bind('click', function(e) {
+		refreshtree();
+	});
+	function refreshtree() {
+		var tree = $("#permission_container").jstree(true);
+		var focusParentLi = $("a.jstree-clicked").parent("li").parent("ul")
+				.parent("li");
+		tree.refresh(focusParentLi);
+	}
+	function putPermissions() {
+		permissions.push('create');
+		permissions.push('update');
+		permissions.push('deletePermission');
+	}
+	function permissionList() {
+		$(".main_content .main_con").hide();
+		$("#permissionManage").fadeIn();
+
+		putPermissions();
+		UITree.init();
+	}
+	//新增权限
+	function addPermission() {
+		$(this).unbind('click', addPermission);
+		var permissionName = $("#addPermissForm #permissionName").val();
+		var code = $("#addPermissForm #code").val();
+		var path = $("#addPermissForm #path").val();
+		var deep = $("#addPermissForm #deep").val();
+		if (permissionName == "") {
+			layer.msg("权限名称不能为空！");
+			return;
+		}
+		if (code == "") {
+			layer.msg("权限代码不能为空！");
+			return;
+		}
+		if (path == "") {
+			layer.msg("操作名称不能为空！");
+			return;
+		}
+		if (deep == "") {
+			layer.msg("排序不能为空！");
+			return;
+		}
+		$.ajax({
+			url : "${ctx}/back/admin/permission/create",
+			data : $("#addPermissForm").serialize(),
+			type : "POST",
+			dataType : "json",
+			success : function(data) {
+				if (data != null) {
+					if (data.errors != undefined) {
+						var error = data.errors;
+						layer.alert(error[0].field + ":" + error[0].message);
+						return;
+					} else {
+						closeBox($("#addOnePerm"),$(".layer_bg"));
+						refreshtree();
+					}
+				} else {
+					$(self).click(addPermission);
+				}
+			},
+			error : function(data) {
+				layer.alert(data)
+			}
+		})
+	}
+	//修改权限
+	function editPermission() {
+		$(this).unbind('click', editPermission);
+		var perid = $("#editOnePerm #id").val();
+		if (perid == "") {
+			layer.msg("ID不能为空！");
+			return;
+		}
+		$.ajax({
+			url : "${ctx}/back/admin/permission/update/" + perid,
+			data : $("#editPermissForm").serialize(),
+			type : "POST",
+			dataType : "json",
+			success : function(data) {
+				if (data != null) {
+					if (data.errors != undefined) {
+						var error = data.errors;
+						layer.alert(error[0].field + ":" + error[0].message);
+						return;
+					} else {
+						closeBox($("#editOnePerm"),$(".layer_bg"));
+						refreshtree();
+					}
+				} else {
+					$(self).click(editPermission);
+				}
+			},
+			error : function(data) {
+				layer.alert(data)
+			}
+		})
+	}
+	//角色
+	function roleList() {
+		$(".main_content .main_con").hide();
+		$("#roleManage").fadeIn();
+		$.ajax({
+			url : "${ctx}/back/admin/role",
+			type : "POST",
+			data : {
+				"page" : page - 1,
+				"size" : pageSize
+			},
+			dataType : "json",
+			success : function(data) {
+				var list = {
+					list : data.data
+				};
+				var html = template("rolelist", list);
+				$("#roleList").html(html);
+				showPage(data.recordsTotal, page, "#roleManage");
+			}
+		})
+	}
+	pageWhitch("#roleManage", roleList);
+	//新增角色
+	function toAddRole() {
+		$.ajax({
+			url : "${ctx}/back/admin/role/create",
+			type : "get",
+			dataType : "json",
+			success : function(data) {
+				var str = "<option value=''>无</option>";
+				var res = data.roles;
+				for (var i = 0; i < res.length; i++) {
+					str += "<option value="+res[i].id+">" + res[i].roleName
+							+ "</option>";
+				}
+				$("#addOneRole #parentId").html(str);
+			}
+		});
+	}
+	function addRole() {
+		$(this).unbind('click', addRole);
+		var roleName = $("#addOneRole #roleName").val();
+		if (roleName == "") {
+			layer.msg("角色名不能为空！");
+			return;
+		}
+		$.ajax({
+			url : "${ctx}/back/admin/role/create",
+			data : $("#addRoleForm").serialize(),
+			type : "POST",
+			success : function(data) {
+				if (data != null) {
+					if (data.errors != undefined) {
+						var error = data.errors;
+						layer.alert(error[0].field + ":" + error[0].message);
+						return;
+					} else {
+						roleList();
+						closeBox($("#addOneRole"),$(".layer_bg"));
+					}
+				} else {
+					$(self).click(addRole);
+				}
+			}
+		})
+	}
+	//角色分配权限
+	function toRolePerm(id) {
+		window.open("${ctx}/back/admin/role/distribution/permission1/" + id);
+	}
+
+	//删除角色
+	function delRole(id) {
+		$(this).unbind('click', delRole);
+		if (confirm("你确定执行删除操作？")) {
+			$.ajax({
+				url : "${ctx}/back/admin/role/delete/" + id,
+				type : "POST",
+				success : function(data) {
+					if (data != null) {
+						if (data.errors != undefined) {
+							var error = data.errors;
+							layer.alert(error[0].field + ":"+ error[0].message);
+							return;
+						} else {
+							layer.alert(data.msg);
+							roleList();
+						}
+					} else {
+						$(self).click(delRole);
+					}
+				}
+			});
+		}
+	}
+	//用户
+	function userList() {
+		$(".main_content .main_con").hide();
+		$("#userManage").fadeIn();
+		$.ajax({
+			url : "${ctx}/back/admin/user",
+			type : "POST",
+			data : {
+				"page" : page - 1,
+				"size" : pageSize
+			},
+			dataType : "json",
+			success : function(data) {
+				var list = {
+					list : data.data
+				};
+				var html = template("userlist", list);
+				$("#userList").html(html);
+				showPage(data.recordsTotal, page, "#userManage");
+			}
+		})
+	}
+	//聊天共享设置
+	function shareList() {
+		$(".main_content .main_con").hide();
+		$("#shareManage").fadeIn();
+		$.ajax({
+			url : "${ctx}/chat-charshare/share",
+			type : "get",
+			data : {
+				"page" : page - 1,
+				"size" : pageSize
+			},
+			dataType : "json",
+			success : function(data) {
+				var list = {
+					list : data.userDTOList
+				};
+				console.log(list);
+				var html = template("sharel", list);
+				$("#shareList").html(html);
+				showPage(data.recordsTotal, page, "#shareManage");
+			}
+		})
+	}
+	//查看共享的聊天记录
+	function lookShareList(){
+		$(".main_content .main_con").hide();
+		$("#lookShareManage").fadeIn();
+		$.ajax({
+			url : "${ctx}/chat-share/queryMsgRecord",
+			type : "get",
+			data : {
+				"page" : page - 1,
+				"size" : pageSize
+			},
+			dataType : "json",
+			success : function(data) {
+				console.log(data);
+				var list = {
+					list : data.messageRecordDtoList
+				};
+				console.log(list);
+				var html = template("lookShare", list);
+				$("#lookShareList").html(html);
+				showPage(data.recordsTotal, page, "#lookShareManage");
+			}
+		})
+	}
+	
+	function share(id,type){
+		$.ajax({
+			url : "${ctx}/chatset/setting?shareUserId="+id+"&type="+type,
+			type : "get",
+			dataType:"json",
+			success : function(data) {
+				if (data == "1") {
+					layer.alert("设置成功！", {icon:0})
+					shareList();
+				}else{
+					layer.alert("设置失败！", {icon:0})
+					shareList();
+				}
+			}
+		})
+	}
+	
+	pageWhitch("#userManage", userList);
+	//网页对话窗口配置
+	function chatPageManageList() {
+		$(".main_content .main_con").hide();
+		$("#chatPageManage").fadeIn();
+
+	}
+	//退出
+	function userLogout() {
+		$.ajax({
+			url : "${ctx}/oc/jt-user/logout",
+			type : "get",
+			async: false,
+			success : function(data) {
+				if (data == false) {
+					layer.alert("注销失败,您已登录超时！", {icon:0})
+				}
+				window.location.href = "${ctx}/login";
+			}
+		});
+	}
+
+	function CloseOpen(event) {
+		//用户点击浏览器右上角关闭按钮
+        if(event.clientX>document.body.clientWidth&&event.clientY<0||event.altKey)   
+        {   
+        	console.log("关闭");
+            document.getElementById("btnCompelete").click();
+//          window.event.returnValue="确定要退出本页吗?";   
+        }
+        //用户点击任务栏，右键关闭
+        else if(event.clientY > document.body.clientHeight || event.altKey)
+        {
+        	console.log("关闭2");
+            document.getElementById("btnCompelete").click();
+//          window.event.returnValue="确定要退出本页吗?";   
+        }
+         else//其他情况为刷新   
+         {   
+              console.log("你在刷新");
+         }   
+       
+	} 
+	
+	//发送图片
+	//file值发生变化
+	function changeFile(username) {
+		var file_value = $("#file_" + username).val();
+		if (file_value != null && file_value != undefined) {
+			var index = file_value.lastIndexOf("\\");
+			file_value = file_value.substring(index + 1, file_value.length);
+			if (file_value.length > 20) {
+				file_value = file_value.substring(0, 20) + "...";
+			}
+			ajaxFileUploads(username);
+			//$("#msgText").val(file_value);
+			//type值为1 表示文本消息发送
+			//$("#sendDiv").attr("type", "1");
+		}
+	}
+	/** 上传图片 */
+	function ajaxFileUploads(username) {
+		var file_value = "";
+		var id = "";
+		if(username == "none"){
+			file_value = $("#sheZhi #file").val();
+			id = "file";
+		} else {
+			file_value = $("#file_" + username).val();
+			id="file_"+username;
+		}
+		if (file_value == '' || file_value == null || file_value == undefined) {
+			layer.alert("请先选择图片!");
+			return;
+		}
+		var houzui = file_value.substring(file_value.lastIndexOf(".") + 1,
+				file_value.length);
+		if (houzui == '' || houzui == null || houzui == undefined) {
+			layer.alert("请选择正确图片格式!");
+		}
+		houzui = houzui.toLowerCase()
+		if (houzui == 'jpg' || houzui == 'gif' || houzui == 'png'
+				|| houzui == 'bmp' || houzui == 'swf') {
+			//图片等待处理
+
+			//上传图片
+			$.ajaxFileUpload({
+				url : '${ctx}/upload/img',
+				secureuri : false,
+				fileElementId : id,
+				dataType : 'json',
+				success : function(data, status) {
+					if (data.result == "0") {
+						var url = data.remoteurl;
+						if(username=="none"){
+							uploadIcon(url);
+							$("#sheZhi #userImg img").attr("src",url);
+							$("#sheZhi #curImg img").attr("src",url);
+						}else{
+							showSerImgMsg(url, username);
+						}
+					} else if (data.result == "1") {
+						layer.alert("请先选择图片！");
+					} else {
+						layer.alert("上传出现异常！");
+					}
+				},
+				error : function(data, status, e) { //相当于java中catch语句块的用法
+					layer.alert("发生异常,上传失败!");
+				}
+			});
+		} else {
+			layer.alert("图片格式不正确!当前只支持jpg/gif/png/bmp/swf格式.");
+		}
+	}
+	function userShareHistory(username,userId,companyId){
+		$.ajax({
+			url:"${ctx}/chat-share/chatRecord",
+			data:{"username":username,"userId":userId,"companyId":companyId,"page":page-1,"size":pageSize},
+			type : "get",
+			success:function(datas){
+				var data = datas.content;
+				console.log(datas);
+				 var historyShareList = $("#historyShareBox");
+				if(data.length == 0){
+					$("#historyShareBox #content").html("当天暂无历史聊天记录.");
+				}else{
+					var html=" <div class='visitor_his'> ";
+					for(var i=0;i<data.length;i++){
+						if(data[i].msgType){//图片
+							 if(curUserAccount == data[i].fromUser){
+								 html += "<dl class='customer'> "+
+						           "         <dt>"+data[i].fromUser+"&nbsp;&nbsp;"+new Date(data[i].sendTime).format("MM-dd hh:mm:ss")+"</dt> "+
+						           "         <dd><img style=\"width: 100%;\" class=\"view\" src='"+data[i].msg+"'/></dd> "+
+						            "    </dl> ";
+							 }else{
+								 html += "<dl class='visitor'> "+
+						           "         <dt>"+data[i].fromUser+"&nbsp;&nbsp;"+new Date(data[i].sendTime).format("MM-dd hh:mm:ss")+"</dt> "+
+						           "         <dd><img style=\"width: 100%;\" class=\"view\" src='"+data[i].msg+"'/></dd> "+
+						            "    </dl> ";
+							 }
+						} else {
+							 if(curUserAccount == data[i].fromUser){
+								 html += "<dl class='customer'> "+
+						           "         <dt>"+data[i].fromUser+"&nbsp;&nbsp;"+new Date(data[i].sendTime).format("MM-dd hh:mm:ss")+"</dt> "+
+						           "         <dd>"+(data[i].msg.indexOf("em_") > 0 ? replace_em(data[i].msg) : data[i].msg)+"</dd> "+
+						            "    </dl> ";
+							 }else{
+								 html += "<dl class='visitor'> "+
+						           "         <dt>"+data[i].fromUser+"&nbsp;&nbsp;"+new Date(data[i].sendTime).format("MM-dd hh:mm:ss")+"</dt> "+
+						           "         <dd>"+(data[i].msg.indexOf("em_") > 0 ? replace_em(data[i].msg) : data[i].msg)+"</dd> "+
+						            "    </dl> ";
+							 }
+						}
+				          
+					}
+				   html+= " </div> ";
+						$("#historyShareBox #content").html(html);
+				}
+				$(".visitor_list_share").addClass("hide");
+				openBox(historyShareList,$(".layer_bg"));
+				showPage(datas.totalElements, page, "#historyShareBox");
+			}
+		});
+	}
+	 var historyShareList = $("#historyShareBox");
+	 historyShareList.on("click",".close_share_chart",function(){
+    	closeBox(historyShareList,$(".layer_bg"));
+    });
+</script>
+<!-- 客服管理列表 -->
+<script id="servList" type="text/html">
+{{each list as value i}}
+<tr>
+    <td><label><input type="checkbox"><span></span></label></td>
+    <td><span class="ser_id">{{value.account}}</span>
+		{{if value.accountState=='normal'}}<i class="forbid" data-cid="{{value.id}}"></i>
+			{{else}}
+		<i class="forbid" data-cid="{{value.id}}" style="opacity: 1;"></i>
+		{{/if}}
+	</td>
+    <td><span class="ser_name">{{value.userName}}</span></td>
+    <td><span class="ser_nike">{{value.nickName}}</span></td>
+    <td><span class="ser_group">{{if value.layer == null }}无{{else}}{{value.layer.layerName}}{{/if}}</span></td>
+    <td><span class="group_num">{{value.receiveNum}}</span></td>
+    <td>{{if value.autoAllot}}<span id="allot" class="auto_on"></span>{{else }}<span id="allot" class="auto_on auto_off"></span>{{/if}}</td>
+    <td><span class="ico revise"><i>修改</i></span>
+	{{if value.account != cur}}
+	<span class="ico un_talk">
+	{{if value.accountState=='normal'}}
+		<i>禁用</i>
+	{{else}}
+		<i>启用</i>
+	{{/if}}
+	</span>
+	{{/if}}
+	<span class="ico del_talk"><i class="four">删除成员</i></span></td>
+</tr>
+{{/each}}
+</script>
+<!-- 客服成员列表 -->
+<script id="teamList" type="text/html">
+{{each list as value i}}
+    <dl {{if value.onlineState=='online' }}class="cf"{{else}} class="cf gray"{{/if}} id="{{value.account}}">
+	<dt>{{if value.userIcon == null }}<img src="${ctx}/resources/hero/img/team_ico.jpg">{{else}} <img src="{{value.userIcon}}">{{/if}}</dt>
+	<dd>{{value.nickName}}<span>{{if value.onlineState=='online'}}[在线]{{else if value.onlineState=='off'}}[离线]{{else if value.onlineState=='leave'}}[离开]{{/if}}</span><span class="talk_time">{{dateFormat(value.loginTime,'yy-MM-dd hh:mm:ss')}}</span></dd>
+	<!-- <dd>？<span class="red">0</span></dd> -->
+	</dl>
+{{/each}}
+</script>
+<!-- 公司列表 -->
+<script id="companylist" type="text/html">
+{{each list as value i}}
+<tr>
+    <td><label><input type="checkbox"><span></span></label></td>
+    <td><span class="c_id">{{value.companyAccount}}</span>{{if value.isEnable}}<i class="forbid" data-cid="{{value.id}}"></i>{{else}}<i class="forbid" data-cid="{{value.id}}" style="opacity: 1;"></i>{{/if}}</td>
+    <td><span class="c_ip">{{value.address}}</span></td>
+    <td><span class="c_dress">{{value.companyName}}</span></td>
+    <td><span class="c_domain">{{value.webSite}}</span></td>
+    <td><span class="c_tel">{{value.telNum}}</span></td>
+    <td><span class="c_link">{{if value.url == null}}无{{else}}<a  href="{{value.url}}" target="_blank">{{value.url}}{{/if}}</a></span></td>
+    <td><span class="ico revise"><i>修改</i></span>
+	<span class="ico un_talk">
+	{{if value.isEnable}}	
+		<i>禁用</i>
+	{{else}}
+		<i>启用</i>
+	{{/if}}
+	</span>
+	<span class="ico del_talk"><i class="four">删除成员</i></span></td>
+</tr>
+{{/each}}
+
+</script>
+<!-- 角色列表 -->
+<script id="rolelist" type="text/html">
+{{each list as value i}}
+<tr>
+	<td><label></label></td>
+    <td><span class="c_ip">{{value.roleName}}</span><i class="forbid" data-cid="{{value.id}}"></i></td>
+    <td><span class="c_dress">{{if value.roleType == 0}}系统默认{{else}}自定义{{/if}}</span></td>
+    <td>{{if value.roleType == 0}}<span class="ico revise" onclick="toRolePerm({{value.id}})"><i>分配权限</i></span>{{else}}{{/if}}{{if value.roleType == 1}}<span class="ico del_talk" onclick="delRole({{value.id}});"><i class="four">删除成员</i></span>{{/if}}</td>
+</tr>
+{{/each}}
+
+</script>
+<!-- 所有用户列表 -->
+<script id="userlist" type="text/html">
+{{each list as value i}}
+<tr>
+	<td><label></label></td>
+    <td><span class="c_ip">{{value.account}}</span><i class="forbid" data-cid="{{value.id}}"></i></td>
+    <td><span class="">{{if value.accountType == 0}}系统默认{{else}}自定义{{/if}}</span></td>
+    <td><span class="">{{value.userName}}</span></td>
+    <td><span class="">{{value.nickName}}</span></td>
+    <td><span class="">{{if value.autoAllot == 1}}是{{else}}否{{/if}}</span></td>
+    <td><span class="">{{value.receiveNum}}</span></td>
+    <td><span class="">{{if value.company == null}}无{{else}}{{value.company.companyName}}{{/if}}</span></td>
+    <td><span class="">{{if value.company == null}}无{{else}}{{value.company.address}}{{/if}}</span></td>
+    <td><span class="">{{value.mobile}}</span></td>
+    <td><span class="">{{value.email}}</span></td>
+    {{if 1}}
+	<td>{{if value.roleType == 0}}<span class="ico revise" onclick="toRolePerm({{value.id}})"><i>分配权限</i></span>{{else}}{{/if}}{{if value.roleType == 1}}<span class="ico del_talk" onclick="delRole({{value.id}});"><i class="four">删除成员</i></span>{{/if}}</td>
+	{{/if}}
+</tr>
+{{/each}}
+
+</script>
+<!-- 设置聊天共享 -->
+<script id="sharel" type="text/html">
+{{each list as value i}}
+<tr>
+    <td><span class="c_ip">{{value.account}}</span><i class="forbid" data-cid="{{value.id}}"></i></td>
+    <td><span class="">{{if value.accountType == 0}}系统默认{{else}}自定义{{/if}}</span></td>
+    <td><span class="">{{value.userName}}</span></td>
+    <td><span class="">{{value.nickName}}</span></td>
+    <td><span class="">{{if value.isShare == '1'}}	
+			<i>已共享</i>
+		{{else}}
+			<i>未共享</i>
+		{{/if}}</span></td>
+	<td>
+        {{if value.isShare != '1'}}	
+			<span class="ico revise"  onclick="share({{value.id}},1);"><i>设置共享</i></span>
+        {{else}}
+            <span class="ico del_talk" onclick="share({{value.id}},0);"><i>取消共享</i></span>
+		{{/if}}</td>
+</tr>
+{{/each}}
+</script>
+<!-- 查看聊天共享 -->
+
+<script id="lookShare" type="text/html">
+{{each list as value i}}
+<tr>
+    <td style="width:500px;"><span>{{value.fromUser}}</span></td>
+    <td><span class="">{{value.userName}}</span></td>
+    <td><span class="ico revise" onclick="userShareHistory('{{value.fromUser}}',{{value.userId}},{{value.companyId}})"><i class="four">历史记录</i></span></td>
+</tr>
+{{/each}}
+
+</script>
+
+<!-- 客服分组列表 -->
+<script id="layerlist" type="text/html">
+{{each list as value i}}
+<tr>
+	<td><label></label></td>
+    <td><span class="c_ip">{{value.layerName}}</span>{{if value.state == 'normal'}}<i class="forbid" data-cid="{{value.id}}"></i>{{else}}<i class="forbid" data-cid="{{value.id}}" style="opacity: 1;"></i>{{/if}}</td>
+    <td><span class="">{{value.code}}</span></td>
+    <td><span class="">{{if value.comments == null}}无{{else}}{{value.comments}}{{/if}}</span></td>
+    <td>{{if value.state == 'normal'}}<span class="" style="color:green;">正常</span>{{else}}<span class="" style="color:red;">禁用</span>{{/if}}</td>
+    <td><span class="">{{if value.points == null}}无{{else}}{{value.points}}{{/if}}</span></td>
+	<td><span class="ico revise" onclick="toEditLayer({{value.id}})"><i>修改</i></span>
+		<span class="ico del_talk" onclick="delLayer({{value.id}},'{{value.state}}');">
+		{{if value.state == 'forbid'}}	
+			<i>启用</i>
+		{{else}}
+			<i>禁用</i>
+		{{/if}}
+		</span></td>
+</tr>
+{{/each}}
+
+</script>
+
+<!-- 
+会话列表 
+{"uid":7062581249,"to_uid":999,"username":"","ssid":null,"uType":"USER","msgType":"_TEXT_MSG","uhost":"127.0.0.1:58817","shost":"127.0.0.1:8080","body":"567567"}
+--> 
+<script id="sessionListTemp" type="text/html">
+<tr href="javascript:void(0);" id="{{username}}"  data-uid="{{uid}}">
+	<td><!--<label><input type="checkbox"><span></span></label>--></td>
+	<td class="online ico talk_ico" data-name="{{username}}"><i class="forbid"></i></td>
+	<td>{{uid}}</td>
+	<td><span class="user_name">{{username}}</span></td>
+	<td>{{uhost}}</td>
+	<td class="inTime"></td>
+	<td></td>
+	<td class="leaveTime">--</td>
+	<td><span class="last_talk">{{body}}</span></td>
+	<td><a href="javascript:void(0);">当前用户</a></td>
+	<td data-name="{{username}}" data-uhost="{{uhost}}"><span class="ico history_ico"><i class="four">历史记录</i></span><span class="ico un_talk"><i class="four">移交</i></span><span class="ico del_talk"><i class="six">删除会话记录</i></span></td>
+</tr>
+</script>
+
+<!-- 聊天窗口左侧游客列表模板 --> 
+<script id="chatBox_left_temp" type="text/html">
+<dl id="guest_{{username}}" class="cf" data-name="{{username}}">
+	<dt>
+		<img src="${ctx}/resources/hero/img/user_img1.jpg">
+	</dt>
+	<dd title="{{username}}">{{username}}
+		<!-- <a class="un_talk" title="禁止聊天"></a> -->
+		<a class="close close_chart" title="删除"></a>
+	</dd>
+	<dd> <span id="lastMsg">{{body}}</span><!--<span class="red"></span> --></dd>
+</dl>
+</script>
+<!-- 聊天窗口左侧团队成员列表模板 --> 
+<script id="chatBox_left_team_temp" type="text/html">
+<dl id="team_{{username}}" class="cf" data-id="{{uid}}" data-name="{{username}}">
+	<dt>
+        <img src="{{head}}">
+	</dt>
+	<dd title="{{username}}">{{username}}
+		<!-- <a class="un_talk" title="禁止聊天"></a> -->
+		<a class="close close_chart" title="删除"></a>
+	</dd>
+	<dd> <span id="lastMsg">{{body}}</span><!--<span class="red"></span> --></dd>
+</dl>
+</script>
+
+<!-- 聊天窗口模板 --> 
+<script id="chatBox_right_temp" type="text/html">
+		<div id="chatBox_{{username}}" class="talk_cn">
+			<div class="talk_list" id="talkList"></div>
+			
+			<div class="talk_send cf">
+				<input type="file" capture="camera" accept="image/*" id="file_{{username}}"
+					name="file" onchange="changeFile('{{username}}');" style="display: none;" />
+				<div class="pictures" onclick="$('#file_{{username}}').click()">图片</div>
+				<div class="brows emotion">表情</div>
+				<div class="quick_write">快速输入</div>
+				<!--<div class="to_history">聊天记录</div>-->
+			</div>
+
+			<div class="talk_input">
+				<label><textarea class="write" id="inputext" placeholder="说些什么"></textarea></label>
+				<a href="javascript:void(0);" class="send_txt" onclick="send(this, '{{username}}')" >发送</a>
+			</div>
+		</div>
+</script>
+
+<!-- 聊天窗口客服消息模板 --> 
+<script id="chatBox_right_msg_serv_temp" type="text/template">
+<dl class='cf other'>
+	<dt><#if curImg??><img src='${curImg}'><#else><img src='/jt-c/resources/hero/img/service.jpg'></#if></dt>
+	<dd>
+		<span class='send_time'>{{sendTime}}</span>
+		<div class='send_con'>{{#chatMsg}}</div>
+	</dd>
+</dl>
+</script>     
+
+<!-- 聊天窗口用户消息模板 --> 
+<script id="chatBox_right_msg_user_temp" type="text/html">
+<dl class='cf service'>
+	<dt><img src='{{head}}'></dt>
+	<dd>
+		<span class='send_time'>{{sendTime}}</span>
+		<div class='send_con'>{{#chatMsg}}</div>
+	</dd>
+</dl>
+</script>  
+<!-- 聊天窗口系统消息模板 --> 
+<script id="chatBox_right_msg_sys_temp" type="text/html">
+<p class="system_mess">--  {{#chatMsg}} : {{sendTime}}  --</p>
+</script>  
+
+</body>
+</html>

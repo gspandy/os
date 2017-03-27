@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+[#include "/core/head.html"/] [@head title="home.page.title"/]
+<body>
+	[#include "/core/top.html"/]
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 set_menu">
+				<div id="config_menu">[#include "/center/my_menu.html"/]</div>
+			</div>
+		</div>
+		<!-- BEGIN CONTAINER -->
+		<div class="page-container">
+			<!-- BEGIN CONTENT -->
+			<div>
+				<div class="page-content">
+					<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+					<!-- <div id="ajax-modal" class="modal fade bs-modal" tabindex="-1"></div> -->
+					<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+					<!-- BEGIN PAGE CONTENT-->
+					<div class="row list_con">
+						<div class="col-md-12">
+							<!-- Begin: life time stats -->
+							<div class="portlet">
+								<div class="portlet-title">
+									<h4 class="caption menu_til">客服列表<span> (第一次新增客服时，请先增加客服分组；修改客服信息会初始化对应客服的聊天共享；默认密码为：123456)</span></h4>
+									<div class="actions">
+										<a href="javascript:void(0)" id="addBtn" class="btn default yellow-stripe"> <i class="fa fa-plus"></i><span class="hidden-480">新增客服</span>
+										</a>
+									</div>
+								</div>
+								<div class="portlet-body">
+									<div class="table-container">
+										<div class="table-actions-wrapper"></div>
+										<table class="table table-striped table-bordered table-hover" id="datatable_registrationcodes">
+											<thead>
+												<tr role="row" class="heading">
+													<th>操作</th>
+													<th>客服账号</th>
+													<th>姓名</th>
+													<th>昵称</th>
+													<th>分组</th>
+													<th>接待上限</th>
+													<th>当前接待数</th>
+													<th>状态</th>
+													<th>在线状态</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<!-- End: life time stats -->
+						</div>
+					</div>
+					<!-- END PAGE CONTENT-->
+				</div>
+			</div>
+			<!-- END CONTENT -->
+		</div>
+		<!-- END CONTAINER -->
+		<!--add model -->
+		<div class="modal fade bs-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false"
+			id="addModal">
+			<div class="modal-content" id="content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">新增客服</h4>
+				</div>
+				<form action="" id="addForm">
+					<div class="modal-body clearfix">
+						<div class="form-body">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-label">客服账号：</label>
+								<div class="col-md-10">
+									<input id="account" name="account" type="text"
+										class="form-control"
+										placeholder="请输入客服账号，必须是字母、数字、下划线，长度6~16位！" required="required">
+								</div>
+							</div>
+							</br>
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-label">姓名：</label>
+								<div class="col-md-10">
+									<input id="userName" name="userName" type="text"
+										class="form-control" placeholder="请输入姓名！"
+										required="required">
+								</div>
+							</div>
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-label">昵称：</label>
+								<div class="col-md-10">
+									<input id="nickName" name="nickName" type="text"
+										class="form-control" placeholder="请输入昵称" required="required">
+								</div>
+							</div>
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-label">分组：</label>
+								<div class="col-md-10">
+									<select id="layerId" name="layer.id" class="form-control">
+										<option value="">无</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-label">接待上限：</label>
+								<div class="col-md-10">
+									<select id="receiveNum" name="receiveNum" class="form-control">
+										<option value="10">10</option>
+										<option value="15">15</option>
+										<option value="20">20</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn default" data-dismiss="modal">关闭</button>
+						<button type="submit" class="btn blue">提交</button>
+						<input type="reset" style="display: none;" />
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="modal fade bs-modal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true"
+			data-backdrop="static" data-keyboard="false" id="editModal">
+			<div class="modal-content" id="content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="editModalLabel">修改客服</h4>
+				</div>
+				<form action="" id="editForm">
+					<div class="modal-body clearfix">
+						<div class="form-body">
+							<input type="hidden" id="id" name="id" />
+							<input type="hidden" id="token" name="token">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">客服账号：</label>
+								<div class="col-md-9">
+									<input id="account" name="account" type="text"
+										class="form-control" readonly="readonly"
+										placeholder="请输入客服账号，必须是字母、数字、下划线，长度6~16位！" required="required">
+								</div>
+							</div>
+							</br>
+							<div class="form-group">
+								<label class="col-md-3 control-label">姓名：</label>
+								<div class="col-md-9">
+									<input id="userName" name="userName" type="text"
+										class="form-control" placeholder="请输入姓名！"
+										required="required">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">昵称：</label>
+								<div class="col-md-9">
+									<input id="nickName" name="nickName" type="text"
+										class="form-control" placeholder="请输入昵称" required="required">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">分组：</label>
+								<div class="col-md-9">
+									<select id="layerId" name="layer.id" class="form-control">
+										<option value="">无</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">接待上限：</label>
+								<div class="col-md-9">
+									<select id="receiveNum" name="receiveNum" class="form-control">
+										<option value="10">10</option>
+										<option value="15">15</option>
+										<option value="20">20</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn default" data-dismiss="modal">关闭</button>
+						<button id="editSub" type="button" class="btn blue">提交</button>
+						<input type="reset" style="display: none;" />
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	</div>
+	<hr />
+	[#include "/core/foot.html"/]
+
+
+
+[#assign path="${ctx}/oc/ser/list/"/]
+
+<script type="text/javascript">
+	var table = $('#datatable_registrationcodes')
+				.dataTable(
+						{
+							lengthChange : true,
+							"bAutoWidth": true,//自动改变宽度
+							"dom" : 'rt<"bottom clearfix"pli>',
+							"aLengthMenu" : [ [ 10, 25, 50, -1 ],
+									[ 10, 25, 50, "All" ] ],
+							ajax : {
+								"url" : "${path}",
+								"type" : "POST"
+							},
+							columns : [
+									{
+										data : null,
+										render : function(data, type, row) {
+											return '<div class="btn-group">'
+													+ '	<a href="#" class="btn blue-madison btn-xs btn-operation" data-toggle="dropdown">'
+													+ '		<i class="fa fa-cog"></i> 操作'
+													+ '	</a>'
+													+ '	<ul class="dropdown-menu pull-left">'
+													+ '		<li><a href="javascript:void(0);" onclick="toEdit('+data.id+')">修改</a></li>'
+													+ '		<li>'+(data.accountState == "normal" ?'<a href="javascript:void(0);" onclick="forbid(true,' + data.id+')">禁用</a>':'<a href="javascript:void(0);" onclick="forbid(false,' + data.id+')">启用</a>')+'</li>'
+													+ '		<li><a href="javascript:void(0);" onclick="delSer('+data.id+')">删除</a></li>'
+													+ '	</ul>' + '</div>';
+										}
+									}, {
+										data : "account"
+									}, {
+										data : "userName"
+									}, {
+										data : "nickName"
+									}, {
+										data : null,
+										render : function(data, type, row){
+											return data.layer == null ? "无":data.layer.layerName;
+										}
+									}, {
+										data : "receiveNum"
+									},{
+										data : "curReceiveNum"
+									}, {
+										data : "accountState",
+										render : function(data, type, row){
+											if(data == "normal"){
+												return "<span style='background-color:green;color: #fff;'>正常</span>";
+											}
+											if(data == "lock"){
+												return "<span style='background-color:red;color: #fff;'>禁用</span>";
+											}
+											if(data == "normal"){
+												return "<span style='background-color:red;color: #fff;'>删除</span>";
+											}
+										}
+									}, {
+										data : "onlineState",
+										render : function(data, type, row){
+											if(data == "online"){
+												return "<span style='background-color:green;color: #fff;'>在线</span>";
+											}
+											if(data == "off"){
+												return "<span style='background-color:red;color: #fff;'>离线</span>";
+											}
+											if(data == "leave"){
+												return "离开";
+											}
+										}
+									}
+									
+							/* 
+							{ data: null, render: function ( data, type, row ) {
+							    // Combine the first and last names into a single table field
+							    return data.roleType == 0?"系統默认":"自定义"
+							} } */
+							],
+							"order" : [ [ 0, 'desc' ] ],
+							"bFilter" : false,//搜索
+							"sPaginationType" : "full_numbers",//显示数字的翻页样式
+							"oLanguage" : {
+								"sLengthMenu" : " _MENU_",
+								"sZeroRecords" : "抱歉， 没有找到",
+								//"sInfo" : "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+								"sInfo" : "",
+								"sInfoEmpty" : "",
+								"sInfoFiltered" : "(从 _MAX_ 条数据中检索)",
+								"oPaginate" : {
+									"sFirst" : "首页",
+									"sPrevious" : "前一页",
+									"sNext" : "后一页",
+									"sLast" : "尾页"
+								},
+								"sZeroRecords" : "没有检索到数据",
+								"sProcessing" : "<img src='./loading.gif' />"
+							}
+						});
+	
+	
+	function forbid(bool, id){
+		$.ajax({
+			url : "${ctx}/oc/ser/lock:" + bool + "/" + id,
+			type : "POST",
+			success : function(data) {
+				if(data){
+					layer.alert("操作成功！");
+				} else {
+					layer.alert("操作失败！");
+				}
+				table.api().ajax.reload();
+			}
+		})
+	}
+	//删除
+	function delSer(id){
+		$.ajax({
+			url:"${ctx}/oc/ser/del/"+id,
+			type:"POST",
+			success:function(data){
+				if(data){
+					layer.alert("操作成功！");
+				} else {
+					layer.alert("操作失败！");
+				}
+				table.api().ajax.reload();
+			}
+		})
+	}
+	//edit
+	function toEdit(id){
+		$.ajax({
+			url:"${ctx}/oc/ser/edit/"+id,
+			type:"GET",
+			success:function(data){
+				if(data!=undefined){
+					var str = "";
+					var lay = data.layer;
+					if(lay.length > 0){
+						for(var i = 0; i < lay.length; i ++){
+							str += "<option value="+lay[i].id+">"+lay[i].layerName+"</option>";
+						}
+					$("#editForm #layerId").html(str);
+					}
+					var cust = data.customer;
+					if(cust != null){
+						$("#editForm #account").val(cust.account);
+						$("#editForm #account").attr("readonly","readonly");
+						$("#editForm #userName").val(cust.userName);
+						$("#editForm #nickName").val(cust.nickName);
+						$("#editForm #id").val(id);
+					}
+				}
+			}
+		});
+		$("#editModal").modal("show");
+	}
+	var add = $("#addForm").validate({
+		rules:{
+			account:{
+				required:true,
+				account:true,
+				remote:{
+					type:"GET",
+					url:"${ctx}/oc/jt-user/account/exist",
+					data:{
+						account:function(){
+							return $("#addForm #account").val();
+						}
+					}
+				}
+			},
+			userName:{
+				required:true,
+				minlength:3,
+				maxlength:16
+			},
+			nickName:{
+				required:true,
+				minlength:3,
+				maxlength:16,
+				remote:{
+					type:"GET",
+					url:"${ctx}/oc/jt-user/nick/exist",
+					data:{
+						nickName:function(){
+							return $("#addForm #nickName").val();
+						}
+					}
+				}
+			},
+			layerId:{
+				required:true
+			},
+			receiveNum:{
+				required:true
+			}
+		},
+		messages:{
+			account:{
+				required:"请输入账号",
+				account:"请输入正确的账号格式,必须是字母、数字、下划线，长度6~16位！",
+				remote:"该账号已存在！"
+			},
+			userName:{
+				required:"请输入姓名,3-16个字符",
+				minlength:"至少3个字符",
+				maxlength:"最多16个字符"
+			},
+			nickName:{
+				required:"请输入昵称,3-16个字符",
+				minlength:"至少3个字符",
+				maxlength:"最多16个字符",
+				remote:"该昵称已被使用！"
+			},
+			layerId:{
+				required:"必须选择分组"
+			},
+			receiveNum:{
+				required:"必须选择接待上限数"
+			}
+		}
+	})
+	var edit = $("#editForm").validate({
+		rules:{
+			userName:{
+				required:true,
+				minlength:3,
+				maxlength:16
+			},
+			nickName:{
+				required:true,
+				minlength:3,
+				maxlength:16,
+				remote:{
+					type:"GET",
+					url:"${ctx}/oc/jt-user/nick/exist/who",
+					data:{
+						nickName:function(){
+							return $("#editForm #nickName").val();
+						},
+						userId:function(){
+							return $("#editForm #id").val();
+						}
+					}
+				}
+			},
+			layerId:{
+				required:true
+			},
+			receiveNum:{
+				required:true
+			}
+		},
+		messages:{
+			userName:{
+				required:"请输入姓名,3-16个字符",
+				minlength:"至少3个字符",
+				maxlength:"最多16个字符"
+			},
+			nickName:{
+				required:"请输入昵称,3-16个字符",
+				minlength:"至少3个字符",
+				maxlength:"最多16个字符",
+				remote:"该昵称已被使用！"
+			},
+			layerId:{
+				required:"必须选择分组"
+			},
+			receiveNum:{
+				required:"必须选择接待上限数"
+			}
+		}
+	})
+	$("#editSub").on("click", function(){
+		if(!$("#editForm").valid()){
+			return;
+		}
+		if($("#editForm #layerId").val() == ""){
+			layer.msg("必须选择分组！");return;
+		}
+		$.ajax({
+			url : "${ctx}/oc/ser/edit",
+			type : "POST",
+			data : $("#editForm").serialize(),
+			success : function(data) {
+				if (data.errors != undefined) {
+					var error = data.errors;
+					layer.alert(error[0].field + ":" + error[0].message);
+					return;
+				} else if (data.code != undefined) {
+					layer.alert(data.msg);
+					if (data.code) {
+						$("#editModal").modal("hide");
+					}
+					table.api().ajax.reload();
+				} else {
+					layer.alert("登录已超时！");
+					window.location.href = "${ctx}/";
+				}
+			}
+		});
+	})
+	/* $("#editForm").on("submit", function(ev) {
+			if(!$("#editForm").valid()){
+				return;
+			}
+			if($("#editForm #layerId").val() == ""){
+				layer.msg("必须选择分组！");return;
+			}
+			$.ajax({
+				url : "${ctx}/oc/ser/edit",
+				type : "POST",
+				data : $("#editForm").serialize(),
+				success : function(data) {
+					if (data.errors != undefined) {
+						var error = data.errors;
+						layer.alert(error[0].field + ":" + error[0].message);
+						return;
+					} else if (data.code != undefined) {
+						layer.alert(data.msg);
+						if (data.code) {
+							$("#editModal").modal("hide");
+						}
+						table.api().ajax.reload();
+					} else {
+						layer.alert("登录已超时！");
+						window.location.href = "${ctx}/";
+					}
+				}
+			});
+			ev.preventDefault();
+		}); */
+		$("#addBtn").click(function() {
+			$("input[type=reset]").trigger("click");
+			$.ajax({
+				url:"${ctx}/oc/layer/list",
+				type:"get",
+				success:function(data){
+					var data = data.content;
+					var str="";
+					for(var i = 0; i < data.length; i++){
+						str+="<option value="+data[i].id+">"+data[i].layerName+"</option>";
+					}
+					$("#addForm #layerId").html(str);
+				}
+			})
+			$("#addModal").modal("show");
+		});
+		$("#addForm").on("submit", function(ev) {
+			ev.preventDefault();
+			if(!$("#addForm").valid()){
+				return;
+			}
+			if($("#addForm #layerId").val() == ""){
+				layer.msg("必须选择分组！");return;
+			}
+			$.ajax({
+				url : "${ctx}/oc/ser/add",
+				type : "POST",
+				data : $("#addForm").serialize(),
+				success : function(data) {
+					if (data.errors != undefined) {
+						var error = data.errors;
+						layer.alert(error[0].field + ":" + error[0].message);
+						return;
+					} else if (data.code != undefined) {
+						layer.alert(data.msg);
+						if (data.code) {
+							$("#addModal").modal("hide");
+						}
+						table.api().ajax.reload();
+					} else {
+						layer.alert("登录已超时！");
+						window.location.href = "${ctx}/";
+					}
+				}
+			});
+		});
+		
+</script>
+</body>
+</html>

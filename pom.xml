@@ -9,9 +9,8 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>a</module>
-		<module>c</module>
-		<module>p</module>
+		<module>a</module>		<!-- 服务提供 -->
+		<module>c</module>		<!-- 服务消费 -->
 	</modules>
 
 	<properties>

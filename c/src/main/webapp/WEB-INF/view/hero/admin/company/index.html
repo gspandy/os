@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+[#include "/core/head.html"/] [@head title="home.page.title"/]
+<body>
+	[#include "/core/top.html"/]
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div id="config_menu">[#include "/admin/menu.html"/]</div>
+			</div>
+		</div>
+		<!-- BEGIN CONTAINER -->
+		<div class="page-container">
+			<!-- BEGIN CONTENT -->
+			<div>
+				<div class="page-content">
+					<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+					<!-- <div id="ajax-modal" class="modal fade bs-modal" tabindex="-1"></div> -->
+					<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+					<!-- BEGIN PAGE CONTENT-->
+					<div class="row" style="padding-top: 10px;">
+						<div class="col-md-12">
+							<!-- Begin: life time stats -->
+							<div class="portlet">
+								<div class="portlet-title">
+									<div class="caption">
+										<i class="fa fa-list-ul">公司列表</i>
+									</div>
+									<div class="actions">
+										<a href="#" id="addBtn" class="btn default yellow-stripe"
+											data-toggle="modal"> <i class="fa fa-plus"></i><span
+											class="hidden-480">新增公司</span>
+										</a>
+									</div>
+								</div>
+								<div class="portlet-body">
+									<div class="table-container">
+										<div class="table-actions-wrapper"></div>
+										<table class="table table-striped table-bordered table-hover"
+											id="datatable_registrationcodes">
+											<thead>
+												<tr role="row" class="heading">
+													<th>操作</th>
+													<th>公司账号</th>
+													<th>公司ip</th>
+													<th>公司名称</th>
+													<th>域名</th>
+													<th>电话号码</th>
+													<th>访客链接</th>
+													<th>启用状态</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<!-- End: life time stats -->
+						</div>
+					</div>
+					<!-- END PAGE CONTENT-->
+				</div>
+			</div>
+			<!-- END CONTENT -->
+		</div>
+		<!-- END CONTAINER -->
+		<!--add model -->
+		<div class="modal fade bs-modal" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false"
+			id="addModal">
+			<div class="modal-content" id="content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">新增公司</h4>
+				</div>
+				<form action="" id="addForm">
+					<div class="modal-body clearfix">
+						<div class="form-body">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">公司账号：</label>
+								<div class="col-md-9">
+									<input id="companyAccount" name="companyAccount" type="text"
+										class="form-control"
+										placeholder="请输入公司账号，必须是字母、数字、下划线，长度6~16位！">
+								</div>
+							</div>
+							</br>
+							<div class="form-group">
+								<label class="col-md-3 control-label">公司ip/地址：</label>
+								<div class="col-md-9">
+									<input id="address" name="address" type="text"
+										class="form-control" placeholder="请输入公司ip或者地址！"
+										required="required">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">公司名称：</label>
+								<div class="col-md-9">
+									<input id="companyName" name="companyName" type="text"
+										class="form-control" placeholder="请输入公司名称" required="required">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">公司域名：</label>
+								<div class="col-md-9">
+									<input id="webSite" name="webSite" type="text"
+										class="form-control" placeholder="请输入公司域名" required="required">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">电话号码：</label>
+								<div class="col-md-9">
+									<input id="telNum" name="telNum" type="text"
+										class="form-control" placeholder="请输入正确的电话号码"
+										required="required">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn default" data-dismiss="modal">关闭</button>
+						<button type="submit" class="btn blue">提交</button>
+						<input type="reset" style="display: none;" />
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	</div>
+	<hr />
+	[#include "/core/foot.html"/]
+
+
+
+[#assign path="${ctx}/oc/company/list/"/]
+
+<script type="text/javascript">
+	var table;
+	var companyList = function() {
+		table = $('#datatable_registrationcodes')
+				.dataTable(
+						{
+							lengthChange : true,
+							"bAutoWidth": true,//自动改变宽度
+							"dom" : '<"top"f>rt<"bottom"pli><"clear">',
+							"aLengthMenu" : [ [ 10, 25, 50, -1 ],
+									[ 10, 25, 50, "All" ] ],
+							ajax : {
+								"url" : "${path}",
+								"type" : "POST",
+								"data" : {
+									"cState" : "del"
+								}
+							},
+							columns : [
+									{
+										data : null,
+										render : function(data, type, row) {
+											return '<div class="btn-group">'
+													+ '	<a href="#" class="btn blue-madison btn-xs btn-operation" data-toggle="dropdown">'
+													+ '		<i class="fa fa-cog"></i> 操作'
+													+ '	</a>'
+													+ '	<ul class="dropdown-menu pull-left">'
+													+ '		<li><a href="${ctx}/oc/company/edit/' + data.id + '" data-toggle="modal" data-target=\"#ajax-modal-large\">修改</a></li>'
+													+ '		<li>'+(data.isEnable == true ?'<a href="javascript:void(0);" onclick="forbid(false,' + data.id+')">禁用</a>':'<a href="javascript:void(0);" onclick="forbid(true,' + data.id+')">启用</a>')+'</li>'
+													+ '	</ul>' + '</div>';
+										}
+									}, {
+										data : "companyAccount"
+									}, {
+										data : "address"
+									}, {
+										data : "companyName"
+									}, {
+										data : "webSite"
+									}, {
+										data : "telNum"
+									}, {
+										data : "url"
+									},{
+										data : "isEnable",
+										render : function(data, type, row){
+											return data == true?"启用":"禁用";
+										}
+									}
+									
+							/* 
+							{ data: null, render: function ( data, type, row ) {
+							    // Combine the first and last names into a single table field
+							    return data.roleType == 0?"系統默认":"自定义"
+							} } */
+							],
+							"order" : [ [ 0, 'desc' ] ],
+							"bFilter" : false,//搜索
+							"sPaginationType" : "full_numbers",//显示数字的翻页样式
+							"oLanguage" : {
+								"sLengthMenu" : " _MENU_",
+								"sZeroRecords" : "抱歉， 没有找到",
+								"sInfo" : "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+								"sInfoEmpty" : "没有数据",
+								"sInfoFiltered" : "(从 _MAX_ 条数据中检索)",
+								"oPaginate" : {
+									"sFirst" : "首页",
+									"sPrevious" : "前一页",
+									"sNext" : "后一页",
+									"sLast" : "尾页"
+								},
+								"sZeroRecords" : "没有检索到数据",
+								"sProcessing" : "<img src='./loading.gif' />"
+							}
+						});
+	}
+	
+	function forbid(bool, id){
+		$.ajax({
+			url : "${ctx}/oc/company/isenable:" + bool + "/" + id,
+			type : "POST",
+			success : function(data) {
+				if(data){
+					layer.alert("操作成功！");
+				} else {
+					layer.alert("操作失败！");
+				}
+				table.api().ajax.reload();
+			}
+		})
+	}
+	
+	$("#addForm").validate({
+		rules:{
+			companyAccount:{
+				required:true,
+				account:true
+			},
+			address:{
+				required:true
+			},
+			companyName:{
+				required:true,
+				minlength:3,
+				maxlength:15
+			},
+			webSite:{
+				required:true,
+				url:true
+			},
+			telNum:{
+				required:true,
+				phone:true
+			}
+		},
+		messages:{
+			address:{
+				required:"请输入公司管理员账号,长度6-16位,字母、数字、下划线",
+				account:"请输入正确的格式,长度6-16位,字母、数字、下划线"
+			},
+			address:{
+				required:"请输入公司ip或者地址"
+			},
+			companyName:{
+				required:"请输入公司名称,长度3-15个字符",
+				minlength:"至少3个字符",
+				maxlength:"最多15个字符"
+			},
+			webSite:{
+				required:"请输入公司域名",
+				url:"请输入合法的域名"
+			},
+			telNum:{
+				required:"请输入电话号码",
+				phone:"请输入正确的电话号码"
+			}
+		}
+	})
+	
+	$(function() {
+		companyList();
+		$("#addBtn").click(function() {
+			$("input[type=reset]").trigger("click");
+			$("#addModal").modal("show");
+		});
+		$("#addForm").on("submit", function(ev) {
+			ev.preventDefault();
+			if (! $("#addForm").valid()) {
+		        return;
+		     }
+			$.ajax({
+				url : "${ctx}/oc/company/add",
+				type : "POST",
+				data : $("#addForm").serialize(),
+				success : function(data) {
+					if (data.errors != undefined) {
+						var error = data.errors;
+						layer.alert(error[0].field + ":" + error[0].message);
+						return;
+					} else if (data.code != undefined) {
+						layer.alert(data.msg);
+						if (data.code) {
+							companyList();
+							$("#addModal").modal("hide");
+						}
+						table.api().ajax.reload();
+					} else {
+						layer.alert("登录已超时！");
+						window.location.href = "${ctx}/";
+					}
+				}
+			});
+		});
+		
+	})
+</script>
+</body>
+</html>

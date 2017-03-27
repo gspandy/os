@@ -1,0 +1,140 @@
+[#include "/core/head.html"/]
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+	<h4 class="modal-title">修改权限</h4>
+</div>
+
+<div class="modal-control">
+	<div id="second-ajax-modal" class="modal fade bs-modal bs-modal-large" tabindex="-1"></div>
+	[@form.form commandName="updateDTO" method="POST" class="form-horizontal"]
+	<!-- <input type="hidden" name="format" value="json"> -->
+	[@spring.bind path="parentPermissionId"]
+	<input id="${status.expression}" name="${status.expression}" value="${status.value!}" type="hidden"/>
+	[/@spring.bind]
+	[@spring.bind path="floor"]
+	<input id="${status.expression}" name="${status.expression}" value="${status.value!}" type="hidden"/>
+	[/@spring.bind]
+	<div class="modal-body clearfix">
+		<div class="form-body">
+			<div class="form-group">
+				<label class="col-md-3 control-label">权限名称</label>
+				<div class="col-md-9">
+					<div class="input-icon">
+						<i class="fa fa-user fa-fw"></i>
+						[@spring.bind path="permissionName"]
+						<input id="${status.expression}" name="${status.expression}" type="text" value="${status.value!}" class="form-control" placeholder="请输入权限名称"/]">
+						[/@spring.bind]
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-3 control-label">权限代码</label>
+				<div class="col-md-9">
+					<div class="input-icon">
+						<i class="fa fa-user fa-fw"></i>
+						[@spring.bind path="code"]
+						<input id="${status.expression}" name="${status.expression}" type="text" value="${status.value!}" readonly="readonly" class="form-control" placeholder="请输入权限代码">
+						[/@spring.bind]
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-3 control-label">操作链接</label>
+				<div class="col-md-9">
+					<div class="input-icon">
+						<i class="fa fa-user fa-fw"></i>
+						[@spring.bind path="path"]
+						<input id="${status.expression}" name="${status.expression}" type="text" value="${status.value!}" class="form-control" placeholder="请输入操作链接">
+						[/@spring.bind]
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-3 control-label">排序</label>
+				<div class="col-md-9">
+					<div class="input-icon">
+						<i class="fa fa-user fa-fw"></i>
+						[@spring.bind path="deep"]
+						<input id="${status.expression}" name="${status.expression}" type="text" value="${status.value!}" class="form-control" placeholder="请输入排序">
+						[/@spring.bind]
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-3 control-label">权限类型</label>
+				<div class="col-md-9">
+					[@spring.bind path="permissionType"]
+					<select id="${status.expression}" name="${status.expression}" class="form-control">
+						<!-- <option value="1" [#if 1==status.value]selected="selected"[/#if]>前台</option> -->
+						<option value="1" [#if 1== status.value]selected="selected"[/#if]>权限</option>
+						<option value="2" [#if 1== status.value]selected="selected"[/#if]>菜单</option>
+					</select>
+					[/@spring.bind]
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn default" data-dismiss="modal">关闭</button>
+		<button type="submit" class="btn blue">保存</button>
+	</div>
+	[/@form.form]
+</div>
+
+<script type="text/javascript">
+
+$("button[data-dismiss='modal']").bind('click', function(e) {
+	var tree = $("#permission_container").jstree(true);
+	var focusLi = $("a.jstree-clicked").parent("li");
+	tree.refresh(focusLi);
+});
+$('#updateDTO').validate({
+	rules: {
+		permissionName:{
+			required: true
+		},
+		path: {
+			required: true
+		},
+		deep: {
+			required: true,
+			number: true
+		}
+  	},
+	messages:{
+		permissionName:{
+			required: "操作名称不能为空！"
+		},
+		path:{
+			required: "操作链接不能为空！"
+		},
+		deep: {
+			required: "排序不能为空！",
+			number: "必须为数字！"
+		}
+	}
+});
+$('#updateDTO').on("submit",function(ev){
+	ev.preventDefault();
+	if (! $("#updateDTO").valid()) {
+        return;
+     }
+	$.ajax({
+		url:$('#updateDTO').attr("action"),
+		type:"POST",
+		data:$("#updateDTO").serialize(),
+		dataType : "json",
+		success: function(data){
+			if (data.errors != undefined) {
+				var error = data.errors;
+				layer.alert(error[0].field + ":" + error[0].message);
+				return;
+			} else {
+				layer.alert("修改成功！");
+				$("#ajax-modal").modal("hide");
+			}
+		}
+	})
+})
+
+</script>

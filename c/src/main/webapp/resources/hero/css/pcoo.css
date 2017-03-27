@@ -1,0 +1,140 @@
+ul, li {
+	list-style: none;
+}
+
+#console {
+	height: 380px;
+}
+
+.username-msg {
+	color: orange;
+}
+
+.connect-msg {
+	color: green;
+}
+
+.disconnect-msg {
+	color: red;
+}
+
+.send-msg {
+	color: #888
+}
+
+.countdown {
+	max-width: 350px;
+	width: 282px;
+	display: block;
+	float: left;
+	padding: inherit;
+}
+
+<!--
+-->
+.history-1 {
+	position: relative;
+	float: left;
+	width: 320px;
+	background-color: #ddd;
+	max-width: 320px;
+	margin: 25px 15px 0;
+	line-height: 30px;
+	padding: 0 10px;
+	float: left;
+	border-radius: 4px;
+}
+
+.history-1 a {
+	display: block;
+	float: right;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	margin-top: 5px;
+	text-align: center;
+	color: #3883ff;
+}
+
+.history-1 span {
+	color: #3883ff;
+	padding: 0 10px;
+}
+
+.modal-header .popover {
+	position: absolute;
+	background-color: #fff;
+	border: solid 1px #eee;
+	width: 320px;
+	max-width: 320px !important;
+	top: 30px !important;
+	left: 0 !important;
+}
+
+.history-list {
+	padding: 0;
+}
+
+.history-list li {
+	line-height: 30px;
+}
+
+.modal-header .popover.bottom>.arrow {
+	left: 90% !important;
+	border-bottom-color: rgba(0, 0, 0, .1) !important;
+}
+
+@media ( max-width :767px) {
+	.history-1 {
+		margin-top: 0;
+	}
+	.form-body .dropdown-menu {
+		left: 0px !important;
+		width: 370px !important;
+	}
+}
+
+.form-body .well {
+	position: relative;
+}
+
+.form-body .dropdown-menu {
+	left: 260px;
+	top: -320px;
+	width: 600px;
+	padding: 10px;
+}
+
+.form-body .container {
+	width: 100%;
+}
+
+.form-body .container .col-1 {
+	width: 18%;
+	display: block;
+	float: left;
+	text-align: center;
+	white-space: nowrap;
+	margin: 5px 1%;
+	border: solid 1px #eee;
+	border-radius: 4px;
+	box-shadow: 0 1px 5px rgba(0, 0, 0, .1);
+}
+
+.form-body .container .col-1:hover {
+	box-shadow: none;
+}
+
+.form-body .container a:hover {
+	text-decoration: none;
+}
+
+.mboth {
+	padding: 20px;
+}
+
+.form-control {
+	display: inline-block;
+	width: 170px;
+	vertical-align: middle;
+}

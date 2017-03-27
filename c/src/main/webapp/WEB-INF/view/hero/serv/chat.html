@@ -1,0 +1,79 @@
+
+<!--聊天窗口-->
+ <div id="boxDiv"> 
+	   <div class="chart_box" id="chartBox" style="display: none; z-index: 99;">	
+		<div class="chart_left left">
+			<div class="chart_til">
+				<div class="search">
+					<input type="text" id="sName" name="sName" placeholder="请输入用户名"><label></label>
+				</div>
+			</div>
+				
+			<!-- 会话列表 -->
+			<div class="chart_team">
+				<ul class="chart_group" id="chartGroup">
+					<li class="tm_name"><i class="group_ico"></i>团队<span id="teamNum">0/0</span>
+						<div class="tm_list cf" id="teamsNum">
+							<!-- temp -->
+						</div>
+					</li>
+					<li id="guest" class="tm_name">
+						<i class="group_ico"></i>来访用户<span id="guestNum">0/0</span>
+						<div id="groupList" class="tm_list cf">
+							<!-- temp -->
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	
+		<!-- 聊天窗 -->
+		<div class="chart_right right">
+				<div class="chatBox_dialog">
+					<div class="chart_til">
+						<span id="user_name" class="user_name"></span> 
+						<a class="close close_chart" href="javascript:void(0);"></a>
+					</div>
+					<div class="chart_con cf">
+						<div class="chatBoxList">
+						
+						</div>
+						<!--快速输入内容-->
+						<div class="quick_list">
+							<ul id="quickList"></ul>
+						</div>
+						<div class="history_list">
+							<div class="list_con visitor_his">
+								<dl class="visitor">
+									<dt>BDB测试001&nbsp;&nbsp;11-09 15:32:09</dt>
+									<dd>昨天中了500块钱，哈哈哈哈哈，真的太开心了！</dd>
+								</dl>
+								<dl class="visitor">
+									<dt>BDB测试001&nbsp;&nbsp;11-09 15:32:09</dt>
+									<dd>昨天中了500块钱，哈哈哈哈哈，真的太开心了真的太开心了！</dd>
+								</dl>
+								<dl class="customer">
+									<dt>BDBBCome测试&nbsp;&nbsp;11-09 15:32:09</dt>
+									<dd>您好，由于新疆时时彩20160928期-20160939期官方未开奖，平台进行撤单处理，给您带来不便，请您多多谅解。如有任何疑问，请及时联系在线客服，我们将竭诚为您服务!</dd>
+								</dl>
+							</div>
+							<div class="history_page pages">
+								<div class="srech_time" id="srechTime"><span>日期：</span><label><input placeholder="请输入日期" class="laydate-icon"></label><a href="javascript:void(0);">搜索</a></div>
+							</div>
+						</div>
+					</div>
+				</div>
+					
+			<!--快速输入内容-->
+			<!-- <div class="quick_list">
+				<ul id="quickList">
+					<li>您好，欢迎光临，请稍后...</li>
+					<li>您好，欢迎光临，现在客服人员正忙请稍后...</li>
+					<li>您好，欢迎访问！请问有什么需要咨询？</li>
+					<li>您已长时间未响应客服对话，如果时间过长未响应，对话奖结束！</li>
+				</ul>
+			</div> -->
+		</div>		
+	</div>
+</div> 
+

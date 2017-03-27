@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>客服系统_会话管理</title>
+<link type="text/css" rel="stylesheet" href="css/date_time.css">
+<link type="text/css" rel="stylesheet" href="css/service.css">
+</head>
+<body>
+<div class="container cf">
+    <div class="menu left">
+        <div class="title"><img src="images/title_ico.png"></div>
+        <ul class="nav" id="nav">
+            <li class="cur"><i class="talk"></i>会话管理</li>
+            <li><i class="ser"></i>客服管理</li>
+            <li><i class="win_set"></i>对话窗口配置<span></span>
+                <ul class="sub_nav">
+                    <li class="hover">网页对话窗口</li>
+                    <li>主动对话窗口</li>
+                </ul>
+            </li>
+            <li><i class="client"></i>客户管理</li>
+        </ul>
+    </div>
+    <div class="content right">
+        <header class="title">
+            <div class="news" id="openNews"><i class="unread">16</i></div>
+            <div class="self" id="onLine"><img src="images/user.jpg"><div class="quit"><a href="javascript:void(0);">退出</a></div></div>
+            <div class="ser_team" id="serTeam">
+                <h2>客服成员<a href="javascript:void(0);" class="close" title="关闭客服成员列表"></a></h2>
+                <div class="team_list">
+                    <dl class="cf">
+                        <dt><img src="images/team_ico.jpg"></dt>
+                        <dd>小桃红<span class="talk_time">11-07 15:50</span></dd>
+                        <dd>昨天的问题处理好了吗？<span class="red">11</span></dd>
+                    </dl>
+                    <dl class="cf">
+                        <dt><img src="images/team_ico.jpg"></dt>
+                        <dd>小桃橙<span class="talk_time">11-07 15:50</span></dd>
+                        <dd>昨天的问题处理好了吗？<span class="red">2</span></dd>
+                    </dl>
+                </div>
+            </div>
+        </header>
+        <div class="main_content">
+            <!--会话管理-->
+            <div class="main_con current">
+                <h2>会话管理</h2>
+                <dl class="chose_time cf">
+                    <dt>选择时间：</dt>
+                    <dd id="choseTime"><span><label><input type="text" value="2016-10-11 15:32:33" readonly="readonly"/></label></span>至&nbsp;&nbsp;<span><label><input type="text" value="2016-11-11 15:32:33" readonly="readonly"/></label></span></dd>
+                    <dd><span>今天</span><span>近三天</span><span>近七天</span><span>半个月</span><span>一个月</span></dd>
+                    <dd><label><span><input type="text" placeholder="请输入访客ID、用户名称、IP"></span><a href="javascript:void(0);">搜索</a></label></dd>
+                </dl>
+                <div class="talk_tab">
+                    <div class="chose_all"><label><input type="checkbox" id="choseAll"><span></span></label></div>
+                    <div class="set_edit"><span class="talk"><a href="javascript:void(0);">会话</a></span><span class="history_ico"><a href="javascript:void(0);">历史记录</a></span><span class="un_talk"><a href="javascript:void(0);">禁止会话</a></span><span class="del_talk"><a href="javascript:void(0);">删除会话记录</a></span></div>
+                    <table class="session">
+                        <thead>
+                            <tr class="tab_top">
+                                <td></td>
+                                <td>状态</td>
+                                <td>访客ID</td>
+                                <td>用户名称</td>
+                                <td>IP</td>
+                                <td>进入时间</td>
+                                <td>等待时间</td>
+                                <td>离开时间</td>
+                                <td>最后消息</td>
+                                <td>当前客服</td>
+                                <td>操作</td>
+                            </tr>
+                        </thead>
+                        <tbody id="sessionList">
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td class="online"><i class="forbid"></i></td>
+                                <td>游客895146</td>
+                                <td><span class="user_name">锄禾日当午</span></td>
+                                <td>192.108.0.102</td>
+                                <td>10-26  11:58:11</td>
+                                <td>00:26</td>
+                                <td>--</td>
+                                <td><span class="last_talk">好的，谢谢</span></td>
+                                <td><a href="javascript:void(0);">小桃红</a></td>
+                                <td><span class="ico talk_ico"><i>会话</i></span><span class="ico history_ico"><i class="four">历史记录</i></span><span class="ico un_talk"><i class="four">禁止会话</i></span><span class="ico del_talk"><i class="six">删除会话记录</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td class="online"><i class="fettle"></i><i class="forbid"></i></td>
+                                <td>游客895146</td>
+                                <td><span class="user_name">锄禾日当午</span></td>
+                                <td>192.108.0.102</td>
+                                <td>10-26  11:58:11</td>
+                                <td class="red">01:26</td>
+                                <td>--</td>
+                                <td><span class="last_talk">不用了，您太客气了</span></td>
+                                <td><a href="javascript:void(0);">小桃绿</a></td>
+                                <td><span class="ico talk_ico"><i>会话</i></span><span class="ico history_ico"><i class="four">历史记录</i></span><span class="ico un_talk"><i class="four">禁止会话</i></span><span class="ico del_talk"><i class="six">删除会话记录</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><i class="forbid"></i></td>
+                                <td>游客895146</td>
+                                <td><span class="user_name">锄禾日当午</span></td>
+                                <td>192.108.0.102</td>
+                                <td>10-26  11:58:11</td>
+                                <td>00:26</td>
+                                <td>10-26  11:58:11</td>
+                                <td><span class="last_talk">拥有全网最全面的彩种，囊括各种最新玩法模式</span></td>
+                                <td><a href="javascript:void(0);">小桃紫</a></td>
+                                <td><span class="ico talk_ico"><i>会话</i></span><span class="ico history_ico"><i class="four">历史记录</i></span><span class="ico un_talk"><i class="four">禁止会话</i></span><span class="ico del_talk"><i class="six">删除会话记录</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><i class="forbid"></i></td>
+                                <td>游客895146</td>
+                                <td><span class="user_name">锄禾日当午</span></td>
+                                <td>192.108.0.102</td>
+                                <td>10-26  11:58:11</td>
+                                <td>00:26</td>
+                                <td>--</td>
+                                <td><span class="last_talk">好的，谢谢</span></td>
+                                <td><a href="javascript:void(0);">小桃红</a></td>
+                                <td><span class="ico talk_ico"><i>会话</i></span><span class="ico history_ico"><i class="four">历史记录</i></span><span class="ico un_talk"><i class="four">禁止会话</i></span><span class="ico del_talk"><i class="six">删除会话记录</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><i class="forbid"></i></td>
+                                <td>游客895146</td>
+                                <td><span class="user_name">锄禾日当午</span></td>
+                                <td>192.108.0.102</td>
+                                <td>10-26  11:58:11</td>
+                                <td class="red">01:26</td>
+                                <td>--</td>
+                                <td><span class="last_talk">不用了，您太客气了</span></td>
+                                <td><a href="javascript:void(0);">小桃绿</a></td>
+                                <td><span class="ico talk_ico"><i>会话</i></span><span class="ico history_ico"><i class="four">历史记录</i></span><span class="ico un_talk"><i class="four">禁止会话</i></span><span class="ico del_talk"><i class="six">删除会话记录</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><i class="forbid"></i></td>
+                                <td>游客895146</td>
+                                <td><span class="user_name">锄禾日当午</span></td>
+                                <td>192.108.0.102</td>
+                                <td>10-26  11:58:11</td>
+                                <td>00:26</td>
+                                <td>10-26  11:58:11</td>
+                                <td><span class="last_talk">拥有全网最全面的彩种，囊括各种最新玩法模式</span></td>
+                                <td><a href="javascript:void(0);">小桃紫</a></td>
+                                <td><span class="ico talk_ico"><i>会话</i></span><span class="ico history_ico"><i class="four">历史记录</i></span><span class="ico un_talk"><i class="four">禁止会话</i></span><span class="ico del_talk"><i class="six">删除会话记录</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><i class="forbid"></i></td>
+                                <td>游客895146</td>
+                                <td><span class="user_name">锄禾日当午</span></td>
+                                <td>192.108.0.102</td>
+                                <td>10-26  11:58:11</td>
+                                <td>00:26</td>
+                                <td>--</td>
+                                <td><span class="last_talk">好的，谢谢</span></td>
+                                <td><a href="javascript:void(0);">小桃红</a></td>
+                                <td><span class="ico talk_ico"><i>会话</i></span><span class="ico history_ico"><i class="four">历史记录</i></span><span class="ico un_talk"><i class="four">禁止会话</i></span><span class="ico del_talk"><i class="six">删除会话记录</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><i class="forbid"></i></td>
+                                <td>游客895146</td>
+                                <td><span class="user_name">锄禾日当午</span></td>
+                                <td>192.108.0.102</td>
+                                <td>10-26  11:58:11</td>
+                                <td class="red">01:26</td>
+                                <td>--</td>
+                                <td><span class="last_talk">不用了，您太客气了</span></td>
+                                <td><a href="javascript:void(0);">小桃绿</a></td>
+                                <td><span class="ico talk_ico"><i>会话</i></span><span class="ico history_ico"><i class="four">历史记录</i></span><span class="ico un_talk"><i class="four">禁止会话</i></span><span class="ico del_talk"><i class="six">删除会话记录</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><i class="forbid"></i></td>
+                                <td>游客895146</td>
+                                <td><span class="user_name">锄禾日当午</span></td>
+                                <td>192.108.0.102</td>
+                                <td>10-26  11:58:11</td>
+                                <td class="red">01:26</td>
+                                <td>--</td>
+                                <td><span class="last_talk">不用了，您太客气了</span></td>
+                                <td><a href="javascript:void(0);">小桃绿</a></td>
+                                <td><span class="ico talk_ico"><i>会话</i></span><span class="ico history_ico"><i class="four">历史记录</i></span><span class="ico un_talk"><i class="four">禁止会话</i></span><span class="ico del_talk"><i class="six">删除会话记录</i></span></td>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><i class="forbid"></i></td>
+                                <td>游客895146</td>
+                                <td><span class="user_name">锄禾日当午</span></td>
+                                <td>192.108.0.102</td>
+                                <td>10-26  11:58:11</td>
+                                <td class="red">01:26</td>
+                                <td>--</td>
+                                <td><span class="last_talk">不用了，您太客气了</span></td>
+                                <td><a href="javascript:void(0);">小桃绿</a></td>
+                                <td><span class="ico talk_ico"><i>会话</i></span><span class="ico history_ico"><i class="four">历史记录</i></span><span class="ico un_talk"><i class="four">禁止会话</i></span><span class="ico del_talk"><i class="six">删除会话记录</i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pages cf">
+                        <div class="page_num"><a href="javascript:void(0);" class="cur">1</a><a href="javascript:void(0);">2</a><a href="javascript:void(0);">3</a><a href="javascript:void(0);">4</a><a href="javascript:void(0);">5</a><span>...</span><a href="javascript:void(0);">12</a><a href="javascript:void(0);">13</a><span class="next_page"></span></div>
+                        <div class="jump_page"><label for="pageNumber">跳转到：</label><input type="text" id="pageNumber"><a href="javascript:void(0);">GO</a></div>
+                    </div>
+                </div>
+            </div>
+            <!--客服管理-->
+            <div class="main_con">
+                <h2>客服管理<a href="javascript:void(0);" class="add_ser" id="addService">增加客服</a></h2>
+                <div class="talk_tab ser_tab">
+                    <div class="chose_all all_ser"><label><input type="checkbox" id="choseAllSer"><span></span></label></div>
+                    <div class="set_edit"><span class="revise"><a href="javascript:void(0);">修改</a></span><span class="un_talk"><a href="javascript:void(0);">禁用</a></span><span class="del_talk"><a href="javascript:void(0);">删除成员</a></span></div>
+                    <table class="ser_session">
+                        <thead>
+                            <tr class="tab_top">
+                                <td></td>
+                                <td>客服ID</td>
+                                <td>姓名</td>
+                                <td>昵称</td>
+                                <td>分组</td>
+                                <td>接待上限</td>
+                                <td>自动分配</td>
+                                <td>操作</td>
+                            </tr>
+                        </thead>
+                        <tbody id="serList">
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><span class="ser_id">客服001</span><i class="forbid"></i></td>
+                                <td><span class="ser_name">周杰伦</span></td>
+                                <td><span class="ser_nike">小桃红</span></td>
+                                <td><span class="ser_group">分组01</span></td>
+                                <td><span class="group_num">20</span></td>
+                                <td><span class="auto_on auto_off"></span></td>
+                                <td><span class="ico revise"><i>修改</i></span><span class="ico un_talk"><i>禁用</i></span><span class="ico del_talk"><i class="four">删除成员</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><span class="ser_id">客服002</span><i class="forbid"></i></td>
+                                <td><span class="ser_name">陈奕迅</span></td>
+                                <td><span class="ser_nike">小桃橙</span></td>
+                                <td><span class="ser_group">分组02</span></td>
+                                <td><span class="group_num">15</span></td>
+                                <td><span class="auto_on"></span></td>
+                                <td><span class="ico revise"><i>修改</i></span><span class="ico un_talk"><i>禁用</i></span><span class="ico del_talk"><i class="four">删除成员</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><span class="ser_id">客服003</span><i class="forbid"></i></td>
+                                <td><span class="ser_name">G·M·S邓紫棋</span></td>
+                                <td><span class="ser_nike">小桃绿</span></td>
+                                <td><span class="ser_group">分组03</span></td>
+                                <td><span class="group_num">15</span></td>
+                                <td><span class="auto_on"></span></td>
+                                <td><span class="ico revise"><i>修改</i></span><span class="ico un_talk"><i>禁用</i></span><span class="ico del_talk"><i class="four">删除成员</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><span class="ser_id">客服04</span><i class="forbid"></i></td>
+                                <td><span class="ser_name">林俊杰</span></td>
+                                <td><span class="ser_nike">小桃橙</span></td>
+                                <td><span class="ser_group">分组02</span></td>
+                                <td><span class="group_num">20</span></td>
+                                <td><span class="auto_on"></span></td>
+                                <td><span class="ico revise"><i>修改</i></span><span class="ico un_talk"><i>禁用</i></span><span class="ico del_talk"><i class="four">删除成员</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><span class="ser_id">客服005</span><i class="forbid"></i></td>
+                                <td><span class="ser_name">张靓颖</span></td>
+                                <td><span class="ser_nike">小桃橙</span></td>
+                                <td><span class="ser_group">分组04</span></td>
+                                <td><span class="group_num">15</span></td>
+                                <td><span class="auto_on"></span></td>
+                                <td><span class="ico revise"><i>修改</i></span><span class="ico un_talk"><i>禁用</i></span><span class="ico del_talk"><i class="four">删除成员</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><span class="ser_id">客服006</span><i class="forbid"></i></td>
+                                <td><span class="ser_name">那英</span></td>
+                                <td><span class="ser_nike">小桃橙</span></td>
+                                <td><span class="ser_group">分组03</span></td>
+                                <td><span class="group_num">15</span></td>
+                                <td><span class="auto_on"></span></td>
+                                <td><span class="ico revise"><i>修改</i></span><span class="ico un_talk"><i>禁用</i></span><span class="ico del_talk"><i class="four">删除成员</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><span class="ser_id">客服007</span><i class="forbid"></i></td>
+                                <td><span class="ser_name">杨坤</span></td>
+                                <td><span class="ser_nike">小桃橙</span></td>
+                                <td><span class="ser_group">分组02</span></td>
+                                <td><span class="group_num">15</span></td>
+                                <td><span class="auto_on"></span></td>
+                                <td><span class="ico revise"><i>修改</i></span><span class="ico un_talk"><i>禁用</i></span><span class="ico del_talk"><i class="four">删除成员</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><span class="ser_id">客服008</span><i class="forbid"></i></td>
+                                <td><span class="ser_name">陈奕迅</span></td>
+                                <td><span class="ser_nike">小桃粉</span></td>
+                                <td><span class="ser_group">分组02</span></td>
+                                <td><span class="group_num">15</span></td>
+                                <td><span class="auto_on"></span></td>
+                                <td><span class="ico revise"><i>修改</i></span><span class="ico un_talk"><i>禁用</i></span><span class="ico del_talk"><i class="four">删除成员</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><span class="ser_id">客服009</span><i class="forbid"></i></td>
+                                <td><span class="ser_name">张杰</span></td>
+                                <td><span class="ser_nike">小桃白</span></td>
+                                <td><span class="ser_group">分组02</span></td>
+                                <td><span class="group_num">15</span></td>
+                                <td><span class="auto_on"></span></td>
+                                <td><span class="ico revise"><i>修改</i></span><span class="ico un_talk"><i>禁用</i></span><span class="ico del_talk"><i class="four">删除成员</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><span class="ser_id">客服010</span><i class="forbid"></i></td>
+                                <td><span class="ser_name">张学友</span></td>
+                                <td><span class="ser_nike">小桃紫</span></td>
+                                <td><span class="ser_group">分组02</span></td>
+                                <td><span class="group_num">15</span></td>
+                                <td><span class="auto_on"></span></td>
+                                <td><span class="ico revise"><i>修改</i></span><span class="ico un_talk"><i>禁用</i></span><span class="ico del_talk"><i class="four">删除成员</i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pages cf">
+                        <div class="page_num"><a href="javascript:void(0);" class="cur">1</a><a href="javascript:void(0);">2</a><a href="javascript:void(0);">3</a><a href="javascript:void(0);">4</a><a href="javascript:void(0);">5</a><span>...</span><a href="javascript:void(0);">12</a><a href="javascript:void(0);">13</a><span class="next_page"></span></div>
+                        <div class="jump_page"><label for="toPage">跳转到：</label><input type="text" id="toPage"><a href="javascript:void(0);">GO</a></div>
+                    </div>
+                </div>
+            </div>
+            <!--对话窗口配置-->
+            <div class="main_con dialogue">
+                <div class="web_dialogue">
+                    <div class="dialog">
+                        <div class="quick_tips quick_ico"><span>点击进入编辑</span></div>
+                        <div class="quick_enter quick_ico"><span>点击进入编辑</span></div>
+                    </div>
+                    <div class="edit_quick">
+                        <a href="javascript:void(0);" class="quick_tips">编辑提示内容</a><a href="javascript:void(0);" class="quick_enter">编辑快速输入内容</a>
+                        <label><input type="checkbox" checked>开启访客超时提醒<span></span></label>
+                    </div>
+                </div>
+                <div class="web_dialogue cf">
+                    <div class="initiative">
+                        <label><input type="checkbox" checked>开启主动对话窗口<span></span></label>
+                        <label class="single_btn"><input type="radio" name="seat">居左<span></span></label>
+                        <label class="single_btn"><input type="radio" name="seat" checked>居右<span></span></label>
+                        <label>侧边距：<input type="text" value="50">px</label>
+                        <p>(主动对话窗口距离浏览器侧边的距离)</p>
+                        <label class="window_size">窗口大小：长<input type="text" value="500">px&nbsp;&nbsp;宽<input type="text" value="300">px</label>
+                        <a href="javascript:void(0);">生成代码</a>
+                        <label><textarea>这里预留放js代码</textarea></label>
+                    </div>
+                    <div class="initiative_pic"><img src="images/initiative.jpg"></div>
+                </div>
+            </div>
+            <!--客户管理-->
+            <div class="main_con">
+                <h2>客户管理<a href="javascript:void(0);" class="add_ser" id="addClient">增加客户</a></h2>
+                <div class="talk_tab ser_tab">
+                    <div class="chose_all all_ser"><label><input type="checkbox" id="choseAllClient"><span></span></label></div>
+                    <div class="set_edit"><span class="revise"><a href="javascript:void(0);">修改</a></span><span class="un_talk"><a href="javascript:void(0);">禁用</a></span><span class="del_talk"><a href="javascript:void(0);">删除成员</a></span></div>
+                    <table class="client_session">
+                        <thead>
+                            <tr class="tab_top">
+                                <td></td>
+                                <td>客户ID</td>
+                                <td>服务IP</td>
+                                <td>公司</td>
+                                <td>域名</td>
+                                <td>联系方式</td>
+                                <td>操作</td>
+                            </tr>
+                        </thead>
+                        <tbody id="clientList">
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><span class="c_id">客户001</span><i class="forbid"></i></td>
+                                <td><span class="c_ip">192.168.0.101</span></td>
+                                <td><span class="c_dress">广州久泰科技有限公司</span></td>
+                                <td><span class="c_domain">www.jiutai.com&nbsp;&nbsp;|&nbsp;&nbsp;www.jiutai001.com</span></td>
+                                <td><span class="c_tel">18688000088</span></td>
+                                <td><span class="ico revise"><i>修改</i></span><span class="ico un_talk"><i>禁用</i></span><span class="ico del_talk"><i class="four">删除成员</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><span class="c_id">客户002</span><i class="forbid"></i></td>
+                                <td><span class="c_ip">192.168.0.101</span></td>
+                                <td><span class="c_dress">深圳腾讯计算机系统有限公司</span></td>
+                                <td><span class="c_domain">www.qq.com</span></td>
+                                <td><span class="c_tel">18688000088</span></td>
+                                <td><span class="ico revise"><i>修改</i></span><span class="ico un_talk"><i>禁用</i></span><span class="ico del_talk"><i class="four">删除成员</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><span class="c_id">客户003</span><i class="forbid"></i></td>
+                                <td><span class="c_ip">192.168.0.101</span></td>
+                                <td><span class="c_dress">广州华多网络科技公司</span></td>
+                                <td><span class="c_domain">www.yy.com</span></td>
+                                <td><span class="c_tel">18688000088</span></td>
+                                <td><span class="ico revise"><i>修改</i></span><span class="ico un_talk"><i>禁用</i></span><span class="ico del_talk"><i class="four">删除成员</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><span class="c_id">客户004</span><i class="forbid"></i></td>
+                                <td><span class="c_ip">192.168.0.101</span></td>
+                                <td><span class="c_dress">广州网易计算机系统有限公司</span></td>
+                                <td><span class="c_domain">www.163.com</span></td>
+                                <td><span class="c_tel">18688000088</span></td>
+                                <td><span class="ico revise"><i>修改</i></span><span class="ico un_talk"><i>禁用</i></span><span class="ico del_talk"><i class="four">删除成员</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><span class="c_id">客户005</span><i class="forbid"></i></td>
+                                <td><span class="c_ip">192.168.0.101</span></td>
+                                <td><span class="c_dress">广州菲音信息科技有限公司</span></td>
+                                <td><span class="c_domain">www.xunwan.com</span></td>
+                                <td><span class="c_tel">18688000088</span></td>
+                                <td><span class="ico revise"><i>修改</i></span><span class="ico un_talk"><i>禁用</i></span><span class="ico del_talk"><i class="four">删除成员</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><span class="c_id">客户006</span><i class="forbid"></i></td>
+                                <td><span class="c_ip">192.168.0.101</span></td>
+                                <td><span class="c_dress">广州久泰科技有限公司</span></td>
+                                <td><span class="c_domain">www.jiutai.com&nbsp;&nbsp;|&nbsp;&nbsp;www.jiutai001.com</span></td>
+                                <td><span class="c_tel">18688000088</span></td>
+                                <td><span class="ico revise"><i>修改</i></span><span class="ico un_talk"><i>禁用</i></span><span class="ico del_talk"><i class="four">删除成员</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><span class="c_id">客户007</span><i class="forbid"></i></td>
+                                <td><span class="c_ip">192.168.0.101</span></td>
+                                <td><span class="c_dress">广州久泰科技有限公司</span></td>
+                                <td><span class="c_domain">www.jiutai.com&nbsp;&nbsp;|&nbsp;&nbsp;www.jiutai001.com</span></td>
+                                <td><span class="c_tel">18688000088</span></td>
+                                <td><span class="ico revise"><i>修改</i></span><span class="ico un_talk"><i>禁用</i></span><span class="ico del_talk"><i class="four">删除成员</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><span class="c_id">客户008</span><i class="forbid"></i></td>
+                                <td><span class="c_ip">192.168.0.101</span></td>
+                                <td><span class="c_dress">广州久泰科技有限公司</span></td>
+                                <td><span class="c_domain">www.jiutai.com&nbsp;&nbsp;|&nbsp;&nbsp;www.jiutai001.com</span></td>
+                                <td><span class="c_tel">18688000088</span></td>
+                                <td><span class="ico revise"><i>修改</i></span><span class="ico un_talk"><i>禁用</i></span><span class="ico del_talk"><i class="four">删除成员</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><span class="c_id">客户009</span><i class="forbid"></i></td>
+                                <td><span class="c_ip">192.168.0.101</span></td>
+                                <td><span class="c_dress">广州久泰科技有限公司</span></td>
+                                <td><span class="c_domain">www.jiutai.com&nbsp;&nbsp;|&nbsp;&nbsp;www.jiutai001.com</span></td>
+                                <td><span class="c_tel">18688000088</span></td>
+                                <td><span class="ico revise"><i>修改</i></span><span class="ico un_talk"><i>禁用</i></span><span class="ico del_talk"><i class="four">删除成员</i></span></td>
+                            </tr>
+                            <tr>
+                                <td><label><input type="checkbox"><span></span></label></td>
+                                <td><span class="c_id">客户010</span><i class="forbid"></i></td>
+                                <td><span class="c_ip">192.168.0.101</span></td>
+                                <td><span class="c_dress">广州久泰科技有限公司</span></td>
+                                <td><span class="c_domain">www.jiutai.com&nbsp;&nbsp;|&nbsp;&nbsp;www.jiutai001.com</span></td>
+                                <td><span class="c_tel">18688000088</span></td>
+                                <td><span class="ico revise"><i>修改</i></span><span class="ico un_talk"><i>禁用</i></span><span class="ico del_talk"><i class="four">删除成员</i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pages cf">
+                        <div class="page_num"><a href="javascript:void(0);" class="cur">1</a><a href="javascript:void(0);">2</a><a href="javascript:void(0);">3</a><a href="javascript:void(0);">4</a><a href="javascript:void(0);">5</a><span>...</span><a href="javascript:void(0);">12</a><a href="javascript:void(0);">13</a><span class="next_page"></span></div>
+                        <div class="jump_page"><label for="toPage">跳转到：</label><input type="text" id="toPage"><a href="javascript:void(0);">GO</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--聊天窗口-->
+<div class="chart_box" id="chartBox">
+    <div class="chart_left left">
+        <div class="chart_til">
+            <div class="search"><input type="text" placeholder="请输入用户名"><label></label></div>
+        </div>
+        <div class="chart_team">
+            <ul class="chart_group">
+                <li class="tm_name"><i class="group_ico"></i>分组01<span>4/10</span>
+                    <div class="tm_list cf">
+                        <dl class="cf">
+                            <dt><img src="images/user_img1.jpg" class="gray"></dt>
+                            <dd>BDB测试1</dd>
+                            <dd>昨天中了500块，哈哈<span class="red">2</span></dd>
+                        </dl>
+                        <dl class="cf">
+                            <dt><img src="images/user_img2.jpg"></dt>
+                            <dd>BDB测试005</dd>
+                            <dd>我昨天中了100块<span class="red">11</span></dd>
+                        </dl>
+                        <dl class="cf">
+                            <dt><img src="images/user_img2.jpg" class="gray"></dt>
+                            <dd>金牌代理商</dd>
+                            <dd>昨天中了50块，哈哈哈</dd>
+                        </dl>
+                        <dl class="cf">
+                            <dt><img src="images/user_img1.jpg"></dt>
+                            <dd>给我脉动</dd>
+                            <dd>人呢？在不在，快点回个消息<span class="red">20</span></dd>
+                        </dl>
+                        <dl class="cf">
+                            <dt><img src="images/user_img2.jpg"></dt>
+                            <dd>BDB测试001</dd>
+                            <dd>人呢,在不在，快点回个消息<span class="red">20</span></dd>
+                        </dl>
+                    </div>
+                </li>
+                <li class="tm_name"><i class="group_ico"></i>来访用户<span>2/5</span>
+                    <div class="tm_list cf">
+                        <dl class="cf">
+                            <dt><img src="images/user_img1.jpg" class="gray"></dt>
+                            <dd>BDB测试1</dd>
+                            <dd>昨天中了500块，哈哈<span class="red">11</span></dd>
+                        </dl>
+                        <dl class="cf">
+                            <dt><img src="images/user_img2.jpg"></dt>
+                            <dd>BDB测试005</dd>
+                            <dd>我昨天中了100块<span class="red">11</span></dd>
+                        </dl>
+                        <dl class="cf">
+                            <dt><img src="images/user_img2.jpg" class="gray"></dt>
+                            <dd>金牌代理商</dd>
+                            <dd>昨天中了50块，哈哈哈</dd>
+                        </dl>
+                        <dl class="cf">
+                            <dt><img src="images/user_img1.jpg"></dt>
+                            <dd>给我脉动</dd>
+                            <dd>人呢？在不在，快点回个消息<span class="red">20</span></dd>
+                        </dl>
+                        <dl class="cf">
+                            <dt><img src="images/user_img2.jpg"></dt>
+                            <dd>BDB测试001</dd>
+                            <dd>人呢,在不在，快点回个消息<span class="red">20</span></dd>
+                        </dl>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="chart_right right">
+        <div class="chart_til"><span class="user_name">游客4985</span><a class="close close_chart" href="javascript:void(0);"></a></div>
+        <div class="chart_con cf">
+            <div class="talk_cn">
+                <div class="talk_list">
+                    <dl class="cf other">
+                        <dt><img src="images/user.jpg"></dt>
+                        <dd>
+                            <span class="send_time">07-11 16:21</span>
+                            <div class="send_con">您好，我想咨询一下价格</div>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="talk_send cf">
+                    <div class="pictures">图片</div>
+                    <div class="brows">表情</div>
+                    <div class="quick_write">快速输入</div>
+                </div>
+                <div class="talk_input">
+                    <label><textarea class="write" placeholder="说些什么"></textarea></label>
+                    <a href="javascript:void(0);" class="send_txt">发送</a>
+                </div>
+            </div>
+            <!--快速输入内容-->
+            <div class="quick_list">
+                <ul>
+                    <li>您好，欢迎光临，请稍后...</li>
+                    <li>您好，欢迎光临，现在客服人员正忙请稍后...</li>
+                    <li>您好，欢迎访问！请问有什么需要咨询？</li>
+                    <li>您已长时间未响应客服对话，如果时间过长未响应，对话奖结束！</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="layer_bg">
+    <!--历史记录-->
+    <div class="history" id="historyBox">
+        <h2><span>历史记录</span><a href="javascript:void(0);" class="close close_chart"></a></h2>
+        <div class="history_con cf">
+            <div class="visitor_list"><!--用户列表，单人不显示--></div>
+            <div class="visitor_his">
+                <dl class="visitor">
+                    <dt>BDB测试001&nbsp;&nbsp;11-09 15:32:09</dt>
+                    <dd>昨天中了500块钱，哈哈哈哈哈，真的太开心了！</dd>
+                </dl>
+                <dl class="visitor">
+                    <dt>BDB测试001&nbsp;&nbsp;11-09 15:32:09</dt>
+                    <dd>昨天中了500块钱，哈哈哈哈哈，真的太开心了真的太开心了！</dd>
+                </dl>
+                <dl class="customer">
+                    <dt>BDBBCome测试&nbsp;&nbsp;11-09 15:32:09</dt>
+                    <dd>您好，由于新疆时时彩20160928期-20160939期官方未开奖，平台进行撤单处理，给您带来不便，请您多多谅解。如有任何疑问，请及时联系在线客服，我们将竭诚为您服务!</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <!--新增客服-->
+    <div class="add_service" id="addOneSer">
+        <h2><span>新增客服</span><a href="javascript:void(0);" class="close"></a></h2>
+        <div class="layer_con">
+            <ul class="cf ser_data">
+                <li><span>客服ID</span><label><input type="text" placeholder="客服ID"></label></li>
+                <li><span>姓名</span><label><input type="text" placeholder="姓名"></label></li>
+                <li><span>昵称</span><label><input type="text" placeholder="昵称"></label></li>
+                <li><span>分组</span><span class="groups">001</span>
+                    <div class="set_group">
+                        <label><input type="text" placeholder="输入组名"></label><a class="addGroup" href="javascript:void(0);">添加</a>
+                        <ul></ul>
+                    </div>
+                </li>
+                <li><span>接待上限</span>
+                    <label><select><option>10</option><option>15</option><option>20</option></select>人</label>
+                </li>
+                <li><span>自动分配</span><span class="allot"></span></li>
+            </ul>
+            <div class="purview">
+                <div class="set_dl">
+                    <h3>会话管理<span><i>网页对话</i></span><a href="javascript:void(0);"><span>展开</span><i></i></a></h3>
+                    <div class="set_dd">
+                        <form>
+                            <label><input type="radio" name="dialog">接主动对话<span></span></label>
+                            <label><input type="radio" name="dialog" checked>接网页对话<span></span></label>
+                            <label><input type="radio" name="dialog">接游客对话<span></span></label>
+                            <a href="javascript:void(0);">保存</a>
+                        </form>
+
+                    </div>
+                </div>
+                <div class="set_dl">
+                <h3>访客留言<span><i>查看全部访客留言</i><i>能回复留言</i></span><a href="javascript:void(0);"><span>展开</span><i></i></a></h3>
+                    <div class="set_dd">
+                        <label><input type="checkbox" name="dialog" checked>查看全部访客留言<span></span></label>
+                        <label><input type="checkbox" name="dialog" checked>能回复留言<span></span></label>
+                        <a href="javascript:void(0);">保存</a>
+                    </div>
+                </div>
+                <div class="set_dl">
+                    <h3>客服管理<span><i>查看其他客服列表</i><i>修改本人信息</i></span><a href="javascript:void(0);"><span>展开</span><i></i></a></h3>
+                    <div class="set_dd">
+                        <label><input type="checkbox" name="dialog" checked>查看其他客服列表<span></span></label>
+                        <label><input type="checkbox" name="dialog" checked>修改本人信息<span></span></label>
+                        <label><input type="checkbox" name="dialog">查看他人对话记录<span></span></label>
+                        <label><input type="checkbox" name="dialog">删除会话信息<span></span></label>
+                        <label><input type="checkbox" name="dialog">删除客服<span></span></label>
+                        <a href="javascript:void(0);">保存</a>
+                    </div>
+                </div>
+            </div>
+            <div class="define">
+                <a href="javascript:void(0);">确定</a>
+                <a class="close" href="javascript:void(0);">取消</a>
+            </div>
+        </div>
+    </div>
+    <!--修改客服资料-->
+    <div class="add_service" id="editOneSer">
+        <h2><span>修改客服</span><a href="javascript:void(0);" class="close"></a></h2>
+        <div class="layer_con cf">
+            <div class="ser_list left">
+                <ul id="editSerList"></ul>
+            </div>
+            <div class="ser_info left">
+                <ul class="cf ser_data">
+                    <li><span>客服ID</span><span class="ser_id"></span></li>
+                    <li><span>姓名</span><span class="ser_name"></span></li>
+                    <li><span>昵称</span><span class="ser_nike"></span></li>
+                    <li><span>分组</span><span class="groups">001</span>
+                        <div class="set_group">
+                            <label><input type="text" placeholder="输入组名"></label><a class="addGroup" href="javascript:void(0);">添加</a>
+                            <ul>
+                                <li>小伙伴们<span class="del_group"></span><span class="ch_group" data-name="小伙伴们"></span></li>
+                                <li>游客组<span class="del_group"></span><span class="ch_group" data-name="游客组"></span></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><span>接待上限</span>
+                        <label><select><option value="10">10</option><option value="15">15</option><option value="20">20</option></select>人</label>
+                    </li>
+                    <li><span>自动分配</span><span class="allot"></span></li>
+                </ul>
+                <div class="purview">
+                    <div class="set_dl">
+                        <h3>会话管理<span><i>网页对话</i></span><a href="javascript:void(0);"><span>展开</span><i></i></a></h3>
+                        <div class="set_dd">
+                            <form>
+                                <label><input type="radio" name="dialog">接主动对话<span></span></label>
+                                <label><input type="radio" name="dialog" checked>接网页对话<span></span></label>
+                                <label><input type="radio" name="dialog">接游客对话<span></span></label>
+                                <a href="javascript:void(0);">保存</a>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="set_dl">
+                        <h3>访客留言<span><i>查看全部访客留言</i><i>能回复留言</i></span><a href="javascript:void(0);"><span>展开</span><i></i></a></h3>
+                        <div class="set_dd">
+                            <label><input type="checkbox" name="dialog" checked>查看全部访客留言<span></span></label>
+                            <label><input type="checkbox" name="dialog" checked>能回复留言<span></span></label>
+                            <a href="javascript:void(0);">保存</a>
+                        </div>
+                    </div>
+                    <div class="set_dl">
+                        <h3>客服管理<span><i>查看其他客服列表</i><i>修改本人信息</i></span><a href="javascript:void(0);"><span>展开</span><i></i></a></h3>
+                        <div class="set_dd">
+                            <label><input type="checkbox" name="dialog" checked>查看其他客服列表<span></span></label>
+                            <label><input type="checkbox" name="dialog" checked>修改本人信息<span></span></label>
+                            <label><input type="checkbox" name="dialog">查看他人对话记录<span></span></label>
+                            <label><input type="checkbox" name="dialog">删除会话信息<span></span></label>
+                            <label><input type="checkbox" name="dialog">删除客服<span></span></label>
+                            <a href="javascript:void(0);">保存</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="define">
+                    <a href="javascript:void(0);">确定</a>
+                    <a class="close" href="javascript:void(0);">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--快速输入内容设置-->
+    <div class="set_quick" id="quickEnter">
+        <h2><span>快速输入内容设置</span><a href="javascript:void(0);" class="close"></a></h2>
+        <div class="set_quick_cn">
+            <ul class="quick_item" id="quickItem">
+                <li><span>您好，欢迎光临，请稍后</span><a href="javascript:void(0);" class="del_li close_chart"></a></li>
+                <li><span>您好，欢迎光临，现在客服人员正忙请稍后...</span><a href="javascript:void(0);" class="del_li close_chart"></a></li>
+                <li><span>您好，请问有什么需要咨询的呢？</span><a href="javascript:void(0);" class="del_li close_chart"></a></li>
+                <li><span>您好，欢迎光临，请稍后</span><a href="javascript:void(0);" class="del_li close_chart"></a></li>
+                <li><span>您好，欢迎光临，请稍后</span><a href="javascript:void(0);" class="del_li close_chart"></a></li>
+            </ul>
+            <div class="set_con"><label><input type="text" placeholder="请输入您要增加的内容"><span></span></label></div>
+            <div class="define">
+                <a href="javascript:void(0);">确定</a>
+                <a class="close" href="javascript:void(0);">取消</a>
+            </div>
+        </div>
+    </div>
+    <!--提示内容设置-->
+    <div class="set_tips" id="setTips">
+        <h2><span>聊天提示设置</span><a href="javascript:void(0);" class="close"></a></h2>
+        <div class="set_half">
+            <ul class="tips_tab cf" id="tipTab">
+                <li class="cur">欢迎语</li>
+                <li>等待提示</li>
+                <li>繁忙提示</li>
+                <li>结束语</li>
+                <li>访客超时</li>
+            </ul>
+            <div class="tip_content">
+                <div class="tips">
+                    <label><textarea id="welCome">客服代表为您服务，请问有什么可以帮您？</textarea></label>
+                </div>
+                <div class="tips">
+                    <label><textarea id="hopeMoment">您前面还有3个用户在排队等候，客服代表稍后为您服务。</textarea></label>
+                </div>
+                <div class="tips">
+                    <label><textarea id="tooBusy">客服代表正忙，请稍候……</textarea></label>
+                </div>
+                <div class="tips">
+                    <label><textarea id="overTip">会话已结束，感谢您的咨询</textarea></label>
+                </div>
+                <div class="tips time_out">
+                    <label>访客超过：<input type="text" value="5">分钟未发送消息时</label>
+                    <label>提示信息：<input type="text" value="您已长时间未响应客服对话，如果长时间未响应，对话将结束！"></label>
+                    <label>访客超过：<input type="text" value="10">分钟未发送消息时</label>
+                    <label>提示信息：<input type="text" value="您已长时间未响应客服对话，系统已结束您当次对话，欢迎下次咨询！"></label>
+                    <div class="tip_sm">两次提示完成后，系统将自动结束对话。</div>
+                </div>
+            </div>
+            <div class="define">
+                <a href="javascript:void(0);">确定</a>
+                <a class="close" href="javascript:void(0);">取消</a>
+            </div>
+        </div>
+    </div>
+    <!--新增客户-->
+    <div class="add_client" id="addOneClient">
+        <h2><span>新增客服</span><a href="javascript:void(0);" class="close"></a></h2>
+        <div class="client_con">
+            <div class="cus_data">
+                <ul>
+                    <li class="cus_id"><label><span>客户ID</span><input type="text" placeholder="请输入客户ID"></label></li>
+                    <li class="cus_ip"><label><span>服务IP</span><input type="text" placeholder="请输入客户服务IP"></label></li>
+                    <li class="company"><label><span>公司</span><input type="text" placeholder="请输入客户公司名"></label></li>
+                    <li class="domain"><label><span>域名</span><input type="text" placeholder="请输入客户域名"></label></li>
+                    <li class="cus_phone"><label><span>联系方式</span><input type="text" placeholder="请输入客户联系方式"></label></li>
+                </ul>
+            </div>
+            <div class="define">
+                <a href="javascript:void(0);">确定</a>
+                <a class="close" href="javascript:void(0);">取消</a>
+            </div>
+        </div>
+    </div>
+    <!--修改客户资料-->
+    <div class="add_client" id="editClient">
+        <h2><span>修改客户资料</span><a href="javascript:void(0);" class="close"></a></h2>
+        <div class="client_con">
+            <div class="set_client cf">
+                <div class="client_list left">
+                    <ul id="customerList"></ul>
+                </div>
+                <div class="cus_data left">
+                    <ul>
+                        <li class="cus_id"><label><span>客户ID</span><input id="cusId" type="text"><span>修改</span></label></li>
+                        <li class="cus_ip"><label><span>服务IP</span><input id="cusIp" type="text"><span>修改</span></label></li>
+                        <li class="company"><label><span>公司</span><input id="cusCompany" type="text"><span>修改</span></label></li>
+                        <li class="domain"><label><span>域名</span><input id="doMain" type="text"><span>修改</span></label></li>
+                        <li class="cus_phone"><label><span>联系方式</span><input id="cusPhone" type="text"><span>修改</span></label></li>
+                    </ul>
+                    <div class="define">
+                        <a href="javascript:void(0);">确定</a>
+                        <a class="close" href="javascript:void(0);">取消</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery-3.1.1.min.js"></script>
+<!--滤镜插件-->
+<script src="js/grayscale.js"></script>
+<!--日历插件-->
+<script src="js/jquery-calendar.js"></script>
+<!--交互功能-->
+<script src="js/index.js"></script>
+</body>
+</html>
