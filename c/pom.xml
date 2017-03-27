@@ -13,8 +13,8 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.hitler</groupId>
-			<artifactId></artifactId>
+			<groupId>n.core</groupId>
+			<artifactId>p</artifactId>
 			<version>1.0</version>
 		</dependency>
 
