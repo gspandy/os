@@ -1,0 +1,24 @@
+application: 
+  name: JT-S 
+  ip: 127.0.0.1
+  
+db:
+  driver: com.mysql.jdbc.Driver
+  dialect: org.hibernate.dialect.MySQLDialect
+  url: jdbc:mysql://localhost:3306/WISE_TOWER?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+  user: root
+  pswd: jt123$%^
+  
+zk:
+  root:
+    path: /wise_conf
+    
+dubbo:
+  registry:
+    address: 127.0.0.1:2181
+    port: 20881
+    id: jt
+  protocol: dubbo
+  timeout: 60000
+  serial: java
+  version: 1.0

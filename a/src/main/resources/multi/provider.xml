@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://code.alibabatech.com/schema/dubbo
+         http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<description>DAO Service Provider</description>
+	
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="${application.name}" />
+
+	<!-- 使用Zookeeper注册中心暴露服务地址 -->
+	<!-- 单机配置 -->
+	<!-- <dubbo:registry address="${dubbo.registry.address}" /> -->
+	<!-- 集群配置 -->
+	<dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}"  />
+
+	<!-- 用dubbo协议在 20881 端口暴露服务 -->
+	<!-- <dubbo:protocol name="${dubbo.protocol}" port="${dubbo.registry.port}" /> -->
+
+	<dubbo:protocol host="${application.ip}" name="${dubbo.protocol}" port="${dubbo.registry.port}" />
+	<dubbo:provider timeout="${dubbo.timeout}" serialization="${dubbo.serial}" />
+
+	<!-- config sys -->
+    <dubbo:service ref="preferenceService" interface="com.hitler.service.sider.IPreferenceService"  version="${dubbo.version}"/>
+    <dubbo:service ref="heroService" interface="com.hitler.service.sider.IHeroService"  version="${dubbo.version}"/>
+
+	<!-- 用户基本信息 -->
+	<dubbo:service ref="userService" interface="com.hitler.service.authc.IUserService" version="${dubbo.version}" />
+	<!-- 聊天共享 -->	
+	<dubbo:service  ref="userChatShareService"  interface="com.hitler.service.authc.IUserChatShareService"  version="${dubbo.version}" />
+	
+	<!-- 角色信息 -->
+	<dubbo:service ref="roleService" interface="com.hitler.service.authc.IRoleService" version="${dubbo.version}" />
+	<!-- 权限信息 -->
+	<dubbo:service ref="permissionService" interface="com.hitler.service.authc.IPermissionService" version="${dubbo.version}" />
+	<!-- 公司信息 -->
+	<dubbo:service ref="companyService" interface="com.hitler.service.authc.ICompanyService" version="${dubbo.version}" />
+	<!-- 分组信息 -->
+	<dubbo:service ref="layerService" interface="com.hitler.service.authc.ILayerService" version="${dubbo.version}" />
+	<!-- 访客记录服务 -->
+	<dubbo:service ref="accessRecordService" interface="com.hitler.service.info.IAccessRecordService" version="${dubbo.version}" />
+	<!-- 消息记录服务 -->
+	<dubbo:service ref="messageRecordService" interface="com.hitler.service.info.IMessageRecordService" version="${dubbo.version}" />
+	<!-- 聊天提示配置服务 -->
+	<dubbo:service ref="promptConfigService" interface="com.hitler.service.sider.IPromptConfigService" version="${dubbo.version}" />
+	
+	<!-- 游戏服务类 -->
+	<dubbo:service ref="gameService" interface="com.hitler.service.play.IGameService" version="${dubbo.version}" />
+	<dubbo:service ref="lnService" interface="com.hitler.service.play.ILNService" version="${dubbo.version}" />
+	<dubbo:service ref="playTypeService" interface="com.hitler.service.play.IPlayTypeService" version="${dubbo.version}" />
+	<dubbo:service ref="betRecordService" interface="com.hitler.service.play.IBetRecordService" version="${dubbo.version}" />
+	
+	<!-- ply -->
+	<dubbo:service ref="bankService" interface="com.hitler.service.ply.IBankService" version="${dubbo.version}" />
+	<dubbo:service ref="userBankCardService" interface="com.hitler.service.ply.IUserBankCardService" version="${dubbo.version}" />
+	<dubbo:service ref="thirdPlyService" interface="com.hitler.service.ply.IThirdPlyService" version="${dubbo.version}" />
+	
+	
+</beans>
