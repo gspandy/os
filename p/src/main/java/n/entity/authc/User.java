@@ -167,14 +167,14 @@ public class User extends CheckableEntity<Long> {
 	 * 最后登录时间
 	 */
 	@Column(name = "LAST_LOGIN_TIME")
-	@Type(type = "com.hitler.core.entity.usertype.PersistentDateTimeAsMillisLong")
+	@Type(type = "n.core.entity.usertype.PersistentDateTimeAsMillisLong")
 	private DateTime lastLoginTime;
 	/**
 	 * 登录时间
 	 */
 	@LastModifiedDate
 	@Column(name = "LOGIN_TIME")
-	@Type(type = "com.hitler.core.entity.usertype.PersistentDateTimeAsMillisLong")
+	@Type(type = "n.core.entity.usertype.PersistentDateTimeAsMillisLong")
 	private DateTime loginTime;
 	
 	

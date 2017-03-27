@@ -8,41 +8,41 @@
     <description>服务消费方配置</description>
     
     <!-- config -->
-    <dubbo:reference id="preferenceService"   interface="com.hitler.service.sider.IPreferenceService"  version="${dubbo.version}"/>
-    <dubbo:reference id="heroService"   interface="com.hitler.service.sider.IHeroService"  version="${dubbo.version}"/>
+    <dubbo:reference id="preferenceService"   interface="n.service.sider.IPreferenceService"  version="${dubbo.version}"/>
+    <dubbo:reference id="heroService"   interface="n.service.sider.IHeroService"  version="${dubbo.version}"/>
     
 	<!-- 用户基本信息服务 -->
-	<dubbo:reference  id="userService"  interface="com.hitler.service.authc.IUserService"  version="${dubbo.version}" />
+	<dubbo:reference  id="userService"  interface="n.service.authc.IUserService"  version="${dubbo.version}" />
 		
 	<!-- 聊天共享 -->	
-	<dubbo:reference  id="userChatShareService"  interface="com.hitler.service.authc.IUserChatShareService"  version="${dubbo.version}" />
+	<dubbo:reference  id="userChatShareService"  interface="n.service.authc.IUserChatShareService"  version="${dubbo.version}" />
 	
 	<!-- 角色信息服务 -->
-	<dubbo:reference  id="roleService"  interface="com.hitler.service.authc.IRoleService"  version="${dubbo.version}"  />
+	<dubbo:reference  id="roleService"  interface="n.service.authc.IRoleService"  version="${dubbo.version}"  />
 	<!-- 权限服务 -->
-	<dubbo:reference  id="permissionService"  interface="com.hitler.service.authc.IPermissionService"  version="${dubbo.version}"  />
+	<dubbo:reference  id="permissionService"  interface="n.service.authc.IPermissionService"  version="${dubbo.version}"  />
 	<!-- 公司信息服务 -->
-	<dubbo:reference  id="companyService"  interface="com.hitler.service.authc.ICompanyService"  version="${dubbo.version}"  />
+	<dubbo:reference  id="companyService"  interface="n.service.authc.ICompanyService"  version="${dubbo.version}"  />
 	<!-- 分组信息服务 -->
-	<dubbo:reference  id="layerService"  interface="com.hitler.service.authc.ILayerService"  version="${dubbo.version}"  />
+	<dubbo:reference  id="layerService"  interface="n.service.authc.ILayerService"  version="${dubbo.version}"  />
 	
 	<!-- 访客记录服务 -->
-	<dubbo:reference  id="accessRecordService"  interface="com.hitler.service.info.IAccessRecordService"  version="${dubbo.version}"/>
+	<dubbo:reference  id="accessRecordService"  interface="n.service.info.IAccessRecordService"  version="${dubbo.version}"/>
 	<!-- 消息记录服务 -->
-	<dubbo:reference  id="messageRecordService"  interface="com.hitler.service.info.IMessageRecordService"  version="${dubbo.version}" />
+	<dubbo:reference  id="messageRecordService"  interface="n.service.info.IMessageRecordService"  version="${dubbo.version}" />
 	<!-- 聊天提示配置服务 -->
-	<dubbo:reference  id="promptConfigService"  interface="com.hitler.service.sider.IPromptConfigService"  version="${dubbo.version}" />
+	<dubbo:reference  id="promptConfigService"  interface="n.service.sider.IPromptConfigService"  version="${dubbo.version}" />
     
     <!-- play -->
-    <dubbo:reference  id="gameService"  interface="com.hitler.service.play.IGameService"  version="${dubbo.version}" />
-    <dubbo:reference  id="lnService"  interface="com.hitler.service.play.ILNService"  version="${dubbo.version}" />
-    <dubbo:reference  id="playTypeService"  interface="com.hitler.service.play.IPlayTypeService"  version="${dubbo.version}" />
-    <dubbo:reference  id="betRecordService"  interface="com.hitler.service.play.IBetRecordService"  version="${dubbo.version}" />
+    <dubbo:reference  id="gameService"  interface="n.service.play.IGameService"  version="${dubbo.version}" />
+    <dubbo:reference  id="lnService"  interface="n.service.play.ILNService"  version="${dubbo.version}" />
+    <dubbo:reference  id="playTypeService"  interface="n.service.play.IPlayTypeService"  version="${dubbo.version}" />
+    <dubbo:reference  id="betRecordService"  interface="n.service.play.IBetRecordService"  version="${dubbo.version}" />
     
     <!-- ply -->
-    <dubbo:reference  id="bankService"  interface="com.hitler.service.ply.IBankService"  version="${dubbo.version}" />
-    <dubbo:reference  id="userBankCardService"  interface="com.hitler.service.ply.IUserBankCardService"  version="${dubbo.version}" />
-    <dubbo:reference  id="thirdPlyService"  interface="com.hitler.service.ply.IThirdPlyService"  version="${dubbo.version}" />
+    <dubbo:reference  id="bankService"  interface="n.service.ply.IBankService"  version="${dubbo.version}" />
+    <dubbo:reference  id="userBankCardService"  interface="n.service.ply.IUserBankCardService"  version="${dubbo.version}" />
+    <dubbo:reference  id="thirdPlyService"  interface="n.service.ply.IThirdPlyService"  version="${dubbo.version}" />
     
     
 </beans>

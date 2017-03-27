@@ -35,7 +35,7 @@ public abstract class AuditableEntity<PK extends Serializable> extends Persistab
 	 */
 	@CreatedDate
 	@Column(name = "CREATED_DATE", nullable = false)
-	@Type(type = "com.hitler.core.entity.usertype.PersistentDateTimeAsMillisLong")
+	@Type(type = "n.core.entity.usertype.PersistentDateTimeAsMillisLong")
 	private DateTime createdDate;
 
 	/**
@@ -51,7 +51,7 @@ public abstract class AuditableEntity<PK extends Serializable> extends Persistab
 	 */
 	@LastModifiedDate
 	@Column(name = "LAST_MODIFIED_DATE", nullable = true)
-	@Type(type = "com.hitler.core.entity.usertype.PersistentDateTimeAsMillisLong")
+	@Type(type = "n.core.entity.usertype.PersistentDateTimeAsMillisLong")
 	private DateTime lastModifiedDate; // TODO 李
 
 	public String getCreatedBy() {

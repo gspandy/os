@@ -66,7 +66,7 @@
 				</prop>
 				<prop key="hibernate.cache.provider_configuration">classpath:config/dao/ehcache.xml</prop>
 				<prop key="hibernate.cache.use_query_cache">true</prop>
-				<!-- <prop key="hibernate.ejb.interceptor">com.hitler.core.aop.CheageSchemaInterceptor</prop> -->
+				<!-- <prop key="hibernate.ejb.interceptor">n.core.aop.CheageSchemaInterceptor</prop> -->
 				<prop key="hibernate.enable_lazy_load_no_trans">true</prop><!-- 处理懒加载异常 -->
 			</props>
 		</property>
@@ -87,12 +87,12 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<!--SPRING DATA JPA 配置 加入自定义的RepositoryFactory -->
-	<jpa:repositories base-package="com.hitler.repository"
+	<jpa:repositories base-package="n.repository"
 		entity-manager-factory-ref="entityManagerFactory"
 		transaction-manager-ref="transactionManager" repository-impl-postfix="Impl"
-		factory-class="com.hitler.core.repository.support.DefaultRepositoryFactoryBean" />
+		factory-class="n.core.repository.support.DefaultRepositoryFactoryBean" />
 		
 	<jpa:auditing auditor-aware-ref="auditorAware" date-time-provider-ref="" />
-	<bean id="auditorAware" class="com.hitler.core.entity.auditing.DefaultAuditorAware" />
+	<bean id="auditorAware" class="n.core.entity.auditing.DefaultAuditorAware" />
 
 </beans>

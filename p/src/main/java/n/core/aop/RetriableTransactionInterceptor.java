@@ -28,7 +28,7 @@ public class RetriableTransactionInterceptor {
 	@Autowired
 	private PlatformTransactionManager transactionManager;
 
-	@Around("@annotation(com.hitler.core.aop.annotation.RetriableTransaction)")
+	@Around("@annotation(n.core.aop.annotation.RetriableTransaction)")
 	public Object retry(ProceedingJoinPoint pjp) throws Throwable {
 		MethodSignature signature = (MethodSignature) pjp.getSignature();
 		Method method = signature.getMethod();

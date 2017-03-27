@@ -4,7 +4,7 @@
 	<!-- 用于对象转换配置,如 Model 转换成 DTO -->
 	<configuration>
 		<custom-converters>
-			<converter type="com.hitler.core.dozer.converters.DateTimeConverter">
+			<converter type="n.core.dozer.converters.DateTimeConverter">
 				<class-a>org.joda.time.DateTime</class-a>
 				<class-b>java.util.Date</class-b>
 			</converter>
