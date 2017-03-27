@@ -1,2 +1,2 @@
-# n
+# n 字
 一个通用型的企业级应用框架,整合MYSQL、MYCAT、JPA、SPRING\MVC、DUBBO、NETTY、PROTOBUF.
