@@ -1,1 +1,0 @@
-authenticationFilter=com.hitler.core.dubbo.filter.AuthenticationFilter

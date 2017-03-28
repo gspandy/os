@@ -1,0 +1,381 @@
+2017-03-28 11:13:43,770 [main] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@5e3a8624: startup date [Tue Mar 28 11:13:43 CST 2017]; root of context hierarchy
+2017-03-28 11:13:43,820 [main] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [multi/ctx.xml]
+2017-03-28 11:13:44,243 [main] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:/C:/Users/onsou/git/n/p/target/classes/conf/db/orm-config.xml]
+2017-03-28 11:13:44,673 [main] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [multi/provider.xml]
+2017-03-28 11:13:44,738 [main] INFO  com.alibaba.dubbo.common.logger.LoggerFactory - using logger: com.alibaba.dubbo.common.logger.log4j.Log4jLoggerAdapter
+2017-03-28 11:13:45,251 [main] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler - Initializing ExecutorService  'qbScheduler'
+2017-03-28 11:13:45,253 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'qbScheduler' of type [org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2017-03-28 11:13:46,030 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2017-03-28 11:13:46,508 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'JT_TOWER'
+2017-03-28 11:13:46,535 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: JT_TOWER
+	...]
+2017-03-28 11:13:46,810 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.3.5.Final}
+2017-03-28 11:13:46,813 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+2017-03-28 11:13:46,816 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+2017-03-28 11:13:47,185 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2017-03-28 11:13:47,267 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2017-03-28 11:13:47,476 [main] INFO  org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+2017-03-28 11:13:47,701 [main] INFO  org.hibernate.cache.spi.UpdateTimestampsCache - HHH000250: Starting update timestamps cache at region: org.hibernate.cache.spi.UpdateTimestampsCache
+2017-03-28 11:13:47,704 [main] WARN  org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory - HHH020003: Could not find a specific ehcache configuration for cache named [org.hibernate.cache.spi.UpdateTimestampsCache]; using defaults.
+2017-03-28 11:13:47,738 [main] INFO  org.hibernate.cache.internal.StandardQueryCache - HHH000248: Starting query cache at region: org.hibernate.cache.internal.StandardQueryCache
+2017-03-28 11:13:47,739 [main] WARN  org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory - HHH020003: Could not find a specific ehcache configuration for cache named [org.hibernate.cache.internal.StandardQueryCache]; using defaults.
+2017-03-28 11:13:47,763 [main] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.1.1.Final
+2017-03-28 11:13:47,941 [main] WARN  org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory - HHH020003: Could not find a specific ehcache configuration for cache named [n.entity.sider.Hero]; using defaults.
+2017-03-28 11:13:47,999 [main] WARN  org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory - HHH020003: Could not find a specific ehcache configuration for cache named [n.entity.sider.Preference]; using defaults.
+2017-03-28 11:13:48,200 [main] INFO  org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000228: Running hbm2ddl schema update
+2017-03-28 11:13:48,200 [main] INFO  org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000102: Fetching database metadata
+2017-03-28 11:13:48,202 [main] INFO  org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000396: Updating schema
+2017-03-28 11:13:48,262 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_access_record
+2017-03-28 11:13:48,262 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [entry_time, leave_time, wait_time, company_id, visitor_id, version, last_msg, online_state, refuse_times, id, visitor_ip, customer_id, username]
+2017-03-28 11:13:48,262 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_lfdqae8867mi461hbcn98xdes, fk_ar1puc7q7ft0705rewrho20e]
+2017-03-28 11:13:48,262 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk_lfdqae8867mi461hbcn98xdes, primary, fk_ar1puc7q7ft0705rewrho20e]
+2017-03-28 11:13:48,273 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_bank
+2017-03-28 11:13:48,273 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [last_modified_date, last_modified_by, transfer_status, allow_binding_status, version, created_by, url, recharge_demo_url, checksum, name, logo_file_path, short_name, id, created_date]
+2017-03-28 11:13:48,273 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:13:48,274 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [idx_name, primary]
+2017-03-28 11:13:48,285 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_bet_record
+2017-03-28 11:13:48,285 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [win_status, agent_rebate_status, bet_amount, last_modified_date, bet_way, award_status, rebate_point, bet_secret, bet_time, order_status, win_secret, bet_rebate_status, lottery_number, bet_number, bet_total, id, ln_id, bet_multiple, chase_record_id, play_type_id, rebate_amount, last_modified_by, version, win_count, chase_number_id, rebate_points, win_amount, billno, chase_issue_id, device, award_time, bet_count, user_rebate_point]
+2017-03-28 11:13:48,286 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_prnr412sj76wf6oe46g72lh90, fk_5doswuwi896ta68bpa97koay8]
+2017-03-28 11:13:48,286 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk_prnr412sj76wf6oe46g72lh90, fk_5doswuwi896ta68bpa97koay8, idx_billno, primary]
+2017-03-28 11:13:48,295 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_company
+2017-03-28 11:13:48,295 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [address, code, c_state, is_enable, last_modified_date, tel_num, last_modified_by, version, created_by, url, company_account, company_name, checksum, id, created_date, email, web_site]
+2017-03-28 11:13:48,295 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:13:48,295 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [uk_n2coknrvbq1kx00v2591eo669, primary]
+2017-03-28 11:13:48,302 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_game
+2017-03-28 11:13:48,302 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [deep, code, issues_daily, name, groups, id, gm_group, type, version, enabled]
+2017-03-28 11:13:48,302 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:13:48,303 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+2017-03-28 11:13:48,309 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_gm_group
+2017-03-28 11:13:48,309 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [deep, type_name, group_name, id]
+2017-03-28 11:13:48,309 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:13:48,310 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [idx_group_name, primary]
+2017-03-28 11:13:48,317 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_hero
+2017-03-28 11:13:48,317 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [checksum, name, last_modified_date, id, created_date, last_modified_by, version, created_by]
+2017-03-28 11:13:48,317 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:13:48,317 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+2017-03-28 11:13:48,324 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_layer
+2017-03-28 11:13:48,324 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [code, comments, company_id, img_path, id, state, version, layer_name, points]
+2017-03-28 11:13:48,325 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_2ym8sk7s6f2a6em6f750ikek2]
+2017-03-28 11:13:48,325 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [uk_24jhwrlrp0h1sp3o8a31ihia, fk_2ym8sk7s6f2a6em6f750ikek2, primary]
+2017-03-28 11:13:48,336 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_ln
+2017-03-28 11:13:48,337 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [issue, bet_amount_max, bet_orders, rebate_money_total, open_time, win_money_total, remark, close_time, crawler_time_cost, scheduled_time, version, win_orders, lottery_time, operator, bet_money_total, crawler_url_description, lottery_number, id, lottery_type, operate_time, status, game_id]
+2017-03-28 11:13:48,337 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_i66erv39qjjwp2ly3gf18vuf3]
+2017-03-28 11:13:48,337 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [idx_issue, idx_game_id, primary]
+2017-03-28 11:13:48,344 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_message_record
+2017-03-28 11:13:48,344 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [send_time, from_id, company_id, read_state, user_id, msg_content, msg_type, id, visitor_ip, version, from_nick_name, from_user]
+2017-03-28 11:13:48,345 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:13:48,345 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+2017-03-28 11:13:48,351 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_permission
+2017-03-28 11:13:48,351 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [deep, code, icon, last_modified_date, last_modified_by, version, created_by, permission_name, parent_permission_id, path, permission_type, checksum, id, created_date, floor, is_display]
+2017-03-28 11:13:48,351 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:13:48,352 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [uk_infb8xrwsp27e1dtg4xf5v9ps, primary]
+2017-03-28 11:13:48,360 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_play_type
+2017-03-28 11:13:48,361 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [multiplying_power, play_rule, deep, play_type_group, name, rule_des, id, gm_group, enabled, target]
+2017-03-28 11:13:48,361 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_ff7d160fpngpglcngdbab2j47, fk_jg5ihc0mlfe4x13br3t9h3cvy]
+2017-03-28 11:13:48,361 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [idx_play_type_group, fk_jg5ihc0mlfe4x13br3t9h3cvy, idx_id, primary]
+2017-03-28 11:13:48,369 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_play_type_group
+2017-03-28 11:13:48,369 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [deep, group_id, group_name, id, version]
+2017-03-28 11:13:48,369 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:13:48,369 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [idx_group_name, primary]
+2017-03-28 11:13:48,375 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_preference
+2017-03-28 11:13:48,375 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [code, checksum, name, last_modified_date, description, id, created_date, last_modified_by, type, version, created_by, value]
+2017-03-28 11:13:48,376 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:13:48,376 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [uk_t54ugmql2qs5sbutfvrch0guj, primary]
+2017-03-28 11:13:48,385 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_promptconfig
+2017-03-28 11:13:48,385 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [user_id, user_account, id, type, version, content, timeout]
+2017-03-28 11:13:48,385 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:13:48,385 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+2017-03-28 11:13:48,391 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_role
+2017-03-28 11:13:48,392 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [role_name, role_type, parent_id, checksum, last_modified_date, id, created_date, last_modified_by, version, created_by]
+2017-03-28 11:13:48,392 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:13:48,392 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+2017-03-28 11:13:48,398 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_role_tb_permission
+2017-03-28 11:13:48,399 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [permissions_id, tb_role_id]
+2017-03-28 11:13:48,399 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_lg1x3f2x92d9yrhq7evpiujlk, fk_4byi8w82sx1s1gqa0xx4lsyip]
+2017-03-28 11:13:48,399 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk_lg1x3f2x92d9yrhq7evpiujlk, fk_4byi8w82sx1s1gqa0xx4lsyip]
+2017-03-28 11:13:48,405 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_third_ply
+2017-03-28 11:13:48,405 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [code, icon, last_modified_date, last_modified_by, version, created_by, url, solt, checksum, name, short_name, id, created_date]
+2017-03-28 11:13:48,406 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:13:48,406 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+2017-03-28 11:13:48,413 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_user
+2017-03-28 11:13:48,413 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [account_type, last_login_time, user_name, last_modified_date, cur_receive_num, receive_num, password_salt, password, auto_reply, last_login_ip, checksum, user_icon, id, account_state, email, company_id, mobile, auto_allot, last_modified_by, version, created_by, login_ip, online_state, layer_id, login_time, nick_name, login_failure_times, created_date, account]
+2017-03-28 11:13:48,413 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_2ndlih2os8icyrrkf0kt30ngr, fk_j9aeksn74ilr2yriiw1p5sqon]
+2017-03-28 11:13:48,413 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk_2ndlih2os8icyrrkf0kt30ngr, fk_j9aeksn74ilr2yriiw1p5sqon, primary]
+2017-03-28 11:13:48,419 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_user_bank_card
+2017-03-28 11:13:48,420 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [last_modified_time, user_id, bank_id, account_name, branch_name, id, secret, version, account_no, status, unfreeze_time]
+2017-03-28 11:13:48,420 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_sfjd3rgke2vncr9v6xsnf3ree, fk_2a7s60u3cwa20rqawgoxdkbx4]
+2017-03-28 11:13:48,420 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [idx_user_id, idx_bank_id, idx_account_no, primary]
+2017-03-28 11:13:48,426 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_user_chat_share
+2017-03-28 11:13:48,426 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [share_user_id, user_id, checksum, last_modified_date, id, created_date, last_modified_by, version, created_by]
+2017-03-28 11:13:48,426 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:13:48,426 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+2017-03-28 11:13:48,432 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_user_tb_role
+2017-03-28 11:13:48,432 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [roles_id, tb_user_id]
+2017-03-28 11:13:48,432 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_7uthq2y9u9hbwmdcycw44gq1a, fk_33ok0upp13ylqkrwlam20pkfo]
+2017-03-28 11:13:48,432 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk_7uthq2y9u9hbwmdcycw44gq1a, fk_33ok0upp13ylqkrwlam20pkfo]
+2017-03-28 11:13:48,695 [main] ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000388: Unsuccessful: alter table TB_GAME add constraint FK_bfapou94pencn7c5n4n2c9ov6 foreign key (GM_GROUP) references TB_GM_GROUP (id)
+2017-03-28 11:13:48,695 [main] ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate - Cannot add foreign key constraint
+2017-03-28 11:13:48,696 [main] INFO  org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000232: Schema update complete
+2017-03-28 11:13:48,762 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'JT_TOWER'
+2017-03-28 11:13:48,864 [main] INFO  n.io.redis.RedisInitializer - ##INIT REIDS CONFIG:/multi/redis-conf.json
+2017-03-28 11:13:49,211 [main] INFO  org.redisson.Version - Redisson 3.2.0
+2017-03-28 11:13:49,755 [redisson-netty-1-3] INFO  org.redisson.connection.pool.MasterConnectionPool - 5 connections initialized for /127.0.0.1:10010
+2017-03-28 11:13:49,755 [redisson-netty-1-8] INFO  org.redisson.connection.pool.SinglePubSubConnectionPool - 1 connections initialized for /127.0.0.1:10010
+2017-03-28 11:13:50,925 [main] WARN  org.springframework.context.support.ClassPathXmlApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'ltWorker' defined in file [C:\Users\onsou\git\n\p\target\classes\n\play\worker\LTWorker.class]: Initialization of bean failed; nested exception is java.lang.NoSuchMethodError: org.springframework.aop.support.AopUtils.selectInvocableMethod(Ljava/lang/reflect/Method;Ljava/lang/Class;)Ljava/lang/reflect/Method;
+2017-03-28 11:13:53,241 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'JT_TOWER'
+2017-03-28 11:13:53,265 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2017-03-28 11:13:53,266 [main] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler - Shutting down ExecutorService 'qbScheduler'
+2017-03-28 11:15:28,275 [main] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@3bfdc050: startup date [Tue Mar 28 11:15:28 CST 2017]; root of context hierarchy
+2017-03-28 11:15:28,310 [main] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [multi/ctx.xml]
+2017-03-28 11:15:28,653 [main] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:/C:/Users/onsou/git/n/p/target/classes/conf/db/orm-config.xml]
+2017-03-28 11:15:28,863 [main] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [multi/provider.xml]
+2017-03-28 11:15:28,909 [main] INFO  com.alibaba.dubbo.common.logger.LoggerFactory - using logger: com.alibaba.dubbo.common.logger.log4j.Log4jLoggerAdapter
+2017-03-28 11:15:29,158 [main] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from URL [file:/C:/Users/onsou/git/n/p/target/classes/ctx.properties]
+2017-03-28 11:15:29,235 [main] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler - Initializing ExecutorService  'qbScheduler'
+2017-03-28 11:15:29,236 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'qbScheduler' of type [class org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2017-03-28 11:15:30,074 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2017-03-28 11:15:30,578 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'JT_TOWER'
+2017-03-28 11:15:30,600 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: JT_TOWER
+	...]
+2017-03-28 11:15:30,711 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.3.5.Final}
+2017-03-28 11:15:30,714 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+2017-03-28 11:15:30,718 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+2017-03-28 11:15:30,962 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2017-03-28 11:15:31,025 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2017-03-28 11:15:31,274 [main] INFO  org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+2017-03-28 11:15:31,513 [main] INFO  org.hibernate.cache.spi.UpdateTimestampsCache - HHH000250: Starting update timestamps cache at region: org.hibernate.cache.spi.UpdateTimestampsCache
+2017-03-28 11:15:31,515 [main] WARN  org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory - HHH020003: Could not find a specific ehcache configuration for cache named [org.hibernate.cache.spi.UpdateTimestampsCache]; using defaults.
+2017-03-28 11:15:31,550 [main] INFO  org.hibernate.cache.internal.StandardQueryCache - HHH000248: Starting query cache at region: org.hibernate.cache.internal.StandardQueryCache
+2017-03-28 11:15:31,550 [main] WARN  org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory - HHH020003: Could not find a specific ehcache configuration for cache named [org.hibernate.cache.internal.StandardQueryCache]; using defaults.
+2017-03-28 11:15:31,573 [main] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.1.1.Final
+2017-03-28 11:15:31,734 [main] WARN  org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory - HHH020003: Could not find a specific ehcache configuration for cache named [n.entity.sider.Hero]; using defaults.
+2017-03-28 11:15:31,794 [main] WARN  org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory - HHH020003: Could not find a specific ehcache configuration for cache named [n.entity.sider.Preference]; using defaults.
+2017-03-28 11:15:31,998 [main] INFO  org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000228: Running hbm2ddl schema update
+2017-03-28 11:15:31,998 [main] INFO  org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000102: Fetching database metadata
+2017-03-28 11:15:32,001 [main] INFO  org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000396: Updating schema
+2017-03-28 11:15:32,024 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_access_record
+2017-03-28 11:15:32,024 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [entry_time, leave_time, wait_time, company_id, visitor_id, version, last_msg, online_state, refuse_times, id, visitor_ip, customer_id, username]
+2017-03-28 11:15:32,024 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_lfdqae8867mi461hbcn98xdes, fk_ar1puc7q7ft0705rewrho20e]
+2017-03-28 11:15:32,024 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk_lfdqae8867mi461hbcn98xdes, primary, fk_ar1puc7q7ft0705rewrho20e]
+2017-03-28 11:15:32,032 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_bank
+2017-03-28 11:15:32,033 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [last_modified_date, last_modified_by, transfer_status, allow_binding_status, version, created_by, url, recharge_demo_url, checksum, name, logo_file_path, short_name, id, created_date]
+2017-03-28 11:15:32,033 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:15:32,033 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [idx_name, primary]
+2017-03-28 11:15:32,044 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_bet_record
+2017-03-28 11:15:32,044 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [win_status, agent_rebate_status, bet_amount, last_modified_date, bet_way, award_status, rebate_point, bet_secret, bet_time, order_status, win_secret, bet_rebate_status, lottery_number, bet_number, bet_total, id, ln_id, bet_multiple, chase_record_id, play_type_id, rebate_amount, last_modified_by, version, win_count, chase_number_id, rebate_points, win_amount, billno, chase_issue_id, device, award_time, bet_count, user_rebate_point]
+2017-03-28 11:15:32,044 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_prnr412sj76wf6oe46g72lh90, fk_5doswuwi896ta68bpa97koay8]
+2017-03-28 11:15:32,044 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk_prnr412sj76wf6oe46g72lh90, fk_5doswuwi896ta68bpa97koay8, idx_billno, primary]
+2017-03-28 11:15:32,055 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_company
+2017-03-28 11:15:32,055 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [address, code, c_state, is_enable, last_modified_date, tel_num, last_modified_by, version, created_by, url, company_account, company_name, checksum, id, created_date, email, web_site]
+2017-03-28 11:15:32,055 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:15:32,056 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [uk_n2coknrvbq1kx00v2591eo669, primary]
+2017-03-28 11:15:32,064 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_game
+2017-03-28 11:15:32,064 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [deep, code, issues_daily, name, groups, id, gm_group, type, version, enabled]
+2017-03-28 11:15:32,064 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:15:32,064 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+2017-03-28 11:15:32,071 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_gm_group
+2017-03-28 11:15:32,071 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [deep, type_name, group_name, id]
+2017-03-28 11:15:32,071 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:15:32,071 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [idx_group_name, primary]
+2017-03-28 11:15:32,078 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_hero
+2017-03-28 11:15:32,078 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [checksum, name, last_modified_date, id, created_date, last_modified_by, version, created_by]
+2017-03-28 11:15:32,078 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:15:32,078 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+2017-03-28 11:15:32,086 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_layer
+2017-03-28 11:15:32,086 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [code, comments, company_id, img_path, id, state, version, layer_name, points]
+2017-03-28 11:15:32,086 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_2ym8sk7s6f2a6em6f750ikek2]
+2017-03-28 11:15:32,087 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [uk_24jhwrlrp0h1sp3o8a31ihia, fk_2ym8sk7s6f2a6em6f750ikek2, primary]
+2017-03-28 11:15:32,095 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_ln
+2017-03-28 11:15:32,095 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [issue, bet_amount_max, bet_orders, rebate_money_total, open_time, win_money_total, remark, close_time, crawler_time_cost, scheduled_time, version, win_orders, lottery_time, operator, bet_money_total, crawler_url_description, lottery_number, id, lottery_type, operate_time, status, game_id]
+2017-03-28 11:15:32,096 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_i66erv39qjjwp2ly3gf18vuf3]
+2017-03-28 11:15:32,096 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [idx_issue, idx_game_id, primary]
+2017-03-28 11:15:32,103 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_message_record
+2017-03-28 11:15:32,103 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [send_time, from_id, company_id, read_state, user_id, msg_content, msg_type, id, visitor_ip, version, from_nick_name, from_user]
+2017-03-28 11:15:32,103 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:15:32,104 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+2017-03-28 11:15:32,111 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_permission
+2017-03-28 11:15:32,111 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [deep, code, icon, last_modified_date, last_modified_by, version, created_by, permission_name, parent_permission_id, path, permission_type, checksum, id, created_date, floor, is_display]
+2017-03-28 11:15:32,111 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:15:32,111 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [uk_infb8xrwsp27e1dtg4xf5v9ps, primary]
+2017-03-28 11:15:32,125 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_play_type
+2017-03-28 11:15:32,125 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [multiplying_power, play_rule, deep, play_type_group, name, rule_des, id, gm_group, enabled, target]
+2017-03-28 11:15:32,125 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_ff7d160fpngpglcngdbab2j47, fk_jg5ihc0mlfe4x13br3t9h3cvy]
+2017-03-28 11:15:32,127 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [idx_play_type_group, fk_jg5ihc0mlfe4x13br3t9h3cvy, idx_id, primary]
+2017-03-28 11:15:32,135 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_play_type_group
+2017-03-28 11:15:32,135 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [deep, group_id, group_name, id, version]
+2017-03-28 11:15:32,135 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:15:32,135 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [idx_group_name, primary]
+2017-03-28 11:15:32,143 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_preference
+2017-03-28 11:15:32,143 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [code, checksum, name, last_modified_date, description, id, created_date, last_modified_by, type, version, created_by, value]
+2017-03-28 11:15:32,143 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:15:32,144 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [uk_t54ugmql2qs5sbutfvrch0guj, primary]
+2017-03-28 11:15:32,150 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_promptconfig
+2017-03-28 11:15:32,151 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [user_id, user_account, id, type, version, content, timeout]
+2017-03-28 11:15:32,151 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:15:32,151 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+2017-03-28 11:15:32,158 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_role
+2017-03-28 11:15:32,158 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [role_name, role_type, parent_id, checksum, last_modified_date, id, created_date, last_modified_by, version, created_by]
+2017-03-28 11:15:32,158 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:15:32,158 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+2017-03-28 11:15:32,165 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_role_tb_permission
+2017-03-28 11:15:32,165 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [permissions_id, tb_role_id]
+2017-03-28 11:15:32,165 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_lg1x3f2x92d9yrhq7evpiujlk, fk_4byi8w82sx1s1gqa0xx4lsyip]
+2017-03-28 11:15:32,165 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk_lg1x3f2x92d9yrhq7evpiujlk, fk_4byi8w82sx1s1gqa0xx4lsyip]
+2017-03-28 11:15:32,173 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_third_ply
+2017-03-28 11:15:32,173 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [code, icon, last_modified_date, last_modified_by, version, created_by, url, solt, checksum, name, short_name, id, created_date]
+2017-03-28 11:15:32,173 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:15:32,173 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+2017-03-28 11:15:32,181 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_user
+2017-03-28 11:15:32,181 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [account_type, last_login_time, user_name, last_modified_date, cur_receive_num, receive_num, password_salt, password, auto_reply, last_login_ip, checksum, user_icon, id, account_state, email, company_id, mobile, auto_allot, last_modified_by, version, created_by, login_ip, online_state, layer_id, login_time, nick_name, login_failure_times, created_date, account]
+2017-03-28 11:15:32,181 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_2ndlih2os8icyrrkf0kt30ngr, fk_j9aeksn74ilr2yriiw1p5sqon]
+2017-03-28 11:15:32,181 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk_2ndlih2os8icyrrkf0kt30ngr, fk_j9aeksn74ilr2yriiw1p5sqon, primary]
+2017-03-28 11:15:32,188 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_user_bank_card
+2017-03-28 11:15:32,189 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [last_modified_time, user_id, bank_id, account_name, branch_name, id, secret, version, account_no, status, unfreeze_time]
+2017-03-28 11:15:32,189 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_sfjd3rgke2vncr9v6xsnf3ree, fk_2a7s60u3cwa20rqawgoxdkbx4]
+2017-03-28 11:15:32,189 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [idx_user_id, idx_bank_id, idx_account_no, primary]
+2017-03-28 11:15:32,195 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_user_chat_share
+2017-03-28 11:15:32,196 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [share_user_id, user_id, checksum, last_modified_date, id, created_date, last_modified_by, version, created_by]
+2017-03-28 11:15:32,196 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:15:32,196 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+2017-03-28 11:15:32,203 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_user_tb_role
+2017-03-28 11:15:32,203 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [roles_id, tb_user_id]
+2017-03-28 11:15:32,203 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_7uthq2y9u9hbwmdcycw44gq1a, fk_33ok0upp13ylqkrwlam20pkfo]
+2017-03-28 11:15:32,203 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk_7uthq2y9u9hbwmdcycw44gq1a, fk_33ok0upp13ylqkrwlam20pkfo]
+2017-03-28 11:15:32,497 [main] ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000388: Unsuccessful: alter table TB_GAME add constraint FK_bfapou94pencn7c5n4n2c9ov6 foreign key (GM_GROUP) references TB_GM_GROUP (id)
+2017-03-28 11:15:32,497 [main] ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate - Cannot add foreign key constraint
+2017-03-28 11:15:32,497 [main] INFO  org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000232: Schema update complete
+2017-03-28 11:15:32,658 [main] INFO  n.io.redis.RedisInitializer - ##INIT REIDS CONFIG:/multi/redis-conf.json
+2017-03-28 11:15:33,011 [main] INFO  org.redisson.Version - Redisson 3.2.0
+2017-03-28 11:15:33,453 [redisson-netty-1-4] INFO  org.redisson.connection.pool.MasterConnectionPool - 5 connections initialized for /127.0.0.1:10010
+2017-03-28 11:15:33,453 [redisson-netty-1-3] INFO  org.redisson.connection.pool.SinglePubSubConnectionPool - 1 connections initialized for /127.0.0.1:10010
+2017-03-28 11:15:37,312 [main] INFO  com.alibaba.dubbo.config.AbstractConfig -  [DUBBO] The service ready on spring started. service: n.service.sider.IPreferenceService, dubbo version: 2.5.3, current host: 127.0.0.1
+2017-03-28 11:20:32,170 [Druid-ConnectionPool-Destory-702999333] WARN  com.alibaba.druid.pool.DruidDataSource - get/close not same thread
+2017-03-28 11:20:32,170 [Druid-ConnectionPool-Destory-702999333] WARN  com.alibaba.druid.pool.DruidDataSource - get/close not same thread
+2017-03-28 11:20:32,170 [Druid-ConnectionPool-Destory-702999333] WARN  com.alibaba.druid.pool.DruidDataSource - get/close not same thread
+2017-03-28 11:32:17,923 [main] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@5e5792a0: startup date [Tue Mar 28 11:32:17 CST 2017]; root of context hierarchy
+2017-03-28 11:32:17,960 [main] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [multi/ctx.xml]
+2017-03-28 11:32:18,301 [main] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:/C:/Users/onsou/git/n/p/target/classes/conf/db/orm-config.xml]
+2017-03-28 11:32:18,518 [main] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [multi/provider.xml]
+2017-03-28 11:32:18,557 [main] INFO  com.alibaba.dubbo.common.logger.LoggerFactory - using logger: com.alibaba.dubbo.common.logger.log4j.Log4jLoggerAdapter
+2017-03-28 11:32:18,813 [main] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from URL [file:/C:/Users/onsou/git/n/p/target/classes/ctx.properties]
+2017-03-28 11:32:18,901 [main] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler - Initializing ExecutorService  'qbScheduler'
+2017-03-28 11:32:18,903 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'qbScheduler' of type [class org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2017-03-28 11:32:19,567 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2017-03-28 11:32:20,138 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'JT_TOWER'
+2017-03-28 11:32:20,160 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: JT_TOWER
+	...]
+2017-03-28 11:32:20,285 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.3.5.Final}
+2017-03-28 11:32:20,288 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+2017-03-28 11:32:20,291 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+2017-03-28 11:32:20,546 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2017-03-28 11:32:20,610 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2017-03-28 11:32:20,843 [main] INFO  org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+2017-03-28 11:32:21,069 [main] INFO  org.hibernate.cache.spi.UpdateTimestampsCache - HHH000250: Starting update timestamps cache at region: org.hibernate.cache.spi.UpdateTimestampsCache
+2017-03-28 11:32:21,071 [main] WARN  org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory - HHH020003: Could not find a specific ehcache configuration for cache named [org.hibernate.cache.spi.UpdateTimestampsCache]; using defaults.
+2017-03-28 11:32:21,105 [main] INFO  org.hibernate.cache.internal.StandardQueryCache - HHH000248: Starting query cache at region: org.hibernate.cache.internal.StandardQueryCache
+2017-03-28 11:32:21,106 [main] WARN  org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory - HHH020003: Could not find a specific ehcache configuration for cache named [org.hibernate.cache.internal.StandardQueryCache]; using defaults.
+2017-03-28 11:32:21,132 [main] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.1.1.Final
+2017-03-28 11:32:21,295 [main] WARN  org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory - HHH020003: Could not find a specific ehcache configuration for cache named [n.entity.sider.Hero]; using defaults.
+2017-03-28 11:32:21,356 [main] WARN  org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory - HHH020003: Could not find a specific ehcache configuration for cache named [n.entity.sider.Preference]; using defaults.
+2017-03-28 11:32:21,557 [main] INFO  org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000228: Running hbm2ddl schema update
+2017-03-28 11:32:21,557 [main] INFO  org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000102: Fetching database metadata
+2017-03-28 11:32:21,560 [main] INFO  org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000396: Updating schema
+2017-03-28 11:32:21,608 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_access_record
+2017-03-28 11:32:21,608 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [entry_time, leave_time, wait_time, company_id, visitor_id, version, last_msg, online_state, refuse_times, id, visitor_ip, customer_id, username]
+2017-03-28 11:32:21,608 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_lfdqae8867mi461hbcn98xdes, fk_ar1puc7q7ft0705rewrho20e]
+2017-03-28 11:32:21,608 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk_lfdqae8867mi461hbcn98xdes, primary, fk_ar1puc7q7ft0705rewrho20e]
+2017-03-28 11:32:21,618 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_bank
+2017-03-28 11:32:21,619 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [last_modified_date, last_modified_by, transfer_status, allow_binding_status, version, created_by, url, recharge_demo_url, checksum, name, logo_file_path, short_name, id, created_date]
+2017-03-28 11:32:21,619 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:32:21,619 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [idx_name, primary]
+2017-03-28 11:32:21,628 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_bet_record
+2017-03-28 11:32:21,629 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [win_status, agent_rebate_status, bet_amount, last_modified_date, bet_way, award_status, rebate_point, bet_secret, bet_time, order_status, win_secret, bet_rebate_status, lottery_number, bet_number, bet_total, id, ln_id, bet_multiple, chase_record_id, play_type_id, rebate_amount, last_modified_by, version, win_count, chase_number_id, rebate_points, win_amount, billno, chase_issue_id, device, award_time, bet_count, user_rebate_point]
+2017-03-28 11:32:21,630 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_prnr412sj76wf6oe46g72lh90, fk_5doswuwi896ta68bpa97koay8]
+2017-03-28 11:32:21,630 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk_prnr412sj76wf6oe46g72lh90, fk_5doswuwi896ta68bpa97koay8, idx_billno, primary]
+2017-03-28 11:32:21,639 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_company
+2017-03-28 11:32:21,639 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [address, code, c_state, is_enable, last_modified_date, tel_num, last_modified_by, version, created_by, url, company_account, company_name, checksum, id, created_date, email, web_site]
+2017-03-28 11:32:21,639 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:32:21,640 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [uk_n2coknrvbq1kx00v2591eo669, primary]
+2017-03-28 11:32:21,646 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_game
+2017-03-28 11:32:21,647 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [deep, code, issues_daily, name, groups, id, gm_group, type, version, enabled]
+2017-03-28 11:32:21,647 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:32:21,647 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+2017-03-28 11:32:21,653 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_gm_group
+2017-03-28 11:32:21,654 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [deep, type_name, group_name, id]
+2017-03-28 11:32:21,654 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:32:21,654 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [idx_group_name, primary]
+2017-03-28 11:32:21,660 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_hero
+2017-03-28 11:32:21,660 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [checksum, name, last_modified_date, id, created_date, last_modified_by, version, created_by]
+2017-03-28 11:32:21,660 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:32:21,660 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+2017-03-28 11:32:21,668 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_layer
+2017-03-28 11:32:21,668 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [code, comments, company_id, img_path, id, state, version, layer_name, points]
+2017-03-28 11:32:21,668 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_2ym8sk7s6f2a6em6f750ikek2]
+2017-03-28 11:32:21,669 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [uk_24jhwrlrp0h1sp3o8a31ihia, fk_2ym8sk7s6f2a6em6f750ikek2, primary]
+2017-03-28 11:32:21,687 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_ln
+2017-03-28 11:32:21,687 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [issue, bet_amount_max, bet_orders, rebate_money_total, open_time, win_money_total, remark, close_time, crawler_time_cost, scheduled_time, version, win_orders, lottery_time, operator, bet_money_total, crawler_url_description, lottery_number, id, lottery_type, operate_time, status, game_id]
+2017-03-28 11:32:21,687 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_i66erv39qjjwp2ly3gf18vuf3]
+2017-03-28 11:32:21,687 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [idx_issue, idx_game_id, primary]
+2017-03-28 11:32:21,694 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_message_record
+2017-03-28 11:32:21,695 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [send_time, from_id, company_id, read_state, user_id, msg_content, msg_type, id, visitor_ip, version, from_nick_name, from_user]
+2017-03-28 11:32:21,695 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:32:21,695 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+2017-03-28 11:32:21,760 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_permission
+2017-03-28 11:32:21,760 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [deep, code, icon, last_modified_date, last_modified_by, version, created_by, permission_name, parent_permission_id, path, permission_type, checksum, id, created_date, floor, is_display]
+2017-03-28 11:32:21,760 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:32:21,761 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [uk_infb8xrwsp27e1dtg4xf5v9ps, primary]
+2017-03-28 11:32:21,771 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_play_type
+2017-03-28 11:32:21,771 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [multiplying_power, play_rule, deep, play_type_group, name, rule_des, id, gm_group, enabled, target]
+2017-03-28 11:32:21,771 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_ff7d160fpngpglcngdbab2j47, fk_jg5ihc0mlfe4x13br3t9h3cvy]
+2017-03-28 11:32:21,771 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [idx_play_type_group, fk_jg5ihc0mlfe4x13br3t9h3cvy, idx_id, primary]
+2017-03-28 11:32:21,779 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_play_type_group
+2017-03-28 11:32:21,779 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [deep, group_id, group_name, id, version]
+2017-03-28 11:32:21,779 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:32:21,779 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [idx_group_name, primary]
+2017-03-28 11:32:21,786 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_preference
+2017-03-28 11:32:21,786 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [code, checksum, name, last_modified_date, description, id, created_date, last_modified_by, type, version, created_by, value]
+2017-03-28 11:32:21,786 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:32:21,787 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [uk_t54ugmql2qs5sbutfvrch0guj, primary]
+2017-03-28 11:32:21,793 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_promptconfig
+2017-03-28 11:32:21,794 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [user_id, user_account, id, type, version, content, timeout]
+2017-03-28 11:32:21,794 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:32:21,794 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+2017-03-28 11:32:21,801 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_role
+2017-03-28 11:32:21,801 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [role_name, role_type, parent_id, checksum, last_modified_date, id, created_date, last_modified_by, version, created_by]
+2017-03-28 11:32:21,801 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:32:21,801 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+2017-03-28 11:32:21,807 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_role_tb_permission
+2017-03-28 11:32:21,807 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [permissions_id, tb_role_id]
+2017-03-28 11:32:21,808 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_lg1x3f2x92d9yrhq7evpiujlk, fk_4byi8w82sx1s1gqa0xx4lsyip]
+2017-03-28 11:32:21,808 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk_lg1x3f2x92d9yrhq7evpiujlk, fk_4byi8w82sx1s1gqa0xx4lsyip]
+2017-03-28 11:32:21,814 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_third_ply
+2017-03-28 11:32:21,814 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [code, icon, last_modified_date, last_modified_by, version, created_by, url, solt, checksum, name, short_name, id, created_date]
+2017-03-28 11:32:21,814 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:32:21,815 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+2017-03-28 11:32:21,823 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_user
+2017-03-28 11:32:21,823 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [account_type, last_login_time, user_name, last_modified_date, cur_receive_num, receive_num, password_salt, password, auto_reply, last_login_ip, checksum, user_icon, id, account_state, email, company_id, mobile, auto_allot, last_modified_by, version, created_by, login_ip, online_state, layer_id, login_time, nick_name, login_failure_times, created_date, account]
+2017-03-28 11:32:21,823 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_2ndlih2os8icyrrkf0kt30ngr, fk_j9aeksn74ilr2yriiw1p5sqon]
+2017-03-28 11:32:21,823 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk_2ndlih2os8icyrrkf0kt30ngr, fk_j9aeksn74ilr2yriiw1p5sqon, primary]
+2017-03-28 11:32:21,830 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_user_bank_card
+2017-03-28 11:32:21,830 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [last_modified_time, user_id, bank_id, account_name, branch_name, id, secret, version, account_no, status, unfreeze_time]
+2017-03-28 11:32:21,830 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_sfjd3rgke2vncr9v6xsnf3ree, fk_2a7s60u3cwa20rqawgoxdkbx4]
+2017-03-28 11:32:21,830 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [idx_user_id, idx_bank_id, idx_account_no, primary]
+2017-03-28 11:32:21,837 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_user_chat_share
+2017-03-28 11:32:21,837 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [share_user_id, user_id, checksum, last_modified_date, id, created_date, last_modified_by, version, created_by]
+2017-03-28 11:32:21,837 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+2017-03-28 11:32:21,837 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+2017-03-28 11:32:21,844 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: WISE_TOWER.tb_user_tb_role
+2017-03-28 11:32:21,844 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [roles_id, tb_user_id]
+2017-03-28 11:32:21,844 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk_7uthq2y9u9hbwmdcycw44gq1a, fk_33ok0upp13ylqkrwlam20pkfo]
+2017-03-28 11:32:21,844 [main] INFO  org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk_7uthq2y9u9hbwmdcycw44gq1a, fk_33ok0upp13ylqkrwlam20pkfo]
+2017-03-28 11:32:22,152 [main] ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000388: Unsuccessful: alter table TB_GAME add constraint FK_bfapou94pencn7c5n4n2c9ov6 foreign key (GM_GROUP) references TB_GM_GROUP (id)
+2017-03-28 11:32:22,152 [main] ERROR org.hibernate.tool.hbm2ddl.SchemaUpdate - Cannot add foreign key constraint
+2017-03-28 11:32:22,152 [main] INFO  org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000232: Schema update complete
+2017-03-28 11:32:22,308 [main] INFO  n.io.redis.RedisInitializer - ##INIT REIDS CONFIG:/multi/redis-conf.json
+2017-03-28 11:32:22,653 [main] INFO  org.redisson.Version - Redisson 3.2.0
+2017-03-28 11:32:23,094 [redisson-netty-1-4] INFO  org.redisson.connection.pool.SinglePubSubConnectionPool - 1 connections initialized for /127.0.0.1:10010
+2017-03-28 11:32:23,094 [redisson-netty-1-2] INFO  org.redisson.connection.pool.MasterConnectionPool - 5 connections initialized for /127.0.0.1:10010
+2017-03-28 11:32:26,576 [main] INFO  com.alibaba.dubbo.config.AbstractConfig -  [DUBBO] The service ready on spring started. service: n.service.sider.IPreferenceService, dubbo version: 2.5.3, current host: 127.0.0.1
