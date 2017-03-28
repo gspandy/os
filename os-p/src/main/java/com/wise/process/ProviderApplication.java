@@ -13,21 +13,21 @@ import org.springframework.context.annotation.ImportResource;
  */
 @SpringBootApplication
 @ComponentScan("com.wise")
-@ImportResource("classpath:dubbo-provider.xml")
+@ImportResource(value = { "classpath:orm-config.xml", "classpath:dubbo-provider.xml" })
 public class ProviderApplication implements CommandLineRunner {
 
-    private static Logger LOG = LoggerFactory.getLogger(ProviderApplication.class);
+	private static Logger LOG = LoggerFactory.getLogger(ProviderApplication.class);
 
-    public static void main(String[] args) {
-        SpringApplication.run(ProviderApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(ProviderApplication.class, args);
+	}
 
-    @Override
-    public void run(String... strings) throws Exception {
-        try {
-            Thread.currentThread().join();
-        } catch (Exception e) {
-            LOG.error("startup error!", e);
-        }
-    }
+	@Override
+	public void run(String... strings) throws Exception {
+		try {
+			Thread.currentThread().join();
+		} catch (Exception e) {
+			LOG.error("startup error!", e);
+		}
+	}
 }

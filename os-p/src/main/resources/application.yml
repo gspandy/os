@@ -5,6 +5,16 @@ server:
   websocket:
     port: 8090
 
+
+db:
+  driver: com.mysql.jdbc.Driver 
+  dialect: org.hibernate.dialect.MySQLDialect
+  url: jdbc:mysql://localhost:3306/WISE?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+  user: root
+  pswd: jt123$%^
+
+
 logging:
   level:
-    com.hitler: DEBUG
+    com.wise: DEBUG
+    org.hibernate: DEBUG
