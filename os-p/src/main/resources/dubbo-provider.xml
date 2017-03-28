@@ -9,11 +9,11 @@
        default-lazy-init="false">
        
     <dubbo:application name="dubbo-provider"></dubbo:application>
-    <dubbo:annotation package="com.hitler.chat.logic.service.*"/>
+    <dubbo:annotation package="com.hitler.service.*"/>
     <!-- 使用zookeeper注册中心暴露服务地址 -->
     <dubbo:registry address="zookeeper://127.0.0.1:2181" check="false" subscribe="false"
                     register=""></dubbo:registry>
     <!-- 要暴露的服务接口 -->
-    <dubbo:service interface="com.hitler.chat.core.service.MsgService" ref="msgService"/>
-    <dubbo:service interface="com.hitler.chat.core.service.AuthService" ref="authService"/>
+    <dubbo:service interface="com.wise.service.chat.IMsgService" ref="msgService"/>
+    <dubbo:service interface="com.wise.service.chat.IAuthService" ref="authService"/>
 </beans>

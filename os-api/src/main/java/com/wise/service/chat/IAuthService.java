@@ -6,7 +6,7 @@ import com.wise.exception.ConnectionAuthException;
 /**
  * 用户验证接口
  */
-public interface AuthService {
+public interface IAuthService {
 
     /**
      * 用户身份验证

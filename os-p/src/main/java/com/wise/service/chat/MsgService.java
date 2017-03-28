@@ -8,7 +8,7 @@ import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.wise.bean.Proto;
 import com.wise.pb.Message;
-import com.wise.service.chat.MsgService;
+import com.wise.service.chat.IMsgService;
 
 /**
  * 消息服务
@@ -16,9 +16,9 @@ import com.wise.service.chat.MsgService;
  * Created by Tony on 4/14/16.
  */
 @Service("msgService")
-public class MsgServiceImpl implements MsgService {
+public class MsgService implements IMsgService {
 
-    private Logger logger = LoggerFactory.getLogger(MsgServiceImpl.class);
+    private Logger logger = LoggerFactory.getLogger(MsgService.class);
 
     @Override
     public boolean receive(Proto proto) {

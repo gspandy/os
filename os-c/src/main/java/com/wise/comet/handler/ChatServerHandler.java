@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import com.wise.bean.Proto;
 import com.wise.comet.ChatOperation;
 import com.wise.comet.operation.Operation;
-import com.wise.service.chat.AuthService;
+import com.wise.service.chat.IAuthService;
 
 import io.netty.channel.ChannelHandler.Sharable;
 
@@ -31,7 +31,7 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<Proto> {
     private ChatOperation chatOperation;
     
     @Autowired
-    private AuthService authService;
+    private IAuthService authService;
     
     @Value("${server.id}")
     private int serverId;

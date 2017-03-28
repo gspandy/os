@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.wise.bean.Constants;
 import com.wise.bean.Proto;
-import com.wise.service.chat.AuthService;
+import com.wise.service.chat.IAuthService;
 
 import io.netty.channel.Channel;
 
@@ -23,7 +23,7 @@ public class AuthOperation extends AbstractOperation {
     @Value("${server.id}")
     private int serverId;
     @Autowired
-    private AuthService authService;
+    private IAuthService authService;
 
     @Override
     public Integer op() {

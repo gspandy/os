@@ -5,7 +5,7 @@ import com.wise.bean.Proto;
 /**
  * 消息处理接口
  */
-public interface MsgService {
+public interface IMsgService {
 
     /**
      * 接收消息

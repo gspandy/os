@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.wise.bean.Constants;
 import com.wise.bean.Proto;
-import com.wise.service.chat.MsgService;
+import com.wise.service.chat.IMsgService;
 
 /**
  * 消息操作
@@ -19,7 +19,7 @@ public class MessageOperation extends AbstractOperation {
     private final Logger logger = LoggerFactory.getLogger(MessageOperation.class);
 
     @Autowired
-    private MsgService messageService;
+    private IMsgService messageService;
 
     @Override
     public Integer op() {

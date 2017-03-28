@@ -10,7 +10,6 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import com.wise.bean.Proto;
 import com.wise.exception.ConnectionAuthException;
 import com.wise.pb.Auth;
-import com.wise.service.chat.AuthService;
 import com.wise.service.config.CachingConfig;
 
 /**
@@ -19,9 +18,9 @@ import com.wise.service.config.CachingConfig;
  * Created by Tony on 4/14/16.
  */
 @Service("authService")
-public class AuthServiceImpl implements AuthService {
+public class AuthService implements IAuthService {
 
-    private Logger logger = LoggerFactory.getLogger(AuthServiceImpl.class);
+    private Logger logger = LoggerFactory.getLogger(AuthService.class);
 
     @Autowired
     private CacheManager cacheManager;

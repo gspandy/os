@@ -2,13 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.3.3.RELEASE</version>
 	</parent>
-	
+
 	<groupId>com.wise</groupId>
 	<artifactId>os</artifactId>
 	<packaging>pom</packaging>
@@ -22,7 +22,12 @@
 
 	<properties>
 		<skipTests>true</skipTests>
-		<spring.version>4.3.7.RELEASE</spring.version>
+		<spring.version>4.2.5.RELEASE</spring.version>
+		<spring-data-jpa.version>1.10.4.RELEASE</spring-data-jpa.version>
+		<org.hibernate-version>4.3.5.Final</org.hibernate-version>
+		<jpamodelgen.version>4.3.5.Final</jpamodelgen.version>
+
+
 		<netty.version>4.1.9.Final</netty.version>
 		<protobuf.version>3.0.0</protobuf.version>
 		<dubbo.version>2.5.3</dubbo.version>
@@ -43,27 +48,6 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-web</artifactId>
-			</dependency>
-			<!-- modules -->
-			<dependency>
-				<groupId>wiki.tony.chat</groupId>
-				<artifactId>netty-chat-base</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>wiki.tony.chat</groupId>
-				<artifactId>netty-chat-comet</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>wiki.tony.chat</groupId>
-				<artifactId>netty-chat-logic</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>wiki.tony.chat</groupId>
-				<artifactId>netty-chat-web</artifactId>
-				<version>${project.version}</version>
 			</dependency>
 
 			<!-- netty -->
