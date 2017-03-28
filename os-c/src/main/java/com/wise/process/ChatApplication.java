@@ -9,7 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-import com.wise.chat.comet.ChatServer;
+import com.wise.comet.ChatServer;
 
 /**
  * 程序入口

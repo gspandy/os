@@ -1,10 +1,10 @@
 package com.wise.test;
 
 import com.google.protobuf.ByteString;
-import com.wise.chat.comet.codec.TcpProtoCodec;
-import com.wise.chat.core.bean.Proto;
-import com.wise.chat.core.pb.Auth;
-import com.wise.chat.core.pb.Message;
+import com.wise.bean.Proto;
+import com.wise.comet.codec.TcpProtoCodec;
+import com.wise.pb.Auth;
+import com.wise.pb.Message;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;

@@ -12,7 +12,7 @@ import org.springframework.context.annotation.ImportResource;
  * 程序入口
  */
 @SpringBootApplication
-@ComponentScan("com.hitler.chat.logic")
+@ComponentScan("com.hitler")
 @ImportResource("classpath:dubbo-provider.xml")
 public class ProviderApplication implements CommandLineRunner {
 
