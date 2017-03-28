@@ -9,7 +9,7 @@
 	JPA								 数据模型的映射
 	DUBBO								 后端业务分布式处理
 	Spring WEB      						 通过json接口与其它前端框架整合提供数据
-	双通道socket(IOSocket\WEBSocket)				       可以通过两种方式连接应用
+	socket(IOSocket\WEBSocket)					 可以通过两种方式连接应用
 	Protobuf   							 统一的数据流序列化方式
 
 #目录说明
