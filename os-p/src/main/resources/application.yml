@@ -11,7 +11,7 @@ db:
   dialect: org.hibernate.dialect.MySQLDialect
   url: jdbc:mysql://localhost:3306/WISE?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
   user: root
-  pswd: jt123$%^
+  pswd: wisesoul
 
 
 logging:

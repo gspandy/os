@@ -7,8 +7,8 @@
        default-lazy-init="false">
     <dubbo:application name="dubbo-consumer"/>
     <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
-    <dubbo:reference interface="com.hitler.chat.core.service.MsgService" id="msgService"/>
-    <dubbo:reference interface="com.hitler.chat.core.service.AuthService" id="authService"/>
+    <dubbo:reference interface="com.wise.service.chat.IMsgService" id="msgService"/>
+    <dubbo:reference interface="com.wise.service.chat.IAuthService" id="authService"/>
 </beans>
 
 
