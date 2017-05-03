@@ -13,7 +13,14 @@
     <!-- 使用zookeeper注册中心暴露服务地址 -->
     <dubbo:registry address="zookeeper://127.0.0.1:2181" check="false" subscribe="false"
                     register=""></dubbo:registry>
+                    
+	<dubbo:protocol host="127.0.0.1" name="dubbo" port="20881" />
+	<dubbo:provider timeout="10000" serialization="java" />                    
+                    
     <!-- 要暴露的服务接口 -->
     <dubbo:service interface="com.wise.service.chat.IMsgService" ref="msgService"/>
     <dubbo:service interface="com.wise.service.chat.IAuthService" ref="authService"/>
+    <dubbo:service interface="com.wise.service.sider.IKnightService" ref="knightService"/>
+    
+    
 </beans>

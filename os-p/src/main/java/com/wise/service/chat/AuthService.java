@@ -13,7 +13,7 @@ import com.wise.pb.Auth;
 import com.wise.service.config.CachingConfig;
 
 /**
- * 受权
+ * 授权
  * <p>
  * Created by Tony on 4/14/16.
  */
