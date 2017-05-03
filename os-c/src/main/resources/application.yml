@@ -1,0 +1,8 @@
+server:
+  id: 1
+  port: 80 
+  tcp:
+    port: 9090
+  websocket:
+    port: 8090  
+   
